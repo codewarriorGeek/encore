@@ -1,4 +1,5 @@
 import { agent, provider } from "@/lib/agent";
+import { groundCard } from "@/lib/grounding";
 import { PlanRequest } from "@/lib/profile";
 
 export async function POST(request: Request) {
@@ -9,13 +10,14 @@ export async function POST(request: Request) {
   const { profile, memorySlots } = parsed.data;
   const started = Date.now();
   try {
-    const { notes, trace } = await agent().research(profile);
+    const { notes, trace, evidence } = await agent().research(profile);
     const researched = Date.now();
-    const card = await agent().composeCard(profile, notes, memorySlots);
+    const { card, dropped } = groundCard(await agent().composeCard(profile, notes, memorySlots), evidence);
     return Response.json({
       card,
       notes,
       trace,
+      dropped,
       provider: provider(),
       timings: { researchMs: researched - started, cardMs: Date.now() - researched },
     });

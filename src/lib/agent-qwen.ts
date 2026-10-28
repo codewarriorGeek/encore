@@ -4,7 +4,17 @@ import OpenAI from "openai";
 import { z } from "zod";
 import { callQloo, qlooTools } from "./qloo";
 import { SessionCard, type MemorySlot, type PublicProfile } from "./profile";
-import { CARD_SYSTEM, RESEARCH_SYSTEM, cardInput, researchInput, type Research } from "./prompts";
+import {
+  CARD_SYSTEM,
+  MAX_QLOO_CALLS,
+  MIN_QLOO_CALLS,
+  NUDGE_USE_QLOO,
+  RESEARCH_SYSTEM,
+  WRAP_UP,
+  cardInput,
+  researchInput,
+  type Research,
+} from "./prompts";
 
 // Qwen on Hetzner Inference (OpenAI-compatible). Experimental service, no SLA:
 // base URL and model come from env so we can switch providers.
@@ -37,7 +47,10 @@ export async function research(profile: PublicProfile): Promise<Research> {
     { role: "user", content: researchInput(profile) },
   ];
 
-  for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
+  const evidence: string[] = [];
+  let nudged = false;
+
+  for (let round = 0; round < MAX_TOOL_ROUNDS && trace.length < MAX_QLOO_CALLS; round++) {
     const response = await qwen().chat.completions.create({
       model: MODEL,
       max_tokens: 4000,
@@ -51,7 +64,15 @@ export async function research(profile: PublicProfile): Promise<Research> {
     const calls = (message.tool_calls ?? []).filter(
       (c): c is OpenAI.Chat.ChatCompletionMessageFunctionToolCall => c.type === "function",
     );
-    if (calls.length === 0) return { notes: message.content ?? "", trace };
+    if (calls.length === 0) {
+      if (trace.length >= MIN_QLOO_CALLS) return { notes: message.content ?? "", trace, evidence };
+      // Notes written without (enough) Qloo calls are not grounded: push back once, then fail.
+      if (nudged) throw new Error(`research made only ${trace.length} Qloo calls`);
+      nudged = true;
+      messages.push({ role: "assistant", content: message.content ?? "" });
+      messages.push({ role: "user", content: NUDGE_USE_QLOO });
+      continue;
+    }
 
     messages.push({ role: "assistant", content: message.content ?? null, tool_calls: calls });
     const results = await Promise.all(
@@ -59,7 +80,9 @@ export async function research(profile: PublicProfile): Promise<Research> {
         trace.push(`${c.function.name} ${c.function.arguments}`);
         let content: string;
         try {
-          content = (await callQloo(c.function.name, JSON.parse(c.function.arguments || "{}"))).text;
+          const result = await callQloo(c.function.name, JSON.parse(c.function.arguments || "{}"));
+          content = result.text;
+          if (!result.isError) evidence.push(content);
         } catch (err) {
           content = JSON.stringify({ status: "error", summary: String(err) });
         }
@@ -68,7 +91,17 @@ export async function research(profile: PublicProfile): Promise<Research> {
     );
     messages.push(...results);
   }
-  throw new Error(`research did not finish within ${MAX_TOOL_ROUNDS} tool rounds`);
+
+  // Call budget (or round limit) reached: one last request with no tools, so it
+  // must write the notes from what Qloo has returned so far.
+  if (trace.length < MIN_QLOO_CALLS) throw new Error(`research made only ${trace.length} Qloo calls`);
+  const final = await qwen().chat.completions.create({
+    model: MODEL,
+    max_tokens: 4000,
+    messages: [...messages, { role: "user", content: WRAP_UP }],
+    ...THINKING,
+  });
+  return { notes: final.choices[0]?.message?.content ?? "", trace, evidence };
 }
 
 // Session card: no tools, no memory book contents (placeholders only).

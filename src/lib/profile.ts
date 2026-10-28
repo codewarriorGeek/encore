@@ -74,6 +74,9 @@ export function fillMemory(card: SessionCard, book: MemoryBook): SessionCard {
   const complete = (s: string) => [...s.matchAll(PLACEHOLDER)].every(([, k]) => book[k as MemorySlot]?.trim());
   return {
     ...card,
+    theme: fill(card.theme),
+    opener: fill(card.opener),
+    caregiverTips: card.caregiverTips.map(fill),
     prompts: card.prompts
       .filter((p) => complete(p.title) && complete(p.activity) && complete(p.question))
       .map((p) => ({ ...p, title: fill(p.title), activity: fill(p.activity), question: fill(p.question) })),

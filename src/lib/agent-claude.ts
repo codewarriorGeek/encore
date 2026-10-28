@@ -3,7 +3,17 @@ import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { callQloo, qlooTools } from "./qloo";
 import { SessionCard, type MemorySlot, type PublicProfile } from "./profile";
-import { CARD_SYSTEM, RESEARCH_SYSTEM, cardInput, researchInput, type Research } from "./prompts";
+import {
+  CARD_SYSTEM,
+  MAX_QLOO_CALLS,
+  MIN_QLOO_CALLS,
+  NUDGE_USE_QLOO,
+  RESEARCH_SYSTEM,
+  WRAP_UP,
+  cardInput,
+  researchInput,
+  type Research,
+} from "./prompts";
 
 const MODEL = process.env.CLAUDE_MODEL ?? "claude-opus-5-5";
 const MAX_TOOL_ROUNDS = 12;
@@ -20,8 +30,10 @@ export async function research(profile: PublicProfile): Promise<Research> {
     input_schema: t.inputSchema as Anthropic.Beta.BetaTool.InputSchema,
   }));
   const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: "user", content: researchInput(profile) }];
+  const evidence: string[] = [];
+  let nudged = false;
 
-  for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
+  for (let round = 0; round < MAX_TOOL_ROUNDS && trace.length < MAX_QLOO_CALLS; round++) {
     const response = await claude().beta.messages.create({
       model: MODEL,
       max_tokens: 16000,
@@ -47,7 +59,13 @@ export async function research(profile: PublicProfile): Promise<Research> {
         .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text")
         .map((b) => b.text)
         .join("\n");
-      return { notes, trace };
+      if (trace.length >= MIN_QLOO_CALLS) return { notes, trace, evidence };
+      // Notes written without (enough) Qloo calls are not grounded: push back once, then fail.
+      if (nudged) throw new Error(`research made only ${trace.length} Qloo calls`);
+      nudged = true;
+      messages.push({ role: "assistant", content: response.content });
+      messages.push({ role: "user", content: NUDGE_USE_QLOO });
+      continue;
     }
 
     messages.push({ role: "assistant", content: response.content });
@@ -56,6 +74,7 @@ export async function research(profile: PublicProfile): Promise<Research> {
         trace.push(`${t.name} ${JSON.stringify(t.input)}`);
         try {
           const { text, isError } = await callQloo(t.name, t.input);
+          if (!isError) evidence.push(text);
           return { type: "tool_result", tool_use_id: t.id, content: text, is_error: isError };
         } catch (err) {
           return { type: "tool_result", tool_use_id: t.id, content: String(err), is_error: true };
@@ -64,7 +83,32 @@ export async function research(profile: PublicProfile): Promise<Research> {
     );
     messages.push({ role: "user", content: results });
   }
-  throw new Error(`research did not finish within ${MAX_TOOL_ROUNDS} tool rounds`);
+
+  // Call budget (or round limit) reached: one last request with tools switched
+  // off (they stay declared because the history uses them), so it must write the
+  // notes from what Qloo has returned so far.
+  if (trace.length < MIN_QLOO_CALLS) throw new Error(`research made only ${trace.length} Qloo calls`);
+  const last = messages[messages.length - 1];
+  if (last.role === "user" && Array.isArray(last.content)) {
+    last.content = [...last.content, { type: "text", text: WRAP_UP }];
+  }
+  const final = await claude().beta.messages.create({
+    model: MODEL,
+    max_tokens: 16000,
+    betas: ["server-side-fallback-2026-07-01"],
+    fallbacks: "default",
+    output_config: { effort: "medium" },
+    system: RESEARCH_SYSTEM,
+    tools,
+    tool_choice: { type: "none" },
+    messages,
+  });
+  if (final.stop_reason === "refusal") throw new Error("research step was declined");
+  const notes = final.content
+    .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("\n");
+  return { notes, trace, evidence };
 }
 
 // Session card: no tools, no memory book contents (placeholders only).
