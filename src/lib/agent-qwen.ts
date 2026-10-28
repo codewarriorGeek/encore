@@ -3,7 +3,7 @@ import dns from "node:dns";
 import OpenAI from "openai";
 import { z } from "zod";
 import { callQloo, qlooTools } from "./qloo";
-import { SessionCard, type MemorySlot, type PublicProfile } from "./profile";
+import { SessionCard, type Language, type MemorySlot, type PublicProfile } from "./profile";
 import {
   CARD_SYSTEM,
   MAX_QLOO_CALLS,
@@ -13,6 +13,7 @@ import {
   WRAP_UP,
   cardInput,
   researchInput,
+  type OnQlooCall,
   type Research,
 } from "./prompts";
 
@@ -36,7 +37,7 @@ const qwen = () =>
   }));
 
 // Research: Qwen + Qloo tools, seeing only the public profile.
-export async function research(profile: PublicProfile): Promise<Research> {
+export async function research(profile: PublicProfile, onCall?: OnQlooCall): Promise<Research> {
   const trace: string[] = [];
   const tools: OpenAI.Chat.ChatCompletionFunctionTool[] = (await qlooTools()).map((t) => ({
     type: "function",
@@ -80,7 +81,9 @@ export async function research(profile: PublicProfile): Promise<Research> {
         trace.push(`${c.function.name} ${c.function.arguments}`);
         let content: string;
         try {
-          const result = await callQloo(c.function.name, JSON.parse(c.function.arguments || "{}"));
+          const args = JSON.parse(c.function.arguments || "{}");
+          onCall?.(c.function.name, args);
+          const result = await callQloo(c.function.name, args);
           content = result.text;
           if (!result.isError) evidence.push(content);
         } catch (err) {
@@ -109,13 +112,14 @@ export async function composeCard(
   profile: PublicProfile,
   notes: string,
   slots: MemorySlot[],
+  language: Language = "en",
 ): Promise<SessionCard> {
   const response = await qwen().chat.completions.create({
     model: MODEL,
     max_tokens: 4000,
     messages: [
       { role: "system", content: CARD_SYSTEM },
-      { role: "user", content: cardInput(profile, notes, slots) },
+      { role: "user", content: cardInput(profile, notes, slots, language) },
     ],
     response_format: {
       type: "json_schema",

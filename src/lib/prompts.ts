@@ -1,4 +1,4 @@
-import { MEMORY_SLOTS, type MemorySlot, type PublicProfile } from "./profile";
+import { MEMORY_SLOTS, type Language, type MemorySlot, type PublicProfile } from "./profile";
 
 // Research output: notes for the card step, the Qloo calls made (for comparing
 // providers), and the raw Qloo results (to check the card is really grounded).
@@ -47,17 +47,29 @@ Cover each domain that has grounded findings, including every sport they loved. 
 
 Never mention politics. ${NO_MEDIA}
 
+Never put Qloo ids, UUIDs, tag URNs or curly braces in the text. Write readable names (for example "biryani", "the Prophet's Mosque"). In each source, give the readable Qloo entity or tag name.
+
 Each non-memory source must be the exact Qloo entity name or tag from the notes, nothing else. Use memory placeholders only inside prompts, never in the theme, opener or tips. Do not restate these rules anywhere on the card.`;
 
+// Ages roughly 5 to 25: the years their memories come from.
+function youth(profile: PublicProfile): string {
+  return `Their youth was roughly ${profile.birthDecade + 5} to ${profile.birthDecade + 30}; focus on those years, not later decades.`;
+}
+
 export function researchInput(profile: PublicProfile): string {
-  return `Born in the ${profile.birthDecade}s, grew up in ${profile.grewUpIn}.\nThings they loved:\n${profile.loves
+  return `Born in the ${profile.birthDecade}s, grew up in ${profile.grewUpIn}. ${youth(profile)}\nThings they loved:\n${profile.loves
     .map((l) => `- ${l.kind}: ${l.text}`)
     .join("\n")}`;
 }
 
-export function cardInput(profile: PublicProfile, notes: string, slots: MemorySlot[]): string {
+const LANGUAGE_NAME: Record<Language, string> = { en: "English", ar: "Modern Standard Arabic" };
+
+// Called for each Qloo call as it happens, so the UI can show live progress.
+export type OnQlooCall = (tool: string, args: unknown) => void;
+
+export function cardInput(profile: PublicProfile, notes: string, slots: MemorySlot[], language: Language): string {
   const placeholders = slots.length
     ? slots.map((s) => `- {{${s}}}: ${MEMORY_SLOTS[s]}`).join("\n")
     : "(none)";
-  return `Born in the ${profile.birthDecade}s, grew up in ${profile.grewUpIn}.\n\n<research_notes>\n${notes}\n</research_notes>\n\n<memory_placeholders>\n${placeholders}\n</memory_placeholders>`;
+  return `Born in the ${profile.birthDecade}s, grew up in ${profile.grewUpIn}. ${youth(profile)}\n\n<research_notes>\n${notes}\n</research_notes>\n\n<memory_placeholders>\n${placeholders}\n</memory_placeholders>\n\nWrite every field of the card in ${LANGUAGE_NAME[language]}, except each source, which stays the exact Qloo name, and the {{placeholders}}, which stay exactly as listed.`;
 }

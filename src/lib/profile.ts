@@ -41,9 +41,13 @@ export type MemorySlot = keyof typeof MEMORY_SLOTS;
 export const MemorySlot = z.enum(Object.keys(MEMORY_SLOTS) as [MemorySlot, ...MemorySlot[]]);
 export type MemoryBook = Partial<Record<MemorySlot, string>>;
 
+export const Language = z.enum(["en", "ar"]);
+export type Language = z.infer<typeof Language>;
+
 export const PlanRequest = z.object({
   profile: PublicProfile,
   memorySlots: z.array(MemorySlot).max(7).default([]),
+  language: Language.default("en"),
 });
 export type PlanRequest = z.infer<typeof PlanRequest>;
 

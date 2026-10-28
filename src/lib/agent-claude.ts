@@ -2,7 +2,7 @@ import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { callQloo, qlooTools } from "./qloo";
-import { SessionCard, type MemorySlot, type PublicProfile } from "./profile";
+import { SessionCard, type Language, type MemorySlot, type PublicProfile } from "./profile";
 import {
   CARD_SYSTEM,
   MAX_QLOO_CALLS,
@@ -12,6 +12,7 @@ import {
   WRAP_UP,
   cardInput,
   researchInput,
+  type OnQlooCall,
   type Research,
 } from "./prompts";
 
@@ -22,7 +23,7 @@ let client: Anthropic | null = null;
 const claude = () => (client ??= new Anthropic());
 
 // Research: Claude + Qloo tools, seeing only the public profile.
-export async function research(profile: PublicProfile): Promise<Research> {
+export async function research(profile: PublicProfile, onCall?: OnQlooCall): Promise<Research> {
   const trace: string[] = [];
   const tools: Anthropic.Beta.BetaTool[] = (await qlooTools()).map((t) => ({
     name: t.name,
@@ -72,6 +73,7 @@ export async function research(profile: PublicProfile): Promise<Research> {
     const results = await Promise.all(
       toolUses.map(async (t): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
         trace.push(`${t.name} ${JSON.stringify(t.input)}`);
+        onCall?.(t.name, t.input);
         try {
           const { text, isError } = await callQloo(t.name, t.input);
           if (!isError) evidence.push(text);
@@ -116,13 +118,14 @@ export async function composeCard(
   profile: PublicProfile,
   notes: string,
   slots: MemorySlot[],
+  language: Language = "en",
 ): Promise<SessionCard> {
   const response = await claude().messages.parse({
     model: MODEL,
     max_tokens: 16000,
     output_config: { effort: "medium", format: zodOutputFormat(SessionCard) },
     system: CARD_SYSTEM,
-    messages: [{ role: "user", content: cardInput(profile, notes, slots) }],
+    messages: [{ role: "user", content: cardInput(profile, notes, slots, language) }],
   });
   if (response.stop_reason === "refusal" || !response.parsed_output) {
     throw new Error("session card could not be written");
