@@ -51,6 +51,10 @@ type Strings = {
   reconnecting: string;
   clearDetails: string;
   withQloo: string;
+  baselineLoading: string;
+  baselineError: string;
+  show: string;
+  hide: string;
   withoutQloo: string;
   withoutBanner: string;
   howFound: (n: number) => string;
@@ -156,10 +160,14 @@ const en: Strings = {
   clearDetails: "Clear my details from this device",
   noSource: "No data source (general knowledge)",
   withQloo: "With Qloo",
+  baselineLoading: "Asking the same AI model, without Qloo… (about 10 seconds)",
+  baselineError: "The comparison could not be built right now. Please try again.",
+  show: "Show",
+  hide: "Hide",
   withoutQloo: "Without Qloo",
   withoutBanner:
     "The same AI model and the same profile, without Qloo. It can only work from what you typed, so it mostly repeats it back, and no suggestion has a data source.",
-  howFound: (n) => `How Encore found these: ${n} Qloo calls`,
+  howFound: (n) => `Built from ${n} live Qloo calls`,
   howFoundHelp: "The real requests the agent made to Qloo's taste graph while building this card.",
   clearedDetails: "Cleared. Nothing about your loved one is stored on this device.",
   connectionLost: "The connection was lost before the card was ready. Please check your internet connection and try again.",
@@ -277,10 +285,14 @@ const ar: Strings = {
   clearDetails: "امسح بياناتي من هذا الجهاز",
   noSource: "لا مصدر للبيانات (معرفة عامة)",
   withQloo: "مع Qloo",
+  baselineLoading: "نسأل نموذج الذكاء الاصطناعي نفسه من دون Qloo… (نحو 10 ثوانٍ)",
+  baselineError: "تعذّر إعداد المقارنة الآن. يُرجى المحاولة مرة أخرى.",
+  show: "عرض",
+  hide: "إخفاء",
   withoutQloo: "من دون Qloo",
   withoutBanner:
     "نموذج الذكاء الاصطناعي نفسه والبيانات نفسها، لكن من دون Qloo. لا يملك إلا ما كتبته، فيكرّره غالبًا، ولا يستند أي اقتراح إلى مصدر بيانات.",
-  howFound: (n) => `كيف وجد Encore هذه الاقتراحات: ${n} طلبًا إلى Qloo`,
+  howFound: (n) => `أُعدّت من ${n} طلبًا مباشرًا إلى Qloo`,
   howFoundHelp: "الطلبات الفعلية التي أرسلها الوكيل إلى شبكة الأذواق في Qloo أثناء إعداد هذه البطاقة.",
   clearedDetails: "تم المسح. لم يعد هذا الجهاز يحتفظ بأي معلومات عمّن تحب.",
   connectionLost: "انقطع الاتصال قبل أن تجهز البطاقة. يُرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",

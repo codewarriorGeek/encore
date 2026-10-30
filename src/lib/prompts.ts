@@ -124,3 +124,14 @@ export function cardInput(profile: PublicProfile, notes: string, slots: MemorySl
     : "(none)";
   return `Born in the ${profile.birthDecade}s, grew up in ${profile.grewUpIn}. ${youth(profile)}\n\n<research_notes>\n${notes}\n</research_notes>\n\n<memory_placeholders>\n${placeholders}\n</memory_placeholders>\n\nWrite every field of the card in ${LANGUAGE_NAME[language]}, except each source, which stays the exact Qloo name, and the {{placeholders}}, which stay exactly as listed.`;
 }
+
+// "Without Qloo" baseline: the same card instructions and profile, no research.
+// Shared by the live comparison (/api/baseline) and scripts/make-baselines.mts.
+export const BASELINE_SYSTEM = `${CARD_SYSTEM}
+
+You have NO research notes and no data source for this card: write it from your own general knowledge. Set every non-memory source to "general knowledge".`;
+
+export function baselineInput(profile: PublicProfile, slots: MemorySlot[], language: Language): string {
+  const placeholders = slots.map((s) => `- {{${s}}}: ${MEMORY_SLOTS[s]}`).join("\n") || "(none)";
+  return `${researchInput(profile)}\n\n<memory_placeholders>\n${placeholders}\n</memory_placeholders>\n\nWrite every field of the card in ${LANGUAGE_NAME[language]}, except the {{placeholders}}, which stay exactly as listed.`;
+}

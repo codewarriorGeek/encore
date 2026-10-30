@@ -61,6 +61,10 @@ export default function EncoreApp() {
   const [reconnecting, setReconnecting] = useState(false);
   const [cleared, setCleared] = useState(false);
   const [withoutQloo, setWithoutQloo] = useState(false);
+  const [liveBaseline, setLiveBaseline] = useState<SessionCard | null>(null);
+  const [baselineState, setBaselineState] = useState<"idle" | "loading" | "error">("idle");
+  const [showCalls, setShowCalls] = useState(false);
+  const lastRequest = useRef<object | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -117,6 +121,26 @@ export default function EncoreApp() {
     setCleared(true);
   }
 
+  // Live cards: ask the same model for a card without Qloo, on first use.
+  async function showWithoutQloo() {
+    setWithoutQloo(true);
+    if (example || liveBaseline || !lastRequest.current) return;
+    setBaselineState("loading");
+    try {
+      const res = await fetch("/api/baseline", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(lastRequest.current),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.card) throw new Error(data.error);
+      setLiveBaseline(data.card);
+      setBaselineState("idle");
+    } catch {
+      setBaselineState("error");
+    }
+  }
+
   function showExample(ex: Example) {
     const exCard = ex.cards[lang];
     if (!exCard) return;
@@ -133,6 +157,10 @@ export default function EncoreApp() {
     setWriting(false);
     setError("");
     setExample(null);
+    setWithoutQloo(false);
+    setLiveBaseline(null);
+    setBaselineState("idle");
+    setShowCalls(false);
     setElapsed(0);
     const started = Date.now();
     timer.current = setInterval(() => setElapsed(Math.round((Date.now() - started) / 1000)), 1000);
@@ -208,11 +236,13 @@ export default function EncoreApp() {
           await fetch("/api/plan", {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              profile: { birthDecade, grewUpIn: grewUpIn.trim(), loves: validLoves.slice(0, 12) },
-              memorySlots,
-              language: lang,
-            }),
+            body: JSON.stringify(
+              (lastRequest.current = {
+                profile: { birthDecade, grewUpIn: grewUpIn.trim(), loves: validLoves.slice(0, 12) },
+                memorySlots,
+                language: lang,
+              }),
+            ),
           }),
         );
       } catch (err) {
@@ -453,12 +483,13 @@ export default function EncoreApp() {
       )}
 
       {step === "card" && card && (() => {
-        const baseline = example ? BASELINES[example.id]?.[lang] : undefined;
-        const shown = withoutQloo && baseline && example ? fillMemory(baseline, example.memory) : card;
+        const baseline = example ? BASELINES[example.id]?.[lang] : (liveBaseline ?? undefined);
+        const shown = withoutQloo && baseline ? fillMemory(baseline, example ? example.memory : memory) : card;
+        const canCompare = Boolean(example ? baseline : lastRequest.current);
         return (
         <article className="surface p-6 sm:p-10">
           {example && <p className="mb-2 text-sm font-medium uppercase tracking-wide text-accent">{t.example}</p>}
-          {baseline && (
+          {canCompare && (
             <div className="no-print mb-6 flex flex-col gap-3">
               <div className="flex gap-2" role="group">
                 <button
@@ -471,17 +502,47 @@ export default function EncoreApp() {
                 <button
                   className={`chip px-4 py-2 text-sm ${withoutQloo ? "bg-accent text-accent-ink" : ""}`}
                   aria-pressed={withoutQloo}
-                  onClick={() => setWithoutQloo(true)}
+                  onClick={showWithoutQloo}
                 >
                   {t.withoutQloo}
                 </button>
               </div>
-              {withoutQloo && <p className="rounded-xl bg-accent-soft px-4 py-3 text-sm text-accent">{t.withoutBanner}</p>}
+              {withoutQloo && (
+                <p className="rounded-xl bg-accent-soft px-4 py-3 text-sm text-accent" aria-live="polite">
+                  {baselineState === "loading" && !baseline
+                    ? t.baselineLoading
+                    : baselineState === "error" && !baseline
+                      ? t.baselineError
+                      : t.withoutBanner}
+                </p>
+              )}
             </div>
           )}
           <h2 className="headline font-display text-3xl font-semibold leading-tight">{shown.theme}</h2>
           <p className="mt-4 text-lg leading-relaxed">{shown.opener}</p>
           <p className="ornament mt-6">❦ ❦ ❦</p>
+          {!example && calls.length > 0 && !(withoutQloo && baseline) && (
+            <div className="tile mt-6 px-5 py-4 text-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-medium">🔎 {t.howFound(calls.length)}</span>
+                <button className="no-print text-accent underline" aria-expanded={showCalls} onClick={() => setShowCalls(!showCalls)}>
+                  {showCalls ? t.hide : t.show}
+                </button>
+              </div>
+              {showCalls && (
+                <>
+                  <p className="mt-2 text-muted">{t.howFoundHelp}</p>
+                  <ol className="mt-2 flex flex-col gap-1 ps-8">
+                    {calls.map((c, i) => (
+                      <li key={i} className="list-decimal">
+                        {t.call(c.tool, c.subject, c.target)}
+                      </li>
+                    ))}
+                  </ol>
+                </>
+              )}
+            </div>
+          )}
 
           <ol className="mt-8 flex flex-col gap-4">
             {shown.prompts.map((p, i) => (
@@ -499,7 +560,7 @@ export default function EncoreApp() {
                 <p className="mt-3 text-xs text-muted">
                   {p.kind === "memory" || /memory book/i.test(p.source)
                     ? t.fromMemory
-                    : withoutQloo && example
+                    : withoutQloo && baseline
                       ? t.noSource
                       : `${t.groundedIn}: ${p.source}`}
                 </p>
@@ -516,20 +577,6 @@ export default function EncoreApp() {
                 ))}
               </ul>
             </section>
-          )}
-
-          {!example && calls.length > 0 && (
-            <details className="mt-6 text-sm">
-              <summary className="cursor-pointer font-medium">{t.howFound(calls.length)}</summary>
-              <p className="mt-2 text-muted">{t.howFoundHelp}</p>
-              <ol className="mt-2 flex flex-col gap-1 ps-8">
-                {calls.map((c, i) => (
-                  <li key={i} className="list-decimal">
-                    {t.call(c.tool, c.subject, c.target)}
-                  </li>
-                ))}
-              </ol>
-            </details>
           )}
 
           {shown.limitations.length > 0 && (
