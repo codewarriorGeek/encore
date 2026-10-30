@@ -1,5 +1,5 @@
 import { agentFor, fallbackProvider, provider, type Provider } from "@/lib/agent";
-import { groundCard } from "@/lib/grounding";
+import { groundCard, nameArgs } from "@/lib/grounding";
 import { PlanRequest } from "@/lib/profile";
 import { allow } from "@/lib/rate-limit";
 
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         const agent = agentFor(p);
         const { notes, trace, evidence } = await agent.research(
           profile,
-          (tool, args) => send({ type: "call", tool, args }),
+          (tool, args, evidence) => send({ type: "call", tool, args: nameArgs(args, evidence) }),
           signal,
         );
         const researched = Date.now();

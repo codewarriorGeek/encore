@@ -115,7 +115,8 @@ export function researchInput(profile: PublicProfile): string {
 const LANGUAGE_NAME: Record<Language, string> = { en: "English", ar: "Modern Standard Arabic" };
 
 // Called for each Qloo call as it happens, so the UI can show live progress.
-export type OnQlooCall = (tool: string, args: unknown) => void;
+// evidence holds the Qloo results so far, to turn ids in args into names.
+export type OnQlooCall = (tool: string, args: unknown, evidence: string[]) => void;
 
 export function cardInput(profile: PublicProfile, notes: string, slots: MemorySlot[], language: Language): string {
   const placeholders = slots.length

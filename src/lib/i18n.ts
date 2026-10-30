@@ -135,7 +135,7 @@ const en: Strings = {
       case "qloo_find_tags":
         return `Finding themes for${s}`;
       case "qloo_recommend":
-        return `Finding what fans of${s} also love`;
+        return s ? `Finding what fans of${s} also love` : "Finding what the same audience loves";
       case "qloo_rank":
         return `Ranking ideas for${s || " this person"}`;
       case "qloo_where_popular":
@@ -243,7 +243,7 @@ const ar: Strings = {
       case "qloo_find_tags":
         return `نجد موضوعات تخص${s}`;
       case "qloo_recommend":
-        return `نكتشف ما يحبه أيضًا محبو${s}`;
+        return s ? `نكتشف ما يحبه أيضًا محبو${s}` : "نكتشف ما يحبه الجمهور نفسه";
       case "qloo_rank":
         return `نرتّب الأفكار${s}`;
       case "qloo_where_popular":

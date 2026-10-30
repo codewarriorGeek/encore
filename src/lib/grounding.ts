@@ -61,19 +61,19 @@ const BRACED = /\{\{\s*([^}]*?)\s*\}\}/g;
 // Readable name for a Qloo reference the model leaked into the card:
 // a tag URN becomes its last segment, an entity UUID becomes the name Qloo
 // returned next to that id. Returns null when it cannot be resolved.
-function resolveRef(ref: string, raw: string): string | null {
+export function resolveRef(ref: string, raw: string): string | null {
   const urn = ref.match(/urn:tag:[\w:.-]+/i)?.[0];
   const id = urn ?? ref.match(UUID)?.[0];
   if (!id) return null;
   const at = raw.toLowerCase().indexOf(id.toLowerCase());
   if (at >= 0) {
-    const start = Math.max(0, at - 600);
-    const near = raw.slice(start, at + 600);
-    const idAt = at - start;
-    const names = [...near.matchAll(/"name"\s*:\s*"([^"]+)"/g)];
-    // The name closest to the id belongs to the same result object.
-    names.sort((a, b) => Math.abs(a.index! - idAt) - Math.abs(b.index! - idAt));
-    if (names.length) return names[0][1];
+    // The name in the same result object: after the id up to the object's end,
+    // otherwise before it back to the object's start.
+    const end = raw.indexOf("}", at);
+    const after = raw.slice(at, end < 0 ? at + 600 : end).match(/"name"\s*:\s*"([^"]+)"/);
+    if (after) return after[1];
+    const before = [...raw.slice(Math.max(raw.lastIndexOf("{", at), at - 600), at).matchAll(/"name"\s*:\s*"([^"]+)"/g)];
+    if (before.length) return before[before.length - 1][1];
   }
   // A tag URN still reads well as its last segment; an unknown UUID does not.
   return urn ? urn.split(":").pop()!.replace(/_/g, " ") : null;
@@ -135,4 +135,19 @@ export function groundCard(card: SessionCard, evidence: string[]): { card: Sessi
     card: { ...card, prompts, caregiverTips: clean(card.caregiverTips), limitations: clean(card.limitations) },
     dropped,
   };
+}
+
+// Live progress: replace Qloo ids and tag URNs in tool arguments with the names
+// Qloo has returned so far, so caregivers see "fans of Galatasaray", not an id.
+export function nameArgs(args: unknown, evidence: string[]): unknown {
+  const raw = evidence.join("\n");
+  const isRef = new RegExp(`${UUID.source}|urn:tag:`, "i"); // non-global: .test() stays stateless
+  const swap = (v: unknown): unknown =>
+    typeof v === "string" && isRef.test(v)
+      ? (resolveRef(v, raw) ?? v)
+      : Array.isArray(v)
+        ? v.map(swap)
+        : v;
+  if (!args || typeof args !== "object") return args;
+  return Object.fromEntries(Object.entries(args as Record<string, unknown>).map(([k, v]) => [k, swap(v)]));
 }

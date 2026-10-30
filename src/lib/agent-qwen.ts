@@ -91,7 +91,7 @@ export async function research(
         let content: string;
         try {
           const args = JSON.parse(c.function.arguments || "{}");
-          onCall?.(c.function.name, args);
+          onCall?.(c.function.name, args, evidence);
           const result = await callQloo(c.function.name, args);
           content = result.text;
           if (!result.isError) evidence.push(content);

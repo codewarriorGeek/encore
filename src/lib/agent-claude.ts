@@ -81,7 +81,7 @@ export async function research(
         trace.push(key);
         budget.record(t.name);
         if (repeat) return { type: "tool_result", tool_use_id: t.id, content: REPEATED_CALL, is_error: true };
-        onCall?.(t.name, t.input);
+        onCall?.(t.name, t.input, evidence);
         try {
           const { text, isError } = await callQloo(t.name, t.input);
           if (!isError) evidence.push(text);
