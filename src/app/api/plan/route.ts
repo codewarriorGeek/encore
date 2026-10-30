@@ -24,34 +24,49 @@ export async function POST(request: Request) {
   }
   const { profile, memorySlots, language } = parsed.data;
 
+  // If the visitor leaves, stop the research and cancel the in-flight model call.
+  const signal = request.signal;
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      const send = (event: object) => controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
+      let open = true;
+      const send = (event: object) => {
+        if (!open) return;
+        try {
+          controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
+        } catch {
+          open = false;
+        }
+      };
       const started = Date.now();
       try {
-        const { notes, trace, evidence } = await agent().research(profile, (tool, args) =>
-          send({ type: "call", tool, args }),
+        const { notes, trace, evidence } = await agent().research(
+          profile,
+          (tool, args) => send({ type: "call", tool, args }),
+          signal,
         );
         const researched = Date.now();
         send({ type: "writing" });
-        const raw = await agent().composeCard(profile, notes, memorySlots, language);
+        const raw = await agent().composeCard(profile, notes, memorySlots, language, signal);
         const { card, dropped } = groundCard(raw, evidence);
-        send({
-          type: "done",
-          card,
-          notes,
-          trace,
-          dropped,
-          provider: provider(),
-          timings: { researchMs: researched - started, cardMs: Date.now() - researched },
-        });
+        const timings = { researchMs: researched - started, cardMs: Date.now() - researched };
+        console.log(
+          JSON.stringify({ plan: "done", provider: provider(), language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
+        );
+        send({ type: "done", card, notes, trace, dropped, provider: provider(), timings });
       } catch (err) {
-        console.error("plan failed", err);
-        send({ type: "error", error: "could not build a session card, please try again" });
+        if (signal.aborted) {
+          console.log(JSON.stringify({ plan: "cancelled", afterMs: Date.now() - started }));
+        } else {
+          console.error("plan failed", err);
+          send({ type: "error", error: "could not build a session card, please try again" });
+        }
       } finally {
         limit.release();
-        controller.close();
+        if (open) {
+          open = false;
+          controller.close();
+        }
       }
     },
   });

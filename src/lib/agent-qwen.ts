@@ -32,12 +32,17 @@ const qwen = () =>
   (client ??= new OpenAI({
     apiKey: process.env.HETZNER_API_KEY,
     baseURL: process.env.LLM_BASE_URL ?? "https://inference.hetzner.com/api/v1",
-    timeout: 60_000,
-    maxRetries: 2,
+    // A stuck call should fail fast rather than hold the caregiver for minutes.
+    timeout: 45_000,
+    maxRetries: 1,
   }));
 
 // Research: Qwen + Qloo tools, seeing only the public profile.
-export async function research(profile: PublicProfile, onCall?: OnQlooCall): Promise<Research> {
+export async function research(
+  profile: PublicProfile,
+  onCall?: OnQlooCall,
+  signal?: AbortSignal,
+): Promise<Research> {
   const trace: string[] = [];
   const tools: OpenAI.Chat.ChatCompletionFunctionTool[] = (await qlooTools()).map((t) => ({
     type: "function",
@@ -52,13 +57,14 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
   const budget = new ResearchBudget();
 
   for (let round = 0; round < MAX_TOOL_ROUNDS && !budget.exhausted; round++) {
+    signal?.throwIfAborted();
     const response = await qwen().chat.completions.create({
       model: MODEL,
       max_tokens: 4000,
       tools,
       messages,
       ...THINKING,
-    });
+    }, { signal });
     const message = response.choices[0]?.message;
     if (!message) throw new Error("empty response from Qwen");
 
@@ -108,7 +114,7 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
     max_tokens: 4000,
     messages: [...messages, { role: "user", content: WRAP_UP }],
     ...THINKING,
-  });
+  }, { signal });
   return { notes: final.choices[0]?.message?.content ?? "", trace, evidence };
 }
 
@@ -118,6 +124,7 @@ export async function composeCard(
   notes: string,
   slots: MemorySlot[],
   language: Language = "en",
+  signal?: AbortSignal,
 ): Promise<SessionCard> {
   const response = await qwen().chat.completions.create({
     model: MODEL,
@@ -131,7 +138,7 @@ export async function composeCard(
       json_schema: { name: "session_card", schema: z.toJSONSchema(SessionCard), strict: true },
     },
     ...THINKING,
-  });
+  }, { signal });
   const parsed = SessionCard.safeParse(JSON.parse(response.choices[0]?.message?.content ?? "null"));
   if (!parsed.success) throw new Error("session card did not match the schema");
   return parsed.data;

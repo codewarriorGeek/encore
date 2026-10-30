@@ -23,7 +23,11 @@ let client: Anthropic | null = null;
 const claude = () => (client ??= new Anthropic());
 
 // Research: Claude + Qloo tools, seeing only the public profile.
-export async function research(profile: PublicProfile, onCall?: OnQlooCall): Promise<Research> {
+export async function research(
+  profile: PublicProfile,
+  onCall?: OnQlooCall,
+  signal?: AbortSignal,
+): Promise<Research> {
   const trace: string[] = [];
   const tools: Anthropic.Beta.BetaTool[] = (await qlooTools()).map((t) => ({
     name: t.name,
@@ -35,6 +39,7 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
   const budget = new ResearchBudget();
 
   for (let round = 0; round < MAX_TOOL_ROUNDS && !budget.exhausted; round++) {
+    signal?.throwIfAborted();
     const response = await claude().beta.messages.create({
       model: MODEL,
       max_tokens: 16000,
@@ -44,7 +49,7 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
       system: RESEARCH_SYSTEM,
       tools,
       messages,
-    });
+    }, { signal });
 
     if (response.stop_reason === "refusal") throw new Error("research step was declined");
     if (response.stop_reason === "pause_turn") {
@@ -108,7 +113,7 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
     tools,
     tool_choice: { type: "none" },
     messages,
-  });
+  }, { signal });
   if (final.stop_reason === "refusal") throw new Error("research step was declined");
   const notes = final.content
     .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text")
@@ -123,6 +128,7 @@ export async function composeCard(
   notes: string,
   slots: MemorySlot[],
   language: Language = "en",
+  signal?: AbortSignal,
 ): Promise<SessionCard> {
   const response = await claude().messages.parse({
     model: MODEL,
@@ -130,7 +136,7 @@ export async function composeCard(
     output_config: { effort: "medium", format: zodOutputFormat(SessionCard) },
     system: CARD_SYSTEM,
     messages: [{ role: "user", content: cardInput(profile, notes, slots, language) }],
-  });
+  }, { signal });
   if (response.stop_reason === "refusal" || !response.parsed_output) {
     throw new Error("session card could not be written");
   }

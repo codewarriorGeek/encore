@@ -7,6 +7,9 @@ export type PromptKind = "book" | "food" | "place" | "nature" | "sport" | "inter
 type Strings = {
   dir: "ltr" | "rtl";
   switchTo: string;
+  themeModern: string;
+  themeAntique: string;
+  hero: string;
   tagline: string;
   intro: string;
   examplesTitle: string;
@@ -53,6 +56,9 @@ type Strings = {
 const en: Strings = {
   dir: "ltr",
   switchTo: "عربي",
+  themeModern: "Modern",
+  themeAntique: "Antique",
+  hero: "Turn “what did they love?” into “what can we talk about today?”",
   tagline: "Reminiscence sessions for people living with dementia",
   intro:
     "Familiar books, flavours, places and sport from someone's youth can open warm conversations. Tell Encore a little about your loved one, and it finds what their generation and hometown actually loved, then writes a gentle session card for you to use together.",
@@ -158,6 +164,9 @@ const AR_DECADES: Record<number, string> = {
 const ar: Strings = {
   dir: "rtl",
   switchTo: "English",
+  themeModern: "عصري",
+  themeAntique: "عتيق",
+  hero: "حوّل سؤال «ماذا كان يحب؟» إلى «عمّ نتحدث اليوم؟»",
   tagline: "جلسات استرجاع الذكريات لمن يعيشون مع الخرف",
   intro:
     "الكتب والنكهات والأماكن والرياضة المألوفة من شباب الإنسان قد تفتح أحاديث دافئة. أخبر Encore قليلًا عمّن تحب، فيكتشف ما أحبّه جيله وأهل مدينته فعلًا، ثم يكتب لك بطاقة جلسة لطيفة تستخدمانها معًا.",
