@@ -35,20 +35,24 @@ the local memory book
 2. **Session card.** A second call with no tools writes the card in English or Arabic. Each non-memory prompt names the Qloo entity or tag it came from.
 3. **Grounding in code.** The server keeps the raw Qloo results and drops any prompt whose source is not in them. Leaked Qloo ids and tag URNs are replaced with the names Qloo returned. Music, TV, film and politics are removed whatever the model writes.
 
-### Example: request to result (redacted)
+### Example: request to result
 
-Profile: born in the 1950s, grew up in Cairo, loved Naguib Mahfouz, Al Ahly, koshari and the Nile.
+A real run on the live demo. Profile: born in the 1950s, grew up in Cairo, loved Naguib Mahfouz, Al Ahly, koshari and the Nile; one memory field filled in. Research took 32 s, the card 16 s. Qloo calls (abridged):
 
 ```
 qloo_describe   {"entity":"Naguib Mahfouz","type":"author"}
-qloo_describe   {"entity":"Al Ahly","type":"brand"}             -> Al Ahly SC
-qloo_find_tags  {"query":"koshari"}                             -> urn:tag:cuisine:qloo:koshari
-qloo_recommend  {"target_type":"book","signals":["Naguib Mahfouz"],"demographic":"people 55 and older"}
-qloo_recommend  {"target_type":"place","signal_tags":["nile river"],"filter_location":"Cairo"}
+qloo_describe   {"entity":"Al Ahly","type":"brand"}
+qloo_find_tags  {"query":"koshari Egyptian food","limit":5}
+qloo_describe   {"entity":"Nile","type":"place"}
+qloo_find_tags  {"query":"Nile river Egypt geography nature","limit":5}
+qloo_recommend  {"target_type":"book","signals":["<Naguib Mahfouz id>"],"demographic":"people 55 and older","filter_location":"Cairo, Egypt"}
+qloo_recommend  {"target_type":"brand","signals":["<Al Ahly SC id>"],"demographic":"people 55 and older","filter_location":"Cairo, Egypt"}
+qloo_recommend  {"target_type":"place","signal_tags":["urn:tag:cuisine:qloo:koshari"],"demographic":"people 55 and older","filter_location":"Cairo, Egypt","exclude_tags":[...]}
+qloo_recommend  {"target_type":"place","signal_tags":["urn:tag:view:qloo:nile_river"],"demographic":"people 55 and older","filter_location":"Cairo, Egypt"}
 ...
 ```
 
-Card prompts then cite their Qloo source, for example *"Stories from the Alley"* (source: Naguib Mahfouz), *"The Taste of Comfort"* (source: koshari) and *"Walks Along the Nile"* (source: Nile River).
+The card's prompts and their Qloo sources: *A Taste of Street Culture* (Koshari), *By the River* (Nile River), *The Pride of the City* (Al Ahly SC), *Stories of the City* (Naguib Mahfouz), plus two memory-book prompts filled in by the browser.
 
 ## Privacy
 
