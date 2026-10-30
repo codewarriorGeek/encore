@@ -35,9 +35,29 @@ Encore starts `qloo mcp` as a local stdio process, so it needs a VM or container
    EnvironmentFile=/etc/encore.env
    ExecStart=/opt/encore/node/bin/node /opt/encore/app/server.js
    Restart=always
+   MemoryMax=900M
+   # Sandboxing (systemd-analyze security rates this about 3.1, "OK")
    NoNewPrivileges=true
-   ProtectSystem=full
    PrivateTmp=true
+   ProtectSystem=strict
+   ReadWritePaths=/opt/encore/home
+   ProtectHome=true
+   PrivateDevices=true
+   ProtectKernelTunables=true
+   ProtectKernelModules=true
+   ProtectKernelLogs=true
+   ProtectControlGroups=true
+   ProtectClock=true
+   ProtectHostname=true
+   RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+   RestrictNamespaces=true
+   RestrictRealtime=true
+   RestrictSUIDSGID=true
+   LockPersonality=true
+   CapabilityBoundingSet=
+   AmbientCapabilities=
+   SystemCallArchitectures=native
+   UMask=0077
    ```
 
 6. **Reverse proxy** with HTTPS. With Apache, stream the live progress without buffering:
@@ -45,11 +65,16 @@ Encore starts `qloo mcp` as a local stdio process, so it needs a VM or container
    ```apache
    ProxyPass / http://127.0.0.1:3917/ flushpackets=on timeout=300
    ProxyPassReverse / http://127.0.0.1:3917/
+   <Location /api/plan>
+       LimitRequestBody 32768
+   </Location>
    ```
+
+   Also set `ServerTokens Prod` and `ServerSignature Off` so Apache does not advertise its version. Security headers (CSP, HSTS and others) come from `next.config.ts`.
 
 ## Limits
 
-`/api/plan` has per-IP and concurrency limits for a public demo: `RATE_LIMIT_PER_HOUR` (default 12) and `MAX_CONCURRENT_PLANS` (default 4).
+`/api/plan` has limits for a public demo: `RATE_LIMIT_PER_HOUR` per address (default 12), `GLOBAL_LIMIT_PER_HOUR` across everyone (default 60) and `MAX_CONCURRENT_PLANS` (default 4). Request bodies over 32 KB are rejected.
 
 ## Health check
 
