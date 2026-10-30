@@ -62,12 +62,8 @@ The card's prompts and their Qloo sources: *A Taste of Street Culture* (Koshari)
 
 ## Models
 
-The same prompts and Qloo tools run on either provider, set by `LLM_PROVIDER`:
-
-- `qwen` (default, used by the live demo): Qwen3.6-35B-A3B on Hetzner Inference, through its OpenAI-compatible API.
-- `claude`: Claude Opus 5.5 through the Anthropic API.
-
-The plan API streams the provider, timings, every Qloo call and anything dropped, so the two can be compared on the same profile.
+Claude Opus 5.5 is the primary model, and a second model takes over automatically if it is unavailable.
+Both run the same prompts and Qloo tools; see `LLM_PROVIDER` and `LLM_FALLBACK` in `.env.example`.
 
 ## Run it locally
 
@@ -84,14 +80,13 @@ Open http://localhost:3000. `GET /api/health` reports whether Qloo and the LLM p
 
 ## Deploy
 
-Encore starts `qloo mcp` as a local stdio process, so it needs a VM or container with Node.js 22.19+, the harness installed and the keys set as secrets; serverless platforms are not supported, and the browser never calls Qloo directly. The live demo runs the `output: "standalone"` build as a systemd service behind Apache (reverse proxy with `flushpackets=on` so the live progress streams). `/api/plan` has per-IP and concurrency limits.
+Encore needs a VM or container (not serverless), because it runs `qloo mcp` as a local process. See [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Limitations
 
 - Qloo results describe what groups tend to like, not what one person will recognise. The card says so.
 - Coverage of older and non-Western entities is uneven. Encore falls back to tags, and some sources are broad (for example a cuisine rather than a dish).
 - Building a card takes about a minute. The instant examples are pre-generated from live runs.
-- The live demo uses an experimental inference service without an SLA.
 - Encore is a conversation aid, not a medical tool.
 
 ## License
