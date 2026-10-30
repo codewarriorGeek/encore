@@ -49,6 +49,8 @@ type Strings = {
   example: string;
   errorGeneric: string;
   reconnecting: string;
+  clearDetails: string;
+  clearedDetails: string;
   connectionLost: string;
   privacyNote: string;
   footer: string;
@@ -128,6 +130,8 @@ const en: Strings = {
   example: "Example",
   errorGeneric: "Something went wrong. Please try again.",
   reconnecting: "Reconnecting… your card is still being built.",
+  clearDetails: "Clear my details from this device",
+  clearedDetails: "Cleared. Nothing about your loved one is stored on this device.",
   connectionLost: "The connection was lost before the card was ready. Please check your internet connection and try again.",
   privacyNote: "No names are collected. Family memories stay in your browser.",
   footer: "Encore is a conversation aid, not a medical tool. Built for the Qloo Agentic Hackathon.",
@@ -238,6 +242,8 @@ const ar: Strings = {
   example: "مثال",
   errorGeneric: "حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
   reconnecting: "نعيد الاتصال… ما زلنا نُعدّ بطاقتك.",
+  clearDetails: "امسح بياناتي من هذا الجهاز",
+  clearedDetails: "تم المسح. لم يعد هذا الجهاز يحتفظ بأي معلومات عمّن تحب.",
   connectionLost: "انقطع الاتصال قبل أن تجهز البطاقة. يُرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
   privacyNote: "لا نجمع أي أسماء. تبقى ذكريات العائلة في متصفحك.",
   footer: "Encore أداة مساعدة على الحديث، وليس أداة طبية. صُمّم لهاكاثون \u2068Qloo Agentic\u2069",

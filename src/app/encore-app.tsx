@@ -58,6 +58,7 @@ export default function EncoreApp() {
   const [calls, setCalls] = useState<LiveCall[]>([]);
   const [writing, setWriting] = useState(false);
   const [reconnecting, setReconnecting] = useState(false);
+  const [cleared, setCleared] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -97,6 +98,22 @@ export default function EncoreApp() {
   // Only examples that have a card in the current language.
   const examples = EXAMPLES.filter((ex) => ex.cards[lang]);
   const canBuild = grewUpIn.trim().length >= 2 && validLoves.length > 0;
+
+  // For shared computers: forget the profile, memory book and last card here.
+  function clearDetails() {
+    for (const key of ["encore.memory", "encore.profile", "encore.lastCard"]) {
+      try {
+        localStorage.removeItem(key);
+      } catch {
+        /* storage unavailable */
+      }
+    }
+    setMemory({});
+    setGrewUpIn("");
+    setBirthDecade(1950);
+    setLoves([{ kind: "book", text: "" }]);
+    setCleared(true);
+  }
 
   function showExample(ex: Example) {
     const exCard = ex.cards[lang];
@@ -380,10 +397,20 @@ export default function EncoreApp() {
                     placeholder={t.memorySlots[slot]}
                     aria-label={t.memorySlots[slot]}
                     value={memory[slot] ?? ""}
-                    onChange={(e) => setMemory({ ...memory, [slot]: e.target.value })}
+                    onChange={(e) => {
+                      setMemory({ ...memory, [slot]: e.target.value });
+                      setCleared(false);
+                    }}
                   />
                 ))}
                 {error && <p className="rounded-xl bg-accent-soft px-4 py-3 text-accent">{error}</p>}
+                {cleared ? (
+                  <p className="text-sm text-sage">{t.clearedDetails}</p>
+                ) : (
+                  <button className="self-start text-sm text-muted underline" onClick={clearDetails}>
+                    {t.clearDetails}
+                  </button>
+                )}
                 <div className="flex justify-between">
                   <button className={secondary} onClick={() => setStep("loves")}>
                     {t.back}

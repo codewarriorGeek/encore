@@ -16,7 +16,13 @@ import { allow } from "@/lib/rate-limit";
 //   {"type":"ping"}                          (keep-alive, not counted)
 // GET /api/plan?id=...&from=N reconnects: it replays events from index N
 // (counting everything except job and ping lines) and continues live.
+// A real request is well under 4 KB; reject anything large before reading it.
+const MAX_BODY_BYTES = 32 * 1024;
+
 export async function POST(request: Request) {
+  if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
+    return Response.json({ error: "request too large" }, { status: 413 });
+  }
   // Apache appends the real client address last; earlier entries can be forged.
   const ip = request.headers.get("x-forwarded-for")?.split(",").pop()?.trim() || "local";
   const limit = allow(ip);
@@ -24,7 +30,18 @@ export async function POST(request: Request) {
     return Response.json({ error: limit.reason }, { status: 429 });
   }
 
-  const parsed = PlanRequest.safeParse(await request.json().catch(() => null));
+  const body = await request.text().catch(() => "");
+  if (body.length > MAX_BODY_BYTES) {
+    limit.release();
+    return Response.json({ error: "request too large" }, { status: 413 });
+  }
+  const parsed = PlanRequest.safeParse((() => {
+    try {
+      return JSON.parse(body);
+    } catch {
+      return null;
+    }
+  })());
   if (!parsed.success) {
     limit.release();
     return Response.json({ error: "invalid request", issues: parsed.error.issues }, { status: 400 });
