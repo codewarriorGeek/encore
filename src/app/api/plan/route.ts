@@ -1,4 +1,4 @@
-import { agent, provider } from "@/lib/agent";
+import { agentFor, fallbackProvider, provider, type Provider } from "@/lib/agent";
 import { groundCard } from "@/lib/grounding";
 import { PlanRequest } from "@/lib/profile";
 import { allow } from "@/lib/rate-limit";
@@ -6,6 +6,7 @@ import { allow } from "@/lib/rate-limit";
 // Streams newline-delimited JSON events so the caregiver sees the real Qloo
 // calls as they happen:
 //   {"type":"call","tool":"qloo_describe","args":{...}}
+//   {"type":"retry","provider":"qwen"}   (primary model failed; fallback takes over)
 //   {"type":"writing"}
 //   {"type":"done","card":{...},"trace":[...],"dropped":[...],"provider":"qwen","timings":{...}}
 //   {"type":"error","error":"..."}
@@ -39,21 +40,33 @@ export async function POST(request: Request) {
         }
       };
       const started = Date.now();
-      try {
-        const { notes, trace, evidence } = await agent().research(
+      const run = async (p: Provider) => {
+        const agent = agentFor(p);
+        const { notes, trace, evidence } = await agent.research(
           profile,
           (tool, args) => send({ type: "call", tool, args }),
           signal,
         );
         const researched = Date.now();
         send({ type: "writing" });
-        const raw = await agent().composeCard(profile, notes, memorySlots, language, signal);
+        const raw = await agent.composeCard(profile, notes, memorySlots, language, signal);
         const { card, dropped } = groundCard(raw, evidence);
         const timings = { researchMs: researched - started, cardMs: Date.now() - researched };
         console.log(
-          JSON.stringify({ plan: "done", provider: provider(), language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
+          JSON.stringify({ plan: "done", provider: p, language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
         );
-        send({ type: "done", card, notes, trace, dropped, provider: provider(), timings });
+        send({ type: "done", card, notes, trace, dropped, provider: p, timings });
+      };
+      try {
+        try {
+          await run(provider());
+        } catch (err) {
+          const fallback = fallbackProvider();
+          if (signal.aborted || !fallback) throw err;
+          console.error(`plan failed on ${provider()}, retrying on ${fallback}`, err);
+          send({ type: "retry", provider: fallback });
+          await run(fallback);
+        }
       } catch (err) {
         if (signal.aborted) {
           console.log(JSON.stringify({ plan: "cancelled", afterMs: Date.now() - started }));

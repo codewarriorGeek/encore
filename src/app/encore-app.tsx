@@ -147,6 +147,10 @@ export default function EncoreApp() {
           const event = JSON.parse(line);
           if (event.type === "call") {
             setCalls((c) => [...c, { tool: event.tool, subject: callSubject(event.args) }]);
+          } else if (event.type === "retry") {
+            // The primary model failed; the fallback starts the research again.
+            setCalls([]);
+            setWriting(false);
           } else if (event.type === "writing") {
             setWriting(true);
           } else if (event.type === "done") {
