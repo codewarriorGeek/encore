@@ -1,0 +1,988 @@
+{
+ "madinah": {
+  "en": {
+   "theme": "Madinah days and favorite things",
+   "opener": "Today we can sit together, enjoy a few gentle stories about growing up in Madinah, and let the conversation go wherever feels nice.",
+   "prompts": [
+    {
+     "kind": "place",
+     "title": "Growing up in Madinah",
+     "activity": "Look at photos or pictures of Madinah together, such as the Prophet's Mosque and the old neighborhoods, and enjoy them slowly.",
+     "question": "Tell me about what a day in Madinah was like when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "interest",
+     "title": "Umar ibn al-Khattab",
+     "activity": "Read aloud a short, well-loved account of Umar ibn al-Khattab's life, or simply sit and let your loved one share what they like about him.",
+     "question": "Tell me about what Umar ibn al-Khattab means to you.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Football in the neighborhood",
+     "activity": "Look at pictures of football, or kick a soft ball gently together if that feels comfortable, and chat about the game.",
+     "question": "Tell me about playing or watching football when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "A plate of biryani",
+     "activity": "Cook a simple biryani together, or just enjoy the smell of the spices, and let your loved one guide the seasoning.",
+     "question": "Tell me about what makes a really good biryani.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look through family photos together and take your time with each one.",
+     "question": "Tell me about the times you spent with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A family favorite dish",
+     "activity": "Talk about the dish while you set the table or prepare a snack together.",
+     "question": "Tell me about {{familyDish}} and who made it.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Let silences be comfortable; there is no need to fill every pause.",
+    "Follow your loved one's lead and move on if a topic doesn't spark interest.",
+    "Short sessions in a quiet, comfortable spot often work best.",
+    "Accept whatever they share as true for them, without correcting details."
+   ],
+   "limitations": [
+    "This card was written from general knowledge, with no research notes behind it.",
+    "It does not establish what this particular person actually experienced, enjoyed or believes.",
+    "General tastes of people from a similar time and place are not the same as this person's own tastes.",
+    "The memory prompts only work if the family has filled in those details, and nothing about them is assumed."
+   ]
+  },
+  "ar": {
+   "theme": "أيام الصبا في المدينة المنورة",
+   "opener": "اجلسوا معًا في مكان هادئ، واشربوا الشاي أو القهوة العربية، وخذوا وقتكم في أحاديث لطيفة عن أيام الصبا في المدينة المنورة. لا حاجة للعجلة، ولا توجد إجابات صحيحة أو خاطئة، فالمقصود هو الاستمتاع بالحديث معًا.",
+   "prompts": [
+    {
+     "kind": "interest",
+     "title": "سيرة عمر بن الخطاب",
+     "activity": "اقرأوا بصوت مسموع قصة قصيرة من سيرة عمر بن الخطاب رضي الله عنه، مما يحبه ويرتاح إليه.",
+     "question": "حدثني عن سبب محبتك لعمر بن الخطاب، وعن القصص التي كنت تسمعها عنه في صغرك.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "كرة القدم في الحارة",
+     "activity": "انظروا معًا إلى صور قديمة للعب الكرة أو لفرق الأحياء، أو تحدثوا عن اللعب في الساحات.",
+     "question": "حدثني عن أيام لعب كرة القدم مع الأصدقاء في المدينة، وكيف كانت تلك اللحظات.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "طبق البرياني",
+     "activity": "اطبخوا البرياني معًا أو حضّروا جزءًا بسيطًا منه، واستمتعوا برائحة البهارات والأرز.",
+     "question": "حدثني عن البرياني الذي أحببته، وعن المناسبات التي كان يجتمع الناس فيها حوله.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "المسجد النبوي وأجواء المدينة",
+     "activity": "تصفحوا صورًا قديمة أو حديثة للمسجد النبوي وأسواق المدينة وأزقتها.",
+     "question": "حدثني عن المسجد النبوي والأماكن التي كنت تحب المرور بها في المدينة وأنت صغير.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "نخيل المدينة وتمرها",
+     "activity": "قدموا طبقًا من التمر، وتذوقوه معًا وتحدثوا عن النخيل وبساتين المدينة.",
+     "question": "حدثني عن النخيل والتمر وبساتين المدينة كما عرفتها في شبابك.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "ذكريات مع القريب",
+     "activity": "انظروا إلى صورة عائلية قديمة إن وجدت، وتبادلوا الحديث بهدوء.",
+     "question": "حدثني عن أيام قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "إن أمكن، حضّروا الطبق أو شمّوا رائحته، أو تحدثوا عنه فقط.",
+     "question": "حدثني عن {{familyDish}} وكيف كان يُحضَّر ويُؤكل في البيت.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعوا الحديث يأخذ وقته، ولا تستعجلوا الإجابة، فالصمت اللطيف جزء من الجلسة.",
+    "إذا حكى قصة بطريقة مختلفة عمّا تعرفونه، فاستمعوا بود دون تصحيح.",
+    "اختاروا سؤالًا أو اثنين فقط في الجلسة الواحدة، وتوقفوا إذا بدا عليه التعب أو الملل.",
+    "استعينوا بالروائح والصور واللمس لتهيئة جو مريح."
+   ],
+   "limitations": [
+    "هذه البطاقة كُتبت من المعرفة العامة فقط، ولا تستند إلى بيانات بحثية أو مصادر موثقة عن هذا الشخص.",
+    "لا تثبت البطاقة تفاصيل حياته الفعلية، فهي تفترض أمورًا عامة عن النشأة في المدينة المنورة بين عامي 1955 و1980.",
+    "منصة Qloo تصف أذواق مجموعات من الناس لا أذواق هذا الشخص بعينه، ولم تُستخدم هنا أي نتائج منها.",
+    "لا نعرف أي فريق أو لاعب أو نوع من البرياني يفضله، فهذه أمور يُسأل عنها بلطف.",
+    "أسئلة الذكريات تعتمد على التفاصيل التي أدخلها مقدّم الرعاية فقط، ولا تفترض أي أسماء أو وقائع غير ذلك."
+   ]
+  }
+ },
+ "cairo": {
+  "en": {
+   "theme": "A Cairo Childhood: Stories, Flavors and the River",
+   "opener": "Today we are going to spend a little time remembering Cairo in the years of growing up, with a few favorite things to enjoy together. There are no right or wrong answers, just whatever comes to mind.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "Stories of Cairo by Naguib Mahfouz",
+     "activity": "Read aloud a short passage or a summary of one of his Cairo stories, or simply look at a picture of one of his book covers together.",
+     "question": "Tell me about the Cairo streets and neighborhoods that feel special to you.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Cheering for Al Ahly",
+     "activity": "Look at photos of the red Al Ahly shirt or the team, and talk about match days while wearing something red if you like.",
+     "question": "Tell me about what it felt like to follow Al Ahly.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "A Bowl of Koshari",
+     "activity": "Cook a simple koshari together, or just enjoy a bowl while smelling the fried onions and spices.",
+     "question": "Tell me about the way you liked your koshari best.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "The Nile at Sunset",
+     "activity": "Look at pictures of the Nile and its boats, or sit by a window and picture the river together.",
+     "question": "Tell me about the times you spent near the Nile.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look through photos together and see who appears in them.",
+     "question": "Tell me about a favorite time with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A dish from home",
+     "activity": "Cook or smell the ingredients of a familiar dish together, or look at a picture of it.",
+     "question": "Tell me about {{familyDish}} and the people around the table.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Let the conversation wander and follow whatever your loved one wants to talk about.",
+    "If a question does not spark anything, simply move on to the next activity without pressing.",
+    "Gentle touches like warm food, a favorite color, or a quiet seat by the window can help the moment feel comfortable.",
+    "Enjoy the silences and the smiles as much as the stories."
+   ],
+   "limitations": [
+    "This card was written from general knowledge, not from research on this person.",
+    "It does not establish what this person actually experienced, felt or remembers about these topics.",
+    "Qloo describes group tastes, not this individual, and no Qloo findings were used for this card.",
+    "The memory prompts only use the details the caregiver filled in, and the memory book itself was not seen."
+   ]
+  },
+  "ar": {
+   "theme": "أيام القاهرة الجميلة بين ضفاف النيل وحكايات الحارة",
+   "opener": "هيا نقضي وقتًا هادئًا ودافئًا نستعيد فيه صورًا من القاهرة القديمة، ونستمع إلى ما يحب أن يحكيه، دون استعجال ودون أي أسئلة امتحانية.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "حكايات نجيب محفوظ",
+     "activity": "اقرأ بصوت عالٍ فقرة قصيرة من إحدى روايات نجيب محفوظ عن الحارة القاهرية، أو تصفّح غلاف الكتاب معًا.",
+     "question": "حدّثني عن الحارات والشخصيات التي كانت تعجبك في قصص نجيب محفوظ.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "مشجعو الأهلي",
+     "activity": "انظرا معًا إلى صور قديمة لفريق الأهلي أو ارتدِ وشاحًا أحمر إن توفر، واستمتعا بأجواء المشجعين.",
+     "question": "حدّثني عن أجواء مباريات الأهلي وما كان يسعدك فيها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "طبق الكشري",
+     "activity": "حضّرا معًا طبقًا بسيطًا من الكشري، وليشارك في خلط الأرز والمعكرونة وإضافة الصلصة المقرمشة.",
+     "question": "حدّثني عن الكشري وكيف كنتم تستمتعون به في القاهرة.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "نيل القاهرة",
+     "activity": "شاهدا صورًا للنيل والمراكب الشراعية، أو اجلسا قرب نافذة مفتوحة وتخيلا نسيم النهر.",
+     "question": "حدّثني عن لحظاتك المفضلة بجانب النيل.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "ذكريات مع الأهل",
+     "activity": "تصفّحا الصور العائلية القديمة معًا ببطء وبدون استعجال.",
+     "question": "حدّثني عن أوقاتك مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "حضّرا معًا شيئًا بسيطًا يشبه الطبق الذي كان يُطهى في البيت، أو تحدثا عن رائحته ومكوناته.",
+     "question": "حدّثني عن {{familyDish}} وكيف كان يُحضَّر في بيتكم.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "اجعل الجلسة قصيرة وهادئة، وتوقف إن بدا عليه التعب أو الملل.",
+    "دعه يقود الحديث، وإذا اختلفت التفاصيل عمّا تعرفه فلا تصحّحها.",
+    "رحّب بالصمت وبالابتسامة، فقد تكفي رائحة الطعام أو صورة قديمة لإحياء الذكرى.",
+    "اختر وقتًا يكون فيه مرتاحًا، وقلّل الضوضاء من حولكما."
+   ],
+   "limitations": [
+    "هذه البطاقة مكتوبة من معرفة عامة فقط، ولا تستند إلى بيانات بحث محددة.",
+    "لا تثبت البطاقة أن هذه الأمور تعني لهذا الشخص ما نفترضه، فالأذواق العامة لجماعة من الناس لا تصف شخصًا بعينه.",
+    "لا نعرف تفاصيل حياته الفعلية في القاهرة بين 1955 و1980، ولا مدى ارتباطه بكل موضوع.",
+    "أسئلة الذكريات العائلية تعتمد فقط على التفاصيل التي أدخلها مقدّم الرعاية، ولم نطّلع على دفتر الذكريات."
+   ]
+  }
+ },
+ "istanbul": {
+  "en": {
+   "theme": "Istanbul Days: Simit, the Bosphorus and Saturday Matches",
+   "opener": "Let's sit somewhere comfortable and spend a little time with the Istanbul of long ago, with its seaside breezes, warm simit and favorite stories. There is no right or wrong here, just whatever feels nice to share.",
+   "prompts": [
+    {
+     "kind": "food",
+     "title": "Simit in the Morning",
+     "activity": "Share a sesame simit, fresh or from a bakery, with tea or a glass of something warm, and enjoy the smell and the crunch together.",
+     "question": "Tell me about what a simple simit breakfast or snack was like when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "Along the Bosphorus",
+     "activity": "Look through photos or picture books of the Bosphorus, with its ferries, waterside houses and bridges, and talk about the colors of the water.",
+     "question": "Tell me about a favorite spot by the water where you liked to spend time.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "book",
+     "title": "Stories by Yaşar Kemal",
+     "activity": "Read aloud a short passage from a Yaşar Kemal novel, such as Memed, My Hawk, in English or Turkish, and let the words settle.",
+     "question": "Tell me about what you enjoyed in stories like his.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Galatasaray Match Days",
+     "activity": "Look at pictures of the yellow and red Galatasaray colors, or wear something in those colors, and chat about the club.",
+     "question": "Tell me about what a match day with Galatasaray felt like for you.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with Family",
+     "activity": "Look at an old family photo together and take your time with it.",
+     "question": "Tell me about a favorite time you spent with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A Dish from Home",
+     "activity": "If it's possible, cook or smell the dish together, or simply look at a picture of it.",
+     "question": "Tell me about {{familyDish}} and the times it was served at home.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Go at their pace and let silences be comfortable.",
+    "If a topic doesn't spark anything, gently move on to another.",
+    "Warm tea and a simit can make the session feel special and bring back sensory memories.",
+    "Enjoy whatever they share, even if details differ from what you know.",
+    "Stop whenever they seem tired; a short session is just as good."
+   ],
+   "limitations": [
+    "This card is written from general knowledge, with no research notes behind it.",
+    "It does not establish what this person actually experienced, enjoyed or remembers.",
+    "Qloo describes group tastes, not this person, and none of it was used here, so the prompts are guesses based on the things listed.",
+    "The memory prompts rely only on the placeholders the caregiver filled in, and the card has not seen the family's memory book."
+   ]
+  },
+  "ar": {
+   "theme": "إسطنبول الطفولة والشباب: طعم السميط ونسيم البوسفور",
+   "opener": "اجلسا معًا في مكان هادئ ومريح، وربما مع كوب من الشاي، وقولا بلطف: اليوم سنتجول في إسطنبول القديمة بلا أي استعجال، وكل ما يخطر على بالك أهلًا به.",
+   "prompts": [
+    {
+     "kind": "food",
+     "title": "السميط في الصباح",
+     "activity": "قدّما معًا سميطًا طازجًا أو خبزًا مقرمشًا بالسمسم، ودعاه يتذوقه ويشم رائحته.",
+     "question": "حدثني عن طعم السميط وعن الأجواء التي كانت تحيط به في صباحات إسطنبول.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "على ضفاف البوسفور",
+     "activity": "تصفحا صورًا للبوسفور والعبّارات والبيوت الخشبية على الشاطئ، وتحدثا عنها بهدوء.",
+     "question": "حدثني عن البوسفور وما كان يعجبك فيه عند النظر إلى الماء.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "book",
+     "title": "عالم ياشار كمال",
+     "activity": "اقرأ بصوت عالٍ مقطعًا قصيرًا من إحدى روايات ياشار كمال أو ملخصًا لها، بنبرة دافئة وبطيئة.",
+     "question": "حدثني عن القصص التي كنت تحب أن تقرأها أو تسمعها عن الناس والأرض.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "أيام غلطة سراي",
+     "activity": "انظرا إلى صور قديمة لفريق غلطة سراي، أو ارتديا لونيه الأصفر والأحمر إن توفر ذلك.",
+     "question": "حدثني عن الأجواء التي كانت تحيط بكرة القدم وغلطة سراي في تلك الأيام.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "لحظات مع الأقارب",
+     "activity": "انظرا معًا إلى صورة عائلية قديمة إن وجدت، وتبادلا الحديث عنها بهدوء.",
+     "question": "حدثني عن الأوقات التي قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "مائدة العائلة",
+     "activity": "حضّرا طبقًا بسيطًا أو تحدثا عن رائحة الطبخ ونكهته وكأنه أمامكما.",
+     "question": "حدثني عن {{familyDish}} وكيف كانت العائلة تتجمع حوله.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعوا الصمت يأخذ وقته، فقد يحتاج الحديث إلى لحظات قبل أن يبدأ.",
+    "إذا اختلفت التفاصيل عمّا تعرفونه فلا تصححوها، بل استمعوا بحب واهتمام.",
+    "اختاروا موضوعًا أو اثنين فقط في الجلسة الواحدة، وتوقفوا إذا بدا التعب أو الملل.",
+    "استعينوا بالروائح والصور واللمس، فهي كثيرًا ما تفتح باب الذكريات بلطف."
+   ],
+   "limitations": [
+    "هذه البطاقة مكتوبة من معرفة عامة ولا تستند إلى أبحاث أو بيانات عن هذا الشخص.",
+    "لا تثبت البطاقة ما عاشه هذا الشخص فعلًا أو ما شعر به تجاه هذه الأشياء، فهي مجرد نقاط انطلاق للحديث.",
+    "وصف أذواق المجموعات لا يصف ذوق هذا الشخص بالتحديد، لذلك قد لا تناسب بعض المحاور ذكرياته.",
+    "لم نطّلع على دفتر ذكريات العائلة، والمحوران الخاصان بالذكريات يعتمدان فقط على الحقول التي أضافها مقدّم الرعاية."
+   ]
+  }
+ },
+ "kualalumpur": {
+  "en": {
+   "theme": "Growing up in Kuala Lumpur: badminton, nasi lemak, Penang and kites",
+   "opener": "Let's sit somewhere comfortable and spend some time with the things that brought joy in those early Kuala Lumpur years. There is no right or wrong answer, just whatever comes to mind.",
+   "prompts": [
+    {
+     "kind": "sport",
+     "title": "Badminton days",
+     "activity": "Look at pictures of badminton courts or players together, or gently mime a few swings with a pretend racket.",
+     "question": "Tell me about what badminton was like when you played or watched it.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "A plate of nasi lemak",
+     "activity": "Prepare a simple nasi lemak together, with coconut rice, sambal, cucumber, egg and peanuts, and enjoy the smells as you go.",
+     "question": "Tell me about the way you liked nasi lemak best.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "A trip to Penang",
+     "activity": "Look through photos or a travel book of Penang, its beaches, old shophouses and street food.",
+     "question": "Tell me about what Penang means to you.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "interest",
+     "title": "Kites in the open air",
+     "activity": "Look at pictures of colorful Malaysian kites, or fold and decorate a paper kite together.",
+     "question": "Tell me about flying kites when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Sit together with an old photo album, if you have one, and look at pictures with family in them.",
+     "question": "Tell me about a favorite time with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A dish from home",
+     "activity": "Cook or simply talk through the recipe together, enjoying the smells and tastes.",
+     "question": "Tell me about {{familyDish}} and who made it.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Go at their pace and let silences be comfortable.",
+    "If a topic doesn't spark anything, move on to another without fuss.",
+    "Let them lead; any story they share, however small, is welcome.",
+    "Using the senses, such as the smell of coconut rice or the feel of a kite string, can help conversation flow."
+   ],
+   "limitations": [
+    "This card was written from general knowledge, not from information about this person.",
+    "It does not establish what this person actually experienced, enjoyed or remembers.",
+    "Qloo describes group tastes, not this person, and no Qloo research was used here.",
+    "The details about badminton, nasi lemak, Penang and kites are general and may differ from their own experiences."
+   ]
+  },
+  "ar": {
+   "theme": "ذكريات الطفولة والشباب في كوالالمبور",
+   "opener": "اجلسا معًا في مكان هادئ ومريح، وربما مع كوب من الشاي الدافئ، ودعا الحديث يسير على مهل. لا حاجة إلى أي استعجال، فالمقصود هو الاستمتاع بالذكريات الجميلة معًا.",
+   "prompts": [
+    {
+     "kind": "sport",
+     "title": "ريشة الكرة وملاعب الحي",
+     "activity": "شاهدا معًا صورًا قديمة للعبة تنس الريشة، أو تبادلا حركات اللعب بالأيدي بخفة وهدوء، كأنكما تمسكان المضرب.",
+     "question": "حدثني عن أيام لعب تنس الريشة في شبابك.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "نازي ليمك على مائدة الصباح",
+     "activity": "حضرا معًا طبقًا بسيطًا من الأرز بحليب جوز الهند، ودعاه يملأ البيت برائحته، ثم تناولاه معًا.",
+     "question": "حدثني عن نازي ليمك وكيف كنت تحب تناوله.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "رحلة إلى بينانغ",
+     "activity": "تصفحا صورًا لجزيرة بينانغ وشواطئها وأسواقها وشوارعها القديمة، وتحدثا عما تراه العين.",
+     "question": "حدثني عن بينانغ وما كان يعجبك فيها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "interest",
+     "title": "الطائرات الورقية في السماء",
+     "activity": "اصنعا طائرة ورقية صغيرة من الورق والخيوط، أو انظرا إلى صور لطائرات ورقية ملونة.",
+     "question": "حدثني عن أيام تحليق الطائرات الورقية وكيف كان شعورك حين ترتفع في السماء.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "لحظات مع القريب",
+     "activity": "انظرا معًا إلى صورة عائلية قديمة، واتركا للحديث أن يأخذ مجراه.",
+     "question": "حدثني عن أوقات قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "اقرآ بصوت عالٍ وصفة بسيطة، أو تخيلا معًا رائحة الطبق وهو يُطهى.",
+     "question": "حدثني عن {{familyDish}} وكيف كان يُعَدّ في البيت.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعوا لحظات الصمت تمر بلا استعجال؛ فقد يحتاج الحديث إلى وقت.",
+    "إن لم تظهر ذكرى، فانتقلوا برفق إلى نشاط آخر دون إحراج.",
+    "استمعوا بحنان لما يقال، فكل قصة تُروى لها قيمتها حتى لو اختلفت تفاصيلها.",
+    "يكفي أن تجربوا موضوعًا أو اثنين في الجلسة الواحدة."
+   ],
+   "limitations": [
+    "هذه البطاقة كُتبت من المعرفة العامة وليس من بيانات بحثية محددة.",
+    "لا تثبت البطاقة ما عاشه هذا الشخص فعلًا، فهي تعتمد على ما ذُكر لنا فقط عن اهتماماته.",
+    "لا يمكن لمنصة Qloo أو لأي مصدر مماثل أن يصف إلا أذواق مجموعات من الناس، وليس هذا الشخص تحديدًا.",
+    "لم نطلع على دفتر ذكريات العائلة، لذا تستخدم مطالبات الذكريات الحقول التي ملأها مقدم الرعاية فقط."
+   ]
+  }
+ },
+ "brunei": {
+  "en": {
+   "theme": "Growing up in Brunei: river life, shared meals and the rainforest",
+   "opener": "Let's spend a little time remembering the Brunei of those growing-up years, with its water village, its warm family meals and its green forest. There's no rush and no right answers, just enjoy whatever comes to mind.",
+   "prompts": [
+    {
+     "kind": "food",
+     "title": "Sharing ambuyat",
+     "activity": "Cook or look at ambuyat together, or simply look at pictures of it, and talk about how it is traditionally eaten with bamboo chopsticks called chandas and a flavorful dipping sauce.",
+     "question": "Tell me about the meals where ambuyat was shared around the table.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "Kampong Ayer by the water",
+     "activity": "Look at photos or drawings of Kampong Ayer, the water village, with its wooden walkways and boats crossing the Brunei River.",
+     "question": "Tell me about what it was like to see or visit Kampong Ayer.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "A game of football",
+     "activity": "Look at pictures of football being played on a field, or kick a soft ball gently together if that feels comfortable.",
+     "question": "Tell me about playing or watching football when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "The green of the rainforest",
+     "activity": "Look at photos of tropical rainforest and listen to the sounds of birds and rain, or hold a few leaves and flowers while you talk.",
+     "question": "Tell me about the trees, plants or animals you liked best in the forest.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look through family photos together and spend a moment on the people in them.",
+     "question": "Tell me about a favorite time with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A dish from home",
+     "activity": "Bring out the dish if you can, or simply talk about its smells and flavors.",
+     "question": "Tell me about {{familyDish}} and how it was made.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Go at their pace and let silences be comfortable.",
+    "If a topic doesn't spark anything, just move on to another one.",
+    "Welcome whatever they share, even if details differ from what you know.",
+    "Use smells, tastes and pictures to help the conversation along.",
+    "Stop when they seem tired, and finish with something they enjoy."
+   ],
+   "limitations": [
+    "This card was written from general knowledge, with no research notes or data source behind it.",
+    "It does not establish what this person actually experienced, liked or remembers.",
+    "Group tastes and common cultural details do not describe one individual, so details may not match their life.",
+    "The memory prompts rely only on the details the caregiver chose to fill in, and nothing else is known about the family."
+   ]
+  },
+  "ar": {
+   "theme": "ذكريات الطفولة والشباب في بروناي: طعام الأسرة وكمبونغ أير وكرة القدم وأحضان الغابة",
+   "opener": "لنجلس معًا بهدوء ونستعيد أيامًا جميلة من الطفولة والشباب في بندر سري بكاوان. لا داعي للعجلة، وكل ما يخطر على البال أو يُقال يسعدنا سماعه.",
+   "prompts": [
+    {
+     "kind": "food",
+     "title": "طبق الأمبوياط",
+     "activity": "اطبخا معًا أو حضّرا طبقًا بسيطًا من النشا (مثل الساغو أو نشا مشابه) وتناولاه مع صلصة حامضة، أو شاهدا صورًا لهذا الطبق التقليدي.",
+     "question": "حدّثني عن طعم الأمبوياط والمناسبات التي كان يجتمع حوله الناس فيها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "place",
+     "title": "كمبونغ أير، القرية فوق الماء",
+     "activity": "تصفّحا صورًا أو خرائط للبيوت الخشبية والجسور والقوارب على النهر، وتأملاها معًا.",
+     "question": "حدّثني عن كمبونغ أير وما كنت تحب فيها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "كرة القدم في الأيام الماضية",
+     "activity": "شاهدا صورًا قديمة للملاعب والفرق، أو تحدثا وأنتما تمسكان كرة صغيرة بين يديكما.",
+     "question": "حدّثني عن لعب كرة القدم أو متابعتها مع الأصدقاء والجيران.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "الغابة المطيرة",
+     "activity": "اقرآ بصوت عالٍ وصفًا لأشجار الغابة وأصوات طيورها، أو تأملا صور الأخضر الكثيف والأنهار.",
+     "question": "حدّثني عن إحساسك حين كنت قريبًا من الغابة وأشجارها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "وقت مع الأقارب",
+     "activity": "انظرا إلى صورة عائلية إن وجدت، أو اجلسا وتحدثا عن لحظات جمعتكما.",
+     "question": "حدّثني عن أيام قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "حضّرا الطبق معًا إن أمكن، أو اقرآ وصفته بصوت عالٍ وتخيلا رائحته.",
+     "question": "حدّثني عن {{familyDish}} وعن اللحظات التي ارتبطت به.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعوا الحديث يسير ببطء، ولا بأس بالصمت بين الجمل.",
+    "إذا اختلطت التفاصيل فلا تصححوها، بل تابعوا بود وأصغوا للمشاعر.",
+    "اختاروا مكانًا هادئًا وإضاءة مريحة، وتوقفوا متى بدا التعب.",
+    "يمكنكم الاكتفاء بسؤال واحد أو اثنين في الجلسة الواحدة."
+   ],
+   "limitations": [
+    "هذه البطاقة كُتبت من معرفة عامة ولم تستند إلى بيانات بحث محددة.",
+    "لا تثبت البطاقة ما عاشه هذا الشخص فعلًا أو ما أحبه، فهي مبنية على الأشياء التي ذكرتها العائلة فقط.",
+    "قد تعبّر الأذواق التي تصفها Qloo عن مجموعات من الناس لا عن هذا الشخص، ولم تُستخدم هنا أي نتائج منها.",
+    "تفاصيل الأمبوياط وكمبونغ أير وكرة القدم والغابة المذكورة عامة وقد تختلف عن تجربته الشخصية.",
+    "لا تعرف البطاقة محتوى كتاب الذكريات، وتستخدم فقط العناصر التي أدخلها مقدم الرعاية."
+   ]
+  }
+ },
+ "chicago": {
+  "en": {
+   "theme": "Growing Up in Chicago: Cubs Afternoons, Lake Breezes and Apple Pie",
+   "opener": "Today let's take a slow, cozy trip back to Chicago in the years of your youth. There is no right or wrong here, just stories and good company. Let's see where the conversation wanders.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "To Kill a Mockingbird",
+     "activity": "Read aloud a favorite page or two from the book, or simply hold a copy and look at the cover together.",
+     "question": "Tell me about what this story meant to you when you first read it.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Chicago Cubs",
+     "activity": "Look through old baseball photos or a team pennant together, or sit outside and imagine a sunny afternoon at the ballpark.",
+     "question": "Tell me about a day spent cheering for the Cubs.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "Apple Pie",
+     "activity": "Bake a simple apple pie together, or just slice apples and enjoy the cinnamon smell.",
+     "question": "Tell me about the apple pies you liked best.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "Lake Michigan",
+     "activity": "Look at photos of the lakefront, or listen to a gentle recording of waves while sitting by a window.",
+     "question": "Tell me about time spent by the lake.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look through a photo album and pause on pictures that include family.",
+     "question": "Tell me about growing up with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A dish from home",
+     "activity": "Cook or smell the ingredients of a familiar family recipe together.",
+     "question": "Tell me about the time {{familyDish}} was served at your table.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Go at their pace and let silences be comfortable.",
+    "If a topic doesn't spark anything, gently move on to the next one.",
+    "Enjoy whatever comes up, even if details are mixed up or differ from what you know.",
+    "Use your senses: the taste of pie, the feel of a book, fresh air by the water."
+   ],
+   "limitations": [
+    "This card was written from general knowledge about Chicago and the things listed, not from research on this person.",
+    "It does not establish what this person actually experienced, felt or remembered about any of these topics.",
+    "Qloo describes group tastes, not this person, and no Qloo findings were used here.",
+    "The memory prompts only use the details the caregiver filled in, and nothing about the family's real stories is known."
+   ]
+  },
+  "ar": {
+   "theme": "ذكريات شيكاغو الجميلة: الطفولة والشباب بين عامي 1955 و1980",
+   "opener": "اجلسا معًا في مكان هادئ ومريح، وربما مع كوب شاي دافئ، واستمتعا بالحديث عن أيام شيكاغو القديمة. لا داعي للاستعجال، فالمهم أن تقضيا وقتًا طيبًا معًا وأن تستمعا إلى ما يحب أن يرويه.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "رواية «أن تقتل طائرًا بريئًا»",
+     "activity": "اقرأ بصوت عالٍ صفحة أو صفحتين من الرواية، أو انظرا إلى غلاف الكتاب إن كانت لديكم نسخة منه.",
+     "question": "حدثني عمّا كان يعجبك في هذه القصة وشخصياتها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "فريق شيكاغو كabs",
+     "activity": "انظرا معًا إلى صور أو قصاصات قديمة عن الفريق، أو ارتديا قبعة الفريق إن توفرت.",
+     "question": "حدثني عن أجواء متابعة مباريات الفريق في ذلك الزمن.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "فطيرة التفاح",
+     "activity": "اخبزا فطيرة تفاح بسيطة معًا، فيقشّر أحدكما التفاح ويرشّ الآخر القرفة، واستمتعا بالرائحة الدافئة.",
+     "question": "حدثني عن أطيب فطيرة تفاح تذكرها وكيف كانت تُقدَّم.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "بحيرة ميشيغان",
+     "activity": "شاهدا صور البحيرة وشاطئها، أو اجلسا قرب نافذة مشمسة وتخيلا نسيم البحيرة.",
+     "question": "حدثني عن الأيام التي كنت تقضيها قرب البحيرة.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "لحظات مع القريب العزيز",
+     "activity": "انظرا إلى صورة عائلية قديمة إن وجدت، أو اجلسا بهدوء وتحدثا.",
+     "question": "حدثني عن الأوقات التي قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق العائلة المحبوب",
+     "activity": "اطبخا معًا خطوة بسيطة من الطبق، أو تحدثا عن مكوّناته ورائحته.",
+     "question": "حدثني عن {{familyDish}} وكيف كان يجمع العائلة.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دع الشخص يأخذ وقته في الإجابة، ولا بأس بالصمت بين الجمل.",
+    "إن اختلطت عليه بعض التفاصيل فلا تصحّحها، بل تابع معه بلطف.",
+    "إن بدا عليه التعب أو الضيق فانتقل إلى نشاط آخر أو أنهِ الجلسة بابتسامة.",
+    "يمكنك أن تشاركه ذكرياتك وانطباعاتك ليشعر أن الحديث بينكما متبادل."
+   ],
+   "limitations": [
+    "هذه البطاقة كُتبت من معرفة عامة فقط، ولم تعتمد على ملاحظات بحثية أو مصدر بيانات محدد.",
+    "لا تثبت البطاقة ما عاشه هذا الشخص فعلًا، فهي تفترض فقط أن ما ذُكر من اهتماماته يصلح بابًا للحديث.",
+    "أذواق الجماعات التي تصفها مصادر مثل Qloo لا تصف هذا الشخص بعينه، ولم يُستخدم أي منها هنا.",
+    "لم نطّلع على دفتر ذكريات العائلة، والمحفزان الأخيران يعتمدان فقط على الحقول التي ذكرها مقدّم الرعاية."
+   ]
+  }
+ },
+ "manchester": {
+  "en": {
+   "theme": "Growing up in Manchester: stories, Saturday football and family treats",
+   "opener": "Today is a gentle visit to the Manchester of your childhood. There is no right or wrong answer, so just enjoy whatever comes to mind and share as much or as little as you like.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "Enid Blyton adventures",
+     "activity": "Read aloud a short, cheerful passage from an Enid Blyton story, or look at the cover pictures of her books together.",
+     "question": "Tell me about the stories you liked to read when you were young.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Manchester United days",
+     "activity": "Look at photos or old programmes of Manchester United, or simply talk about match days while having a cup of tea.",
+     "question": "Tell me about what football meant to you and your family.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "Fish and chips",
+     "activity": "Enjoy a small portion of fish and chips together, or look at pictures of a classic chip shop wrapped in paper.",
+     "question": "Tell me about what a fish and chip supper was like when you were growing up.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "The Lake District",
+     "activity": "Look through pictures of lakes and fells in the Lake District and talk about the colours and the views.",
+     "question": "Tell me about what you liked best about the Lake District.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look through a family photo album together and pause on any picture that catches your eye.",
+     "question": "Tell me about the times you spent with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A family favourite meal",
+     "activity": "Talk about the meal while looking at a recipe or having a similar treat together.",
+     "question": "Tell me about {{familyDish}} and how it tasted at home.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Go at their pace and let silences be comfortable.",
+    "If a topic does not spark anything, move on to the next with no fuss.",
+    "Enjoy the feelings and stories that come up, even if details differ from what you know.",
+    "Offer a favourite drink or snack to make the time feel relaxed."
+   ],
+   "limitations": [
+    "This card was written from general knowledge, with no research notes behind it.",
+    "It does not establish what this person actually experienced, enjoyed or remembers.",
+    "General tastes of people from a time and place do not describe one individual, so treat every prompt as a gentle suggestion.",
+    "The memory prompts only use the details the caregiver chose to fill in, and nothing else is known about them."
+   ]
+  },
+  "ar": {
+   "theme": "ذكريات الطفولة والشباب في مانشستر",
+   "opener": "اجلسا معًا في مكان مريح، وربما مع كوب شاي دافئ، ودعا الحديث يسير على مهله. لا حاجة للتذكّر الدقيق، فالمقصود أن نستمتع بالأجواء القديمة ونتبادل الابتسامات.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "حكايات إنيد بلايتون",
+     "activity": "اقرأ بصوت عالٍ مقطعًا قصيرًا من إحدى قصص إنيد بلايتون للأطفال، أو تصفّحا غلاف كتاب منها إن وُجد.",
+     "question": "حدّثني عن القصص التي كانت تعجبك وأنت صغير.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "كرة القدم ومانشستر يونايتد",
+     "activity": "تصفّحا صورًا قديمة للفريق أو لمباراة، أو اقرأ معًا عنوانًا صحفيًا قديمًا عن النادي.",
+     "question": "حدّثني عمّا كانت تعنيه لك أجواء مانشستر يونايتد في تلك الأيام.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "السمك والبطاطس",
+     "activity": "حضّرا معًا وجبة سمك وبطاطس بسيطة، أو تخيّلا رائحتها وطعمها وهي تُقدَّم في الورق.",
+     "question": "حدّثني عن وجبة السمك والبطاطس التي كنت تحبها ومع من كنت تتناولها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "منطقة البحيرات",
+     "activity": "انظرا إلى صور لمنطقة البحيرات في إنجلترا بجبالها ومياهها الهادئة، وتحدثا عن نزهة جميلة.",
+     "question": "حدّثني عن مكان في الطبيعة أحببت زيارته.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "أوقات مع القريب",
+     "activity": "تصفّحا ألبوم صور العائلة وابحثا عن صورة تجمعكما بالأسرة.",
+     "question": "حدّثني عن أيام قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "اطبخا معًا هذا الطبق أو استرجعا رائحته وطعمه بهدوء.",
+     "question": "حدّثني عن {{familyDish}} وعن اللحظات التي كان يجمع فيها العائلة.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعه يأخذ وقته في الكلام، ولا بأس بالصمت بين الجمل.",
+    "إن لم يتذكر شيئًا فلا تصحّح له، بل تابع مع ما يقوله بلطف.",
+    "استعمل الصور والروائح والأشياء الملموسة لتشجيع الحديث.",
+    "أنهِ الجلسة عندما تلاحظ التعب، واختم بكلمة دافئة."
+   ],
+   "limitations": [
+    "هذه البطاقة مكتوبة من معرفة عامة ولا تستند إلى بحث أو بيانات عن هذا الشخص.",
+    "لا تثبت البطاقة ما كان يحبه هذا الشخص فعلًا أو ما عاشه، فهي تعتمد على المعلومات القليلة التي قدّمتها العائلة فقط.",
+    "المعلومات العامة عن الأذواق، ومنها ما يأتي من Qloo، تصف أذواق المجموعات لا أذواق هذا الشخص بعينه.",
+    "لا نعرف تفاصيل الأشخاص أو الأطباق في دفتر الذكريات، والمطالبات المرتبطة به تعتمد فقط على الحقول التي ملأتها العائلة."
+   ]
+  }
+ },
+ "toronto": {
+  "en": {
+   "theme": "Toronto Days and Muskoka Summers",
+   "opener": "Today is a gentle visit with some favourite things from growing up in Toronto: a beloved story, a sweet treat, a hockey team and the lakes of Muskoka. There is no right or wrong answer, just enjoy whatever comes to mind.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "Anne of Green Gables",
+     "activity": "Read aloud a favourite short passage from Anne of Green Gables, or simply look at the book cover together.",
+     "question": "Tell me about what you liked most about Anne and her adventures.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "Butter tarts",
+     "activity": "Bake or buy a few butter tarts and enjoy them together with a cup of tea.",
+     "question": "Tell me about how you liked your butter tarts, with raisins or plain.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "Toronto Maple Leafs",
+     "activity": "Look through old photos or newspaper clippings of the Maple Leafs from the 1960s and 1970s, or just chat about the blue and white jersey.",
+     "question": "Tell me about what it was like to cheer for the Leafs.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "Muskoka lakes",
+     "activity": "Look at pictures of Muskoka lakes, with their rocks, pines and calm water, and picture a summer day there.",
+     "question": "Tell me about a summer day by the water that you enjoyed.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "Time with family",
+     "activity": "Look at a family photo together and take your time with it.",
+     "question": "Tell me about a favourite time with {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "A family recipe",
+     "activity": "Talk about the dish while you share a snack or look at a recipe card.",
+     "question": "Tell me about {{familyDish}} and what made it special.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "Let the conversation wander; enjoying a moment matters more than finishing every prompt.",
+    "If a question doesn't spark anything, move on gently or just share something yourself.",
+    "Soft lighting and a quiet room help, and a cup of tea or a butter tart makes it cosier.",
+    "Accept whatever is said warmly, without correcting details."
+   ],
+   "limitations": [
+    "This card is written from general knowledge, with no research notes behind it.",
+    "It does not establish what this person personally loved or experienced; it is based only on the few favourites you listed.",
+    "Qloo describes group tastes, not this individual, and none of its data was used here.",
+    "The memory prompts only use the details you filled in and do not know anything else about your family."
+   ]
+  },
+  "ar": {
+   "theme": "ذكريات طفولة وشباب في تورونتو: كتب دافئة وحلوى لذيذة وبحيرات هادئة وأمسيات الهوكي",
+   "opener": "اجلسا معًا في مكان مريح، وجهّزا كوبًا من الشاي، وخذا وقتكما بلا استعجال. لا توجد إجابات صحيحة أو خاطئة هنا، فقط حكايات نستمتع بها معًا.",
+   "prompts": [
+    {
+     "kind": "book",
+     "title": "آن ذات الشعر الأحمر",
+     "activity": "اقرأ بصوت عالٍ فقرة قصيرة من رواية «آن ذات المرتفعات الخضراء» أو لخّص لهما أحد مشاهدها المحببة.",
+     "question": "حدثني عن شعورك حين كنتَ تقرأ قصة آن أو تسمع عنها.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "sport",
+     "title": "أمسيات تورنتو مابل ليفز",
+     "activity": "تصفحا معًا صورًا قديمة لفريق تورنتو مابل ليفز أو شعاره، أو ارتديا شيئًا بلونه الأزرق.",
+     "question": "حدثني عن أجواء متابعة فريق تورنتو مابل ليفز في تلك السنوات.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "food",
+     "title": "فطائر الزبدة",
+     "activity": "حضّرا معًا فطائر الزبدة الصغيرة أو تذوقاها، واستمتعا برائحتها ونكهتها.",
+     "question": "حدثني عن حلويات كنتَ تحبها في طفولتك وشبابك في تورونتو.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "nature",
+     "title": "بحيرات ماسكوكا",
+     "activity": "شاهدا صورًا لبحيرات ماسكوكا وغاباتها، وأغمضا أعينكما لحظة لتخيّل صوت الماء والهواء العليل.",
+     "question": "حدثني عن مكان قرب الماء أحببتَ قضاء الوقت فيه.",
+     "source": "general knowledge"
+    },
+    {
+     "kind": "memory",
+     "title": "وقت مع الأقارب",
+     "activity": "انظرا إلى صور عائلية قديمة تجمعهما مع أحد الأقارب.",
+     "question": "حدثني عن أوقات قضيتها مع {{relative}}.",
+     "source": "memory book"
+    },
+    {
+     "kind": "memory",
+     "title": "طبق من مطبخ العائلة",
+     "activity": "حضّرا الطبق معًا إن أمكن، أو تحدثا عن رائحته ومكوناته.",
+     "question": "حدثني عن {{familyDish}} وعن اللحظات التي كان يُقدَّم فيها.",
+     "source": "memory book"
+    }
+   ],
+   "caregiverTips": [
+    "دعوا الحديث يسير على إيقاعه، ولا بأس بالصمت أو بتغيير الموضوع.",
+    "إذا اختلطت التفاصيل فلا تصححوها، بل شاركوا الشعور وقولوا: يبدو أنها كانت لحظة جميلة.",
+    "اختاروا وقتًا يكون فيه الشخص مرتاحًا ونشيطًا، وأنهوا الجلسة حين يبدو عليه التعب."
+   ],
+   "limitations": [
+    "هذه البطاقة مكتوبة من معرفة عامة ولم تُبنَ على أبحاث أو بيانات مؤكدة عن هذا الشخص.",
+    "لا تثبت البطاقة ما أحبّه هذا الشخص فعلًا أو ما عاشه، بل تعتمد على ما ذكرته العائلة فقط.",
+    "أذواق المجموعات التي تصفها Qloo لا تصف هذا الشخص بعينه، ولم تُستخدم هنا أي نتائج منها.",
+    "لم نطلع على دفتر ذكريات العائلة، فالمطالبات المرتبطة به تعتمد فقط على الحقول التي ذكرها مقدم الرعاية."
+   ]
+  }
+ }
+}

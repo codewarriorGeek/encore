@@ -14,6 +14,18 @@ Encore asks the caregiver for a few public facts (birth decade, hometown, a hand
 
 An LLM alone produces the same nostalgia for everyone. Qloo connects what this person loved to specific books, clubs, dishes, landmarks and natural places that the same audience loves, across domains and locations. Encore checks every prompt on the card against the actual Qloo results and drops anything Qloo did not return, so the card is grounded in Qloo, not in the model's guesses.
 
+## With and without Qloo
+
+Each example card has a **With Qloo / Without Qloo** switch. Without Qloo, the same AI model with the same profile mostly repeats back what the caregiver typed, and no suggestion has a data source. On the 8 example profiles ([full results](docs/BENCHMARK.md)):
+
+| | With Qloo (Encore) | Without Qloo |
+|---|---|---|
+| Prompts traceable to a Qloo result | **100%** (37 of 37) | 0% |
+| New specific items per card, beyond what the caregiver typed | **1.4** | 0.5 |
+| Era and region fit (1 to 5, judged) | 4.9 | 4.9 |
+
+Qloo is what lets the card go beyond the caregiver's own words (Khan el-Khalili, Orman Garden, Wrigley Field, Maple Leaf Gardens, teh tarik) while every suggestion stays traceable. Live cards also show **How Encore found these**: the list of real Qloo calls behind the card.
+
 ## How it works
 
 ```

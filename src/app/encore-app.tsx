@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BASELINES } from "@/data/baselines";
 import { EXAMPLES, type Example } from "@/data/examples";
 import { KIND_ORDER, STRINGS, callSubject, type Kind } from "@/lib/i18n";
 import {
@@ -15,7 +16,7 @@ import {
 type Love = { kind: Kind; text: string };
 type Step = "about" | "loves" | "memory" | "working" | "card";
 type Theme = "modern" | "antique";
-type LiveCall = { tool: string; subject: string };
+type LiveCall = { tool: string; subject: string; target?: string };
 
 const DECADES = [1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990];
 const PROMPT_ICON: Record<string, string> = {
@@ -59,6 +60,7 @@ export default function EncoreApp() {
   const [writing, setWriting] = useState(false);
   const [reconnecting, setReconnecting] = useState(false);
   const [cleared, setCleared] = useState(false);
+  const [withoutQloo, setWithoutQloo] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -119,6 +121,7 @@ export default function EncoreApp() {
     const exCard = ex.cards[lang];
     if (!exCard) return;
     setExample(ex);
+    setWithoutQloo(false);
     setCard(fillMemory(exCard, ex.memory));
     setError("");
     setStep("card");
@@ -166,7 +169,7 @@ export default function EncoreApp() {
           seen++;
           setReconnecting(false);
           if (event.type === "call") {
-            setCalls((c) => [...c, { tool: event.tool, subject: callSubject(event.args) }]);
+            setCalls((c) => [...c, { tool: event.tool, subject: callSubject(event.args), target: event.args?.target_type }]);
           } else if (event.type === "retry") {
             // The primary model failed; the fallback starts the research again.
             setCalls([]);
@@ -438,7 +441,7 @@ export default function EncoreApp() {
             {calls.map((c, i) => (
               <li key={i} className="tile flex items-center gap-3 px-4 py-2 text-sm">
                 <span className="text-sage">✓</span>
-                <span>{t.call(c.tool, c.subject)}</span>
+                <span>{t.call(c.tool, c.subject, c.target)}</span>
               </li>
             ))}
             <li className="flex items-center gap-3 px-4 py-2 text-sm text-muted">
@@ -449,15 +452,39 @@ export default function EncoreApp() {
         </section>
       )}
 
-      {step === "card" && card && (
+      {step === "card" && card && (() => {
+        const baseline = example ? BASELINES[example.id]?.[lang] : undefined;
+        const shown = withoutQloo && baseline && example ? fillMemory(baseline, example.memory) : card;
+        return (
         <article className="surface p-6 sm:p-10">
           {example && <p className="mb-2 text-sm font-medium uppercase tracking-wide text-accent">{t.example}</p>}
-          <h2 className="headline font-display text-3xl font-semibold leading-tight">{card.theme}</h2>
-          <p className="mt-4 text-lg leading-relaxed">{card.opener}</p>
+          {baseline && (
+            <div className="no-print mb-6 flex flex-col gap-3">
+              <div className="flex gap-2" role="group">
+                <button
+                  className={`chip px-4 py-2 text-sm ${!withoutQloo ? "bg-accent text-accent-ink" : ""}`}
+                  aria-pressed={!withoutQloo}
+                  onClick={() => setWithoutQloo(false)}
+                >
+                  {t.withQloo}
+                </button>
+                <button
+                  className={`chip px-4 py-2 text-sm ${withoutQloo ? "bg-accent text-accent-ink" : ""}`}
+                  aria-pressed={withoutQloo}
+                  onClick={() => setWithoutQloo(true)}
+                >
+                  {t.withoutQloo}
+                </button>
+              </div>
+              {withoutQloo && <p className="rounded-xl bg-accent-soft px-4 py-3 text-sm text-accent">{t.withoutBanner}</p>}
+            </div>
+          )}
+          <h2 className="headline font-display text-3xl font-semibold leading-tight">{shown.theme}</h2>
+          <p className="mt-4 text-lg leading-relaxed">{shown.opener}</p>
           <p className="ornament mt-6">❦ ❦ ❦</p>
 
           <ol className="mt-8 flex flex-col gap-4">
-            {card.prompts.map((p, i) => (
+            {shown.prompts.map((p, i) => (
               <li key={i} className="tile px-6 py-5">
                 <div className="flex items-center gap-2 text-sm text-muted">
                   <span aria-hidden>{PROMPT_ICON[p.kind] ?? "✨"}</span>
@@ -470,28 +497,46 @@ export default function EncoreApp() {
                 </p>
                 <p className="mt-3 border-s-4 border-accent ps-4 text-lg italic">{p.question}</p>
                 <p className="mt-3 text-xs text-muted">
-                  {p.kind === "memory" || /memory book/i.test(p.source) ? t.fromMemory : `${t.groundedIn}: ${p.source}`}
+                  {p.kind === "memory" || /memory book/i.test(p.source)
+                    ? t.fromMemory
+                    : withoutQloo && example
+                      ? t.noSource
+                      : `${t.groundedIn}: ${p.source}`}
                 </p>
               </li>
             ))}
           </ol>
 
-          {card.caregiverTips.length > 0 && (
+          {shown.caregiverTips.length > 0 && (
             <section className="mt-8">
               <h3 className="headline font-display text-xl font-semibold">{t.tips}</h3>
               <ul className="mt-2 list-disc ps-6 leading-relaxed">
-                {card.caregiverTips.map((tip, i) => (
+                {shown.caregiverTips.map((tip, i) => (
                   <li key={i}>{tip}</li>
                 ))}
               </ul>
             </section>
           )}
 
-          {card.limitations.length > 0 && (
+          {!example && calls.length > 0 && (
+            <details className="mt-6 text-sm">
+              <summary className="cursor-pointer font-medium">{t.howFound(calls.length)}</summary>
+              <p className="mt-2 text-muted">{t.howFoundHelp}</p>
+              <ol className="mt-2 flex flex-col gap-1 ps-8">
+                {calls.map((c, i) => (
+                  <li key={i} className="list-decimal">
+                    {t.call(c.tool, c.subject, c.target)}
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+
+          {shown.limitations.length > 0 && (
             <details className="mt-6 text-sm text-muted">
               <summary className="cursor-pointer font-medium">{t.limitations}</summary>
               <ul className="mt-2 list-disc ps-6">
-                {card.limitations.map((l, i) => (
+                {shown.limitations.map((l, i) => (
                   <li key={i}>{l}</li>
                 ))}
               </ul>
@@ -519,7 +564,8 @@ export default function EncoreApp() {
             )}
           </div>
         </article>
-      )}
+        );
+      })()}
 
       <footer className="no-print mt-auto pt-10 text-center text-xs text-muted">{t.footer}</footer>
     </div>

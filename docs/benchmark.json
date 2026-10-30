@@ -1,0 +1,171 @@
+[
+ {
+  "id": "madinah",
+  "label": "Madinah, 1950s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [
+    "Al-Ahli Saudi FC"
+   ],
+   "eraFit": 4,
+   "notes": "Most prompts suit a 1950s–60s Madinah childhood, but Al-Ahli is a Jeddah club, not a Madinah one (Madinah's own clubs were Al-Ansar and Ohod), though it did exist and was widely followed in that era."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [
+    "Prophet's Mosque"
+   ],
+   "eraFit": 5,
+   "notes": "Everything on the card fits a 1950s childhood in Madinah: the Prophet's Mosque, old neighborhoods, neighborhood football and biryani are all appropriate to the person's region and era."
+  }
+ },
+ {
+  "id": "cairo",
+  "label": "Cairo, 1950s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [
+    "Khan el-Khalili",
+    "Orman Garden"
+   ],
+   "eraFit": 5,
+   "notes": "Mahfouz's old-Cairo novels, koshari, Khan el-Khalili, Orman Garden and Al Ahly were all part of Cairo life during a 1950s-born person's youth in the 1960s and 70s."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Mahfouz's Cairo novels, Al Ahly, koshari and the Nile all fit a 1950s-born Cairene's youth in the 1960s-70s, and the card adds no new specific items."
+  }
+ },
+ {
+  "id": "istanbul",
+  "label": "Istanbul, 1950s",
+  "encore": {
+   "prompts": 4,
+   "traceable": 4,
+   "newItems": [
+    "baklava"
+   ],
+   "eraFit": 5,
+   "notes": "Yaşar Kemal, Galatasaray, simit with tea and baklava all suit a 1950s-born person's youth in Istanbul in the 1960s and 70s."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [
+    "Memed, My Hawk"
+   ],
+   "eraFit": 4,
+   "notes": "Simit, Yaşar Kemal (Memed, My Hawk, 1955) and Galatasaray all fit a 1950s Istanbul childhood, but the Bosphorus bridges in the photos only opened from 1973, around the end of that youth."
+  }
+ },
+ {
+  "id": "kualalumpur",
+  "label": "Kuala Lumpur, 1950s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [
+    "teh tarik",
+    "roti canai",
+    "mamak stall"
+   ],
+   "eraFit": 5,
+   "notes": "Badminton, nasi lemak, kite flying, Penang trips and mamak stalls with teh tarik and roti canai all fit a Kuala Lumpur childhood in the 1950s to 1970s."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Every prompt sticks to the caregiver's own items, all of which fit a 1950s–70s Kuala Lumpur childhood, and the generic details (coconut rice, sambal, shophouses, paper kites) are timeless and regionally appropriate."
+  }
+ },
+ {
+  "id": "brunei",
+  "label": "Bandar Seri Begawan, 1960s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [
+    "Omar Ali Saifuddien Mosque (the gold-domed mosque on the lagoon)"
+   ],
+   "eraFit": 5,
+   "notes": "Everything fits a 1960s–80s Bandar Seri Begawan childhood, including the mosque, which was completed in 1958."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [
+    "chandas (bamboo chopsticks for ambuyat)",
+    "Brunei River"
+   ],
+   "eraFit": 5,
+   "notes": "Ambuyat, Kampong Ayer, the Brunei River, football and the rainforest all belong to a Bandar Seri Begawan childhood in the 1960s–80s, and nothing on the card is anachronistic or from the wrong place."
+  }
+ },
+ {
+  "id": "chicago",
+  "label": "Chicago, 1950s",
+  "encore": {
+   "prompts": 3,
+   "traceable": 3,
+   "newItems": [
+    "Wrigley Field"
+   ],
+   "eraFit": 5,
+   "notes": "To Kill a Mockingbird (1960), the Cubs at ivy-walled Wrigley Field and homemade apple pie all fit a Chicago childhood and youth in the 1950s–70s."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Every item (the 1960 novel, Cubs baseball, apple pie and the Lake Michigan lakefront) fits a Chicago youth in the 1950s–70s, and the card adds nothing beyond the caregiver's own entries."
+  }
+ },
+ {
+  "id": "manchester",
+  "label": "Manchester, 1950s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Every item (Enid Blyton, Manchester United, chippy fish and chips, trips to the Lakes) fits a 1950s–70s Manchester childhood, and the card sticks to what the caregiver typed."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Every item comes from the caregiver's list, and all of them suit a 1950s–60s Manchester childhood: Blyton's books, United match days, a chip-shop supper and trips to the Lake District."
+  }
+ },
+ {
+  "id": "toronto",
+  "label": "Toronto, 1950s",
+  "encore": {
+   "prompts": 5,
+   "traceable": 5,
+   "newItems": [
+    "Little Women",
+    "Maple Leaf Gardens"
+   ],
+   "eraFit": 5,
+   "notes": "Everything fits a 1950s-born Torontonian's youth, including Maple Leaf Gardens (the Leafs' home arena until 1999), the 1960s Leafs Stanley Cup era, and Little Women as a classic read by girls of that generation."
+  },
+  "baseline": {
+   "prompts": 4,
+   "traceable": 0,
+   "newItems": [],
+   "eraFit": 5,
+   "notes": "Everything on the card fits a Toronto childhood of the 1950s to 1970s: the 1960s Leafs, butter tarts, the Anne books and Muskoka summers."
+  }
+ }
+]

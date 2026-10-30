@@ -50,11 +50,34 @@ type Strings = {
   errorGeneric: string;
   reconnecting: string;
   clearDetails: string;
+  withQloo: string;
+  withoutQloo: string;
+  withoutBanner: string;
+  howFound: (n: number) => string;
+  howFoundHelp: string;
   clearedDetails: string;
   connectionLost: string;
   privacyNote: string;
   footer: string;
-  call: (tool: string, subject: string) => string;
+  call: (tool: string, subject: string, target?: string) => string;
+  noSource: string;
+};
+
+const EN_TARGETS: Record<string, string> = {
+  book: "books",
+  place: "places",
+  person: "people",
+  brand: "clubs and brands",
+  destination: "destinations",
+  podcast: "podcasts",
+};
+const AR_TARGETS: Record<string, string> = {
+  book: "كتبًا",
+  place: "أماكن",
+  person: "شخصيات",
+  brand: "أندية وعلامات",
+  destination: "وجهات",
+  podcast: "بودكاست",
 };
 
 const en: Strings = {
@@ -131,18 +154,27 @@ const en: Strings = {
   errorGeneric: "Something went wrong. Please try again.",
   reconnecting: "Reconnecting… your card is still being built.",
   clearDetails: "Clear my details from this device",
+  noSource: "No data source (general knowledge)",
+  withQloo: "With Qloo",
+  withoutQloo: "Without Qloo",
+  withoutBanner:
+    "The same AI model and the same profile, without Qloo. It can only work from what you typed, so it mostly repeats it back, and no suggestion has a data source.",
+  howFound: (n) => `How Encore found these: ${n} Qloo calls`,
+  howFoundHelp: "The real requests the agent made to Qloo's taste graph while building this card.",
   clearedDetails: "Cleared. Nothing about your loved one is stored on this device.",
   connectionLost: "The connection was lost before the card was ready. Please check your internet connection and try again.",
   privacyNote: "No names are collected. Family memories stay in your browser.",
   footer: "Encore is a conversation aid, not a medical tool. Built for the Qloo Agentic Hackathon.",
-  call: (tool, subject) => {
+  call: (tool, subject, target) => {
     const s = subject ? ` ${subject}` : "";
+    const what = target ? EN_TARGETS[target] ?? `${target}s` : "";
     switch (tool) {
       case "qloo_describe":
         return `Looking up${s}`;
       case "qloo_find_tags":
         return `Finding themes for${s}`;
       case "qloo_recommend":
+        if (what) return s ? `Finding ${what} that fans of${s} also love` : `Finding ${what} the same audience loves`;
         return s ? `Finding what fans of${s} also love` : "Finding what the same audience loves";
       case "qloo_rank":
         return `Ranking ideas for${s || " this person"}`;
@@ -243,18 +275,27 @@ const ar: Strings = {
   errorGeneric: "حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
   reconnecting: "نعيد الاتصال… ما زلنا نُعدّ بطاقتك.",
   clearDetails: "امسح بياناتي من هذا الجهاز",
+  noSource: "لا مصدر للبيانات (معرفة عامة)",
+  withQloo: "مع Qloo",
+  withoutQloo: "من دون Qloo",
+  withoutBanner:
+    "نموذج الذكاء الاصطناعي نفسه والبيانات نفسها، لكن من دون Qloo. لا يملك إلا ما كتبته، فيكرّره غالبًا، ولا يستند أي اقتراح إلى مصدر بيانات.",
+  howFound: (n) => `كيف وجد Encore هذه الاقتراحات: ${n} طلبًا إلى Qloo`,
+  howFoundHelp: "الطلبات الفعلية التي أرسلها الوكيل إلى شبكة الأذواق في Qloo أثناء إعداد هذه البطاقة.",
   clearedDetails: "تم المسح. لم يعد هذا الجهاز يحتفظ بأي معلومات عمّن تحب.",
   connectionLost: "انقطع الاتصال قبل أن تجهز البطاقة. يُرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
   privacyNote: "لا نجمع أي أسماء. تبقى ذكريات العائلة في متصفحك.",
   footer: "Encore أداة مساعدة على الحديث، وليس أداة طبية. صُمّم لهاكاثون \u2068Qloo Agentic\u2069",
-  call: (tool, subject) => {
+  call: (tool, subject, target) => {
     const s = subject ? ` ${subject}` : "";
+    const what = target ? AR_TARGETS[target] ?? target : "";
     switch (tool) {
       case "qloo_describe":
         return `نبحث عن${s}`;
       case "qloo_find_tags":
         return `نجد موضوعات تخص${s}`;
       case "qloo_recommend":
+        if (what) return s ? `نكتشف ${what} يحبها أيضًا محبو${s}` : `نكتشف ${what} يحبها الجمهور نفسه`;
         return s ? `نكتشف ما يحبه أيضًا محبو${s}` : "نكتشف ما يحبه الجمهور نفسه";
       case "qloo_rank":
         return `نرتّب الأفكار${s}`;
