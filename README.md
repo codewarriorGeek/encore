@@ -62,8 +62,8 @@ The card's prompts and their Qloo sources: *A Taste of Street Culture* (Koshari)
 
 ## Models
 
-Claude Opus 5.5 is the primary model, and a second model takes over automatically if it is unavailable.
-Both run the same prompts and Qloo tools; see `LLM_PROVIDER` and `LLM_FALLBACK` in `.env.example`.
+Encore runs on Claude, and other models take over automatically if one is unavailable.
+They all run the same prompts and Qloo tools; see `LLM_CHAIN` in `.env.example`.
 
 ## Run it locally
 

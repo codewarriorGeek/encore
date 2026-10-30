@@ -16,14 +16,14 @@ import {
   type Research,
 } from "./prompts";
 
-const MODEL = process.env.CLAUDE_MODEL ?? "claude-opus-5-5";
 const MAX_TOOL_ROUNDS = 12;
 
 let client: Anthropic | null = null;
 const claude = () => (client ??= new Anthropic());
 
 // Research: Claude + Qloo tools, seeing only the public profile.
-export async function research(
+async function research(
+  model: string,
   profile: PublicProfile,
   onCall?: OnQlooCall,
   signal?: AbortSignal,
@@ -41,7 +41,7 @@ export async function research(
   for (let round = 0; round < MAX_TOOL_ROUNDS && !budget.exhausted; round++) {
     signal?.throwIfAborted();
     const response = await claude().beta.messages.create({
-      model: MODEL,
+      model,
       max_tokens: 16000,
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
@@ -104,7 +104,7 @@ export async function research(
     last.content = [...last.content, { type: "text", text: WRAP_UP }];
   }
   const final = await claude().beta.messages.create({
-    model: MODEL,
+    model,
     max_tokens: 16000,
     betas: ["server-side-fallback-2026-07-01"],
     fallbacks: "default",
@@ -123,7 +123,8 @@ export async function research(
 }
 
 // Session card: no tools, no memory book contents (placeholders only).
-export async function composeCard(
+async function composeCard(
+  model: string,
   profile: PublicProfile,
   notes: string,
   slots: MemorySlot[],
@@ -131,7 +132,7 @@ export async function composeCard(
   signal?: AbortSignal,
 ): Promise<SessionCard> {
   const response = await claude().messages.parse({
-    model: MODEL,
+    model,
     max_tokens: 16000,
     output_config: { effort: "medium", format: zodOutputFormat(SessionCard) },
     system: CARD_SYSTEM,
@@ -141,4 +142,19 @@ export async function composeCard(
     throw new Error("session card could not be written");
   }
   return response.parsed_output;
+}
+
+// One Claude model (for example claude-sonnet-5-5 or claude-opus-5-5) as an agent.
+export function claudeAgent(model: string) {
+  return {
+    research: (profile: PublicProfile, onCall?: OnQlooCall, signal?: AbortSignal) =>
+      research(model, profile, onCall, signal),
+    composeCard: (
+      profile: PublicProfile,
+      notes: string,
+      slots: MemorySlot[],
+      language: Language = "en",
+      signal?: AbortSignal,
+    ) => composeCard(model, profile, notes, slots, language, signal),
+  };
 }

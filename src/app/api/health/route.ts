@@ -1,5 +1,5 @@
 import { connection } from "next/server";
-import { provider, providerReady } from "@/lib/agent";
+import { providerReady } from "@/lib/agent";
 import { qlooReady } from "@/lib/qloo";
 
 export async function GET() {
@@ -11,5 +11,6 @@ export async function GET() {
     qloo = false;
   }
   const llm = providerReady();
-  return Response.json({ ok: qloo && llm, qloo, llm, provider: provider() }, { status: qloo && llm ? 200 : 503 });
+  // Public endpoint: readiness only, no model details.
+  return Response.json({ ok: qloo && llm, qloo, llm }, { status: qloo && llm ? 200 : 503 });
 }

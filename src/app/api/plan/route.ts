@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { agentFor, fallbackProvider, provider, type Provider } from "@/lib/agent";
+import { agentFor, chain, type Provider } from "@/lib/agent";
 import { groundCard, nameArgs } from "@/lib/grounding";
 import { createJob, emit, finish, getJob, streamJob, type Job } from "@/lib/jobs";
 import { PlanRequest, type Language, type MemorySlot, type PublicProfile } from "@/lib/profile";
@@ -8,9 +8,10 @@ import { allow } from "@/lib/rate-limit";
 // POST starts a card build and streams it as newline-delimited JSON:
 //   {"type":"job","id":"..."}               (first line; use it to reconnect)
 //   {"type":"call","tool":"qloo_describe","args":{...}}
-//   {"type":"retry","provider":"qwen"}       (primary model failed; fallback takes over)
+//   {"type":"retry"}                         (a model failed; the next in the chain takes over)
 //   {"type":"writing"}
-//   {"type":"done","card":{...},"trace":[...],"dropped":[...],"provider":"...","timings":{...}}
+//   {"type":"done","card":{...},"trace":[...],"dropped":[...],"timings":{...}}
+// Model names stay in the server log; they are not sent to the browser.
 //   {"type":"error","error":"..."}
 //   {"type":"ping"}                          (keep-alive, not counted)
 // GET /api/plan?id=...&from=N reconnects: it replays events from index N
@@ -61,17 +62,21 @@ async function build(job: Job, profile: PublicProfile, memorySlots: MemorySlot[]
     console.log(
       JSON.stringify({ plan: "done", provider: p, language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
     );
-    emit(job, { type: "done", card, notes, trace, dropped, provider: p, timings });
+    emit(job, { type: "done", card, notes, trace, dropped, timings });
   };
   try {
-    try {
-      await run(provider());
-    } catch (err) {
-      const fallback = fallbackProvider();
-      if (signal.aborted || !fallback) throw err;
-      console.error(`plan failed on ${provider()}, retrying on ${fallback}`, err);
-      emit(job, { type: "retry", provider: fallback });
-      await run(fallback);
+    const models = chain();
+    if (models.length === 0) throw new Error("no LLM provider is configured");
+    for (let i = 0; ; i++) {
+      try {
+        await run(models[i]);
+        break;
+      } catch (err) {
+        const next = models[i + 1];
+        if (signal.aborted || !next) throw err;
+        console.error(`plan failed on ${models[i]}, retrying on ${next}`, err);
+        emit(job, { type: "retry" });
+      }
     }
   } catch (err) {
     if (signal.aborted) {
