@@ -3,7 +3,27 @@ import { MEMORY_SLOTS, type SessionCard } from "./profile";
 
 const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
 const TAG_URN = /urn:tag:[\w:.-]+/gi;
-const VAGUE = new Set(["none", "null", "n/a", "unknown", "qloo", "memory book"]);
+const VAGUE = new Set([
+  "none", "null", "n/a", "unknown", "qloo", "memory book", "entity", "tag", "author", "book", "brand", "place",
+  "person", "destination", "locality", "food", "cuisine", "sport", "nature", "interest", "football", "soccer",
+]);
+
+// "Urn: Tag: Nearby Attraction: Qloo: Nile River" -> "urn:tag:nearby_attraction:qloo:nile_river"
+function unprettifyUrn(source: string): string {
+  if (!/^\s*urn\s*:/i.test(source)) return source;
+  return source
+    .split(":")
+    .map((part) => part.trim().toLowerCase().replace(/\s+/g, "_"))
+    .join(":");
+}
+
+// What the caregiver sees: a readable name, without type prefixes or underscores.
+function displaySource(source: string): string {
+  return source
+    .replace(/^\s*(qloo\s*)?((book|author|brand|place|person|destination|locality)\s*)?(entity|tag)?\s*:\s*/i, "")
+    .replace(/_/g, " ")
+    .trim();
+}
 
 // Product rules enforced in code, not only in prompts: no music, TV or film,
 // and no politics, anywhere on the card (including the model restating the rules).
@@ -14,7 +34,7 @@ const EXCLUDED =
 // entity UUIDs, and the names inside and outside parentheses.
 // "Book Entity `E7202BD2-...` (*Anne of Green Gables*)" -> [uuid, "anne of green gables", ...]
 function candidates(source: string): string[] {
-  const text = source.replace(/[*"`]/g, "");
+  const text = unprettifyUrn(source.replace(/[*"`]/g, ""));
   const urns = text.match(TAG_URN) ?? [];
   const ids = text.match(UUID) ?? [];
   const rest = text.replace(TAG_URN, " ").replace(UUID, " ");
@@ -43,21 +63,20 @@ const BRACED = /\{\{\s*([^}]*?)\s*\}\}/g;
 // returned next to that id. Returns null when it cannot be resolved.
 function resolveRef(ref: string, raw: string): string | null {
   const urn = ref.match(/urn:tag:[\w:.-]+/i)?.[0];
-  if (urn) return urn.split(":").pop()!.replace(/_/g, " ");
-  const id = ref.match(UUID)?.[0];
-  if (id) {
-    const at = raw.toLowerCase().indexOf(id.toLowerCase());
-    if (at < 0) return null;
+  const id = urn ?? ref.match(UUID)?.[0];
+  if (!id) return null;
+  const at = raw.toLowerCase().indexOf(id.toLowerCase());
+  if (at >= 0) {
     const start = Math.max(0, at - 600);
     const near = raw.slice(start, at + 600);
     const idAt = at - start;
     const names = [...near.matchAll(/"name"\s*:\s*"([^"]+)"/g)];
-    if (!names.length) return null;
     // The name closest to the id belongs to the same result object.
     names.sort((a, b) => Math.abs(a.index! - idAt) - Math.abs(b.index! - idAt));
-    return names[0][1];
+    if (names.length) return names[0][1];
   }
-  return null;
+  // A tag URN still reads well as its last segment; an unknown UUID does not.
+  return urn ? urn.split(":").pop()!.replace(/_/g, " ") : null;
 }
 
 // Replaces {{...}} that are not memory placeholders, and bare ids/URNs, with
@@ -103,7 +122,8 @@ export function groundCard(card: SessionCard, evidence: string[]): { card: Sessi
     const title = readable(p.title, raw);
     const activity = readable(p.activity, raw);
     const question = readable(p.question, raw);
-    const source = readable(p.source.replace(/[`*]/g, ""), raw) ?? "Qloo";
+    const resolved = readable(unprettifyUrn(p.source.replace(/[`*]/g, "")), raw);
+    const source = resolved ? displaySource(resolved) || "Qloo" : "Qloo";
     if (title == null || activity == null || question == null) {
       dropped.push(`${p.title} (unreadable Qloo reference)`);
       return [];

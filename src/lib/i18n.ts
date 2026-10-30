@@ -251,7 +251,7 @@ const ar: Strings = {
 
 export const STRINGS: Record<Language, Strings> = { en, ar };
 
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-/i;
+const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-/i;
 
 // Readable subject for a live Qloo call: names, not UUIDs or tag URNs.
 export function callSubject(args: unknown): string {

@@ -6,9 +6,9 @@ import { callQloo, qlooTools } from "./qloo";
 import { SessionCard, type Language, type MemorySlot, type PublicProfile } from "./profile";
 import {
   CARD_SYSTEM,
-  MAX_QLOO_CALLS,
   MIN_QLOO_CALLS,
-  NUDGE_USE_QLOO,
+  REPEATED_CALL,
+  ResearchBudget,
   RESEARCH_SYSTEM,
   WRAP_UP,
   cardInput,
@@ -49,9 +49,9 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
   ];
 
   const evidence: string[] = [];
-  let nudged = false;
+  const budget = new ResearchBudget();
 
-  for (let round = 0; round < MAX_TOOL_ROUNDS && trace.length < MAX_QLOO_CALLS; round++) {
+  for (let round = 0; round < MAX_TOOL_ROUNDS && !budget.exhausted; round++) {
     const response = await qwen().chat.completions.create({
       model: MODEL,
       max_tokens: 4000,
@@ -66,19 +66,22 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
       (c): c is OpenAI.Chat.ChatCompletionMessageFunctionToolCall => c.type === "function",
     );
     if (calls.length === 0) {
-      if (trace.length >= MIN_QLOO_CALLS) return { notes: message.content ?? "", trace, evidence };
-      // Notes written without (enough) Qloo calls are not grounded: push back once, then fail.
-      if (nudged) throw new Error(`research made only ${trace.length} Qloo calls`);
-      nudged = true;
+      const nudge = budget.beforeFinish();
+      if (!nudge) return { notes: message.content ?? "", trace, evidence };
       messages.push({ role: "assistant", content: message.content ?? "" });
-      messages.push({ role: "user", content: NUDGE_USE_QLOO });
+      messages.push({ role: "user", content: nudge });
       continue;
     }
 
     messages.push({ role: "assistant", content: message.content ?? null, tool_calls: calls });
     const results = await Promise.all(
       calls.map(async (c): Promise<OpenAI.Chat.ChatCompletionToolMessageParam> => {
-        trace.push(`${c.function.name} ${c.function.arguments}`);
+        const key = `${c.function.name} ${c.function.arguments}`;
+        // Repeats still count toward the budget (so a loop ends) but do not hit Qloo again.
+        const repeat = trace.includes(key);
+        trace.push(key);
+        budget.record(c.function.name);
+        if (repeat) return { role: "tool", tool_call_id: c.id, content: REPEATED_CALL };
         let content: string;
         try {
           const args = JSON.parse(c.function.arguments || "{}");
@@ -93,11 +96,13 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
       }),
     );
     messages.push(...results);
+    const nudge = budget.afterRound();
+    if (nudge) messages.push({ role: "user", content: nudge });
   }
 
   // Call budget (or round limit) reached: one last request with no tools, so it
   // must write the notes from what Qloo has returned so far.
-  if (trace.length < MIN_QLOO_CALLS) throw new Error(`research made only ${trace.length} Qloo calls`);
+  if (budget.calls < MIN_QLOO_CALLS) throw new Error(`research made only ${budget.calls} Qloo calls`);
   const final = await qwen().chat.completions.create({
     model: MODEL,
     max_tokens: 4000,

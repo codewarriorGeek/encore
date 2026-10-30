@@ -5,9 +5,9 @@ import { callQloo, qlooTools } from "./qloo";
 import { SessionCard, type Language, type MemorySlot, type PublicProfile } from "./profile";
 import {
   CARD_SYSTEM,
-  MAX_QLOO_CALLS,
   MIN_QLOO_CALLS,
-  NUDGE_USE_QLOO,
+  REPEATED_CALL,
+  ResearchBudget,
   RESEARCH_SYSTEM,
   WRAP_UP,
   cardInput,
@@ -32,9 +32,9 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
   }));
   const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: "user", content: researchInput(profile) }];
   const evidence: string[] = [];
-  let nudged = false;
+  const budget = new ResearchBudget();
 
-  for (let round = 0; round < MAX_TOOL_ROUNDS && trace.length < MAX_QLOO_CALLS; round++) {
+  for (let round = 0; round < MAX_TOOL_ROUNDS && !budget.exhausted; round++) {
     const response = await claude().beta.messages.create({
       model: MODEL,
       max_tokens: 16000,
@@ -60,19 +60,22 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
         .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text")
         .map((b) => b.text)
         .join("\n");
-      if (trace.length >= MIN_QLOO_CALLS) return { notes, trace, evidence };
-      // Notes written without (enough) Qloo calls are not grounded: push back once, then fail.
-      if (nudged) throw new Error(`research made only ${trace.length} Qloo calls`);
-      nudged = true;
+      const nudge = budget.beforeFinish();
+      if (!nudge) return { notes, trace, evidence };
       messages.push({ role: "assistant", content: response.content });
-      messages.push({ role: "user", content: NUDGE_USE_QLOO });
+      messages.push({ role: "user", content: nudge });
       continue;
     }
 
     messages.push({ role: "assistant", content: response.content });
     const results = await Promise.all(
       toolUses.map(async (t): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
-        trace.push(`${t.name} ${JSON.stringify(t.input)}`);
+        const key = `${t.name} ${JSON.stringify(t.input)}`;
+        // Repeats still count toward the budget (so a loop ends) but do not hit Qloo again.
+        const repeat = trace.includes(key);
+        trace.push(key);
+        budget.record(t.name);
+        if (repeat) return { type: "tool_result", tool_use_id: t.id, content: REPEATED_CALL, is_error: true };
         onCall?.(t.name, t.input);
         try {
           const { text, isError } = await callQloo(t.name, t.input);
@@ -83,13 +86,14 @@ export async function research(profile: PublicProfile, onCall?: OnQlooCall): Pro
         }
       }),
     );
-    messages.push({ role: "user", content: results });
+    const nudge = budget.afterRound();
+    messages.push({ role: "user", content: nudge ? [...results, { type: "text", text: nudge }] : results });
   }
 
   // Call budget (or round limit) reached: one last request with tools switched
   // off (they stay declared because the history uses them), so it must write the
   // notes from what Qloo has returned so far.
-  if (trace.length < MIN_QLOO_CALLS) throw new Error(`research made only ${trace.length} Qloo calls`);
+  if (budget.calls < MIN_QLOO_CALLS) throw new Error(`research made only ${budget.calls} Qloo calls`);
   const last = messages[messages.length - 1];
   if (last.role === "user" && Array.isArray(last.content)) {
     last.content = [...last.content, { type: "text", text: WRAP_UP }];

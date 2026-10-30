@@ -10,7 +10,8 @@ import { allow } from "@/lib/rate-limit";
 //   {"type":"done","card":{...},"trace":[...],"dropped":[...],"provider":"qwen","timings":{...}}
 //   {"type":"error","error":"..."}
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  // Apache appends the real client address last; earlier entries can be forged.
+  const ip = request.headers.get("x-forwarded-for")?.split(",").pop()?.trim() || "local";
   const limit = allow(ip);
   if (!limit.ok) {
     return Response.json({ error: limit.reason }, { status: 429 });

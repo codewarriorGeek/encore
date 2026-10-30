@@ -1,0 +1,1194 @@
+[
+ {
+  "id": "madinah",
+  "label": {
+   "en": "Madinah, 1950s",
+   "ar": "المدينة المنورة، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Madinah, Saudi Arabia",
+   "loves": [
+    {
+     "kind": "other",
+     "text": "Umar ibn al-Khattab"
+    },
+    {
+     "kind": "sport",
+     "text": "football"
+    },
+    {
+     "kind": "food",
+     "text": "biryani"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your brother Salim",
+   "familyDish": "Mother's kabsa"
+  },
+  "cards": {
+   "en": {
+    "theme": "Stories from Madinah: Food, Faith, and Football",
+    "opener": "This card is built from things people who grew up like you in Madinah often enjoyed between the 1950s and 1980. We included a few prompts that ask about {{relative}} or {{familyDish}}, so you can fill those in with who is in your family. Pick any prompt that feels right today—there is no wrong answer.",
+    "prompts": [
+     {
+      "kind": "food",
+      "title": "Sharing a Family Dish",
+      "activity": "Look at a photo of {{familyDish}} if you have one, or describe how it smells when it is cooking.",
+      "question": "Tell me about the first time you tasted {{familyDish}} or who cooked it for you.",
+      "source": "kabsa"
+     },
+     {
+      "kind": "food",
+      "title": "Festive Meals",
+      "activity": "Read aloud a short recipe for biryani or talk about how it is served on special days.",
+      "question": "Tell me about the gatherings where biryani was on the table.",
+      "source": "biryani"
+     },
+     {
+      "kind": "place",
+      "title": "Ways to Madinah",
+      "activity": "Look at old maps or photos of the city from the 1960s.",
+      "question": "Tell me about walking to the Prophet's Mosque from your home or school.",
+      "source": "the Prophet's Mosque"
+     },
+     {
+      "kind": "sport",
+      "title": "Team Loyalty",
+      "activity": "Read aloud the name of the team you followed and talk about the colors.",
+      "question": "Tell me about what it felt like to watch Al-Ittihad Jeddah play.",
+      "source": "Al-Ittihad Jeddah"
+     },
+     {
+      "kind": "sport",
+      "title": "International Football",
+      "activity": "Look at a photo of a classic football jersey or talk about the style of play.",
+      "question": "Tell me about why Real Madrid stood out to you.",
+      "source": "Real Madrid"
+     },
+     {
+      "kind": "interest",
+      "title": "Historical Figures",
+      "activity": "Read a short paragraph about the life of Umar ibn al-Khattab.",
+      "question": "Tell me about what you learned about Umar ibn al-Khattab that stayed with you.",
+      "source": "Umar ibn al-Khattab"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Memories",
+      "activity": "Look at a photo of {{relative}} and talk about a shared activity.",
+      "question": "Tell me about cooking with {{relative}}.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "If your relative pauses, let the silence sit. They are accessing deep memories, not taking a test.",
+     "For the memory prompts, only use {{relative}} or {{familyDish}} if you know those details were already written in your memory book. Do not guess the names.",
+     "Football teams can bring strong emotions. If they mention Al-Ahli Jeddah alongside Al-Ittihad Jeddah, that rivalry was real and intense; listen without correcting.",
+     "Food smells are powerful triggers. If you are cooking kabsa or biryani together, let them smell the spices and ask about the seasonings.",
+     "Keep the tone gentle. These prompts are invitations to share, not quizzes to pass."
+    ],
+    "limitations": [
+     "The Qloo data used here describes the general tastes of groups who like these topics, not this specific person.",
+     "The card does not establish what this person actually ate, watched, or believed; it only suggests what was popular among similar demographics.",
+     "Qloo has no information on this individual's private memories, health, or personal preferences outside of these broad group trends.",
+     "The memory prompts rely entirely on the caregiver to provide the correct {{relative}} and {{familyDish}} details; the card itself holds no memory data."
+    ]
+   },
+   "ar": {
+    "theme": "أصدقاء الطفولة وذاكرة المدينة",
+    "opener": "هذه الجلسة مصممة لمشاركة الذكريات الدافئة من سنوات الشباب في المدينة المنورة. نستخدمها لتبادل القصص والمشاريع المشتركة، وليس لاختبار الذاكرة.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "قصص عمر بن الخطاب",
+      "activity": "اقرأ لنا نبذة عن الخليفة عمر بن الخطاب من كتاب السيرة النبوية.",
+      "question": "ما الذي تعلمته من حياته وأثره فيك؟",
+      "source": "Umar ibn al-Khattab"
+     },
+     {
+      "kind": "food",
+      "title": "البرياني الحجازي",
+      "activity": "طبخ معنا طبق البرياني معاً.",
+      "question": "ما الذي يجعل طعم البرياني الحجازي مميزاً عندك؟",
+      "source": "biryani"
+     },
+     {
+      "kind": "nature",
+      "title": "منطقة الحرم",
+      "activity": "استعراض صور للمنطقة المحيطة بالمسجد النبوي الشريف.",
+      "question": "ما الذي يجذبك أكثر في الأجواء حول الحرم؟",
+      "source": "Al-Haram Mosque"
+     },
+     {
+      "kind": "memory",
+      "title": "الطبخ مع العائلة",
+      "activity": "طبخ طبق {{familyDish}} معاً.",
+      "question": "كيف كانت تجربة تحضير {{familyDish}} مع {{relative}}؟",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "ركز على الاستماع النشط وحبك للقصص التي تروى، ولا تقلق بشأن الدقة التاريخية أو التفاصيل الدقيقة.",
+     "إذا كان الشخص يتذمر من صعوبة استرجاع التفاصيل، غيّر الموضوع بهدوء إلى طعم الطعام أو رائحة الطبيعة في المدينة.",
+     "استخدم الصور كحافز بصري لطيف، لكن اترك المجال حراً للحديث الحر والذكريات الشخصية."
+    ],
+    "limitations": [
+     "لا يحدد هذا البطاقة التفضيلات الفردية الدقيقة للفرد، بل يصف الأذواق الثقافية الشائعة في المنطقة."
+    ]
+   }
+  }
+ },
+ {
+  "id": "cairo",
+  "label": {
+   "en": "Cairo, 1950s",
+   "ar": "القاهرة، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Cairo, Egypt",
+   "loves": [
+    {
+     "kind": "author",
+     "text": "Naguib Mahfouz"
+    },
+    {
+     "kind": "team",
+     "text": "Al Ahly"
+    },
+    {
+     "kind": "food",
+     "text": "koshari"
+    },
+    {
+     "kind": "nature",
+     "text": "the Nile"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your sister Hoda",
+   "familyDish": "Grandmother's molokhia"
+  },
+  "cards": {
+   "en": {
+    "theme": "Echoes of Cairo: A Gentle Journey Through the 1950s and 70s",
+    "opener": "This card is designed to spark warm conversations about your youth in Cairo, focusing on the years roughly between 1955 and 1980. It uses shared cultural touchstones from that era to invite storytelling rather than testing facts. Please read the open-ended questions aloud to your family member and let them guide the pace. If a topic feels heavy or unclear, simply move to the next one.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "Stories from the Nile",
+      "activity": "Read aloud",
+      "question": "Tell me about the feeling of reading works by Naguib Mahfouz while growing up in Cairo.",
+      "source": "Naguib Mahfouz"
+     },
+     {
+      "kind": "food",
+      "title": "A Taste of Home",
+      "activity": "Cook together",
+      "question": "Tell me about the comfort of sharing a bowl of koshari with family during your younger years.",
+      "source": "koshari"
+     },
+     {
+      "kind": "place",
+      "title": "By the River Banks",
+      "activity": "Look at photos",
+      "question": "Tell me about the daily rhythms and sights along the Nile River as you walked or traveled along its banks.",
+      "source": "Nile River"
+     },
+     {
+      "kind": "sport",
+      "title": "The Spirit of the Club",
+      "activity": "Look at photos",
+      "question": "Tell me about the atmosphere and pride of supporting Al Ahly SC during major matches in your youth.",
+      "source": "Al Ahly SC"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Recipes",
+      "activity": "Cook together",
+      "question": "Tell me about cooking with {{relative}} and how they prepared {{familyDish}}.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "Shared Memories",
+      "activity": "Look at photos",
+      "question": "Tell me about a favorite memory you shared with {{relative}} from those early days in Cairo.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "Keep the environment quiet and free from distractions to help with listening and recall.",
+     "Use a soft, slow pace when reading the questions. Allow plenty of silence for your family member to think.",
+     "If your family member struggles with the specific names or tags, simply describe the general concept (e.g., 'that famous writer from Cairo' or 'the big Egyptian team') and focus on their emotional response to the activity.",
+     "Validate their stories by nodding and smiling, even if the details do not match historical records. The goal is connection, not accuracy.",
+     "If a prompt evokes strong emotion, pause and offer a tissue or a gentle hand squeeze before continuing."
+    ],
+    "limitations": [
+     "This card relies on Qloo’s taste graph data, which describes general group tastes for Egyptian demographics rather than the specific personal preferences of this individual.",
+     "The literary focus on Naguib Mahfouz is based on his status as a canonical anchor for Cairo’s heritage in the dataset, not necessarily this person’s exclusive favorite author.",
+     "Specific historic details, such as rival sports teams, legendary players, or specific 1950s–1970s restaurants and landmarks, were not populated in the Qloo dataset for this query. The card uses broad cultural entities (like the Nile River or koshari as a dish) instead.",
+     "Memory prompts rely entirely on the specific placeholders provided by the caregiver. No external facts or names have been inferred or added to these sections.",
+     "Qloo does not verify the accuracy of personal memories or the specificity of the user’s lived experience within these broad categories."
+    ]
+   },
+   "ar": {
+    "theme": "ذكريات القاهرة والنيل",
+    "opener": "هذه البطاقة مصممة لمساعدتك في إقامة محادثات دافئة مع قريبك العزيز، مستوحاة من سنوات شبابه في القاهرة بين الخمسينيات والثمانينيات. استهدف الذكريات الحسية والعاطفية أكثر من الدقة التاريخية.",
+    "prompts": [
+     {
+      "kind": "interest",
+      "title": "عالم نجيب محفوظ الأدبي",
+      "activity": "اقرأ له مقطعاً من رواية لنجيب محفوظ أو عن الكاتب، ثم ناقشوا الأجواء العامة في الكتب.",
+      "question": "ما نوع القصص أو الشخصيات التي كانت تجذب انتباهك أكثر في ذلك الوقت؟",
+      "source": "Naguib Mahfouz"
+     },
+     {
+      "kind": "sport",
+      "title": "روح النادي الأهلي",
+      "activity": "انظرا إلى صور قديمة لملعب النادي الأهلي أو مشجعينه، أو تحدثا ببساطة عن أهمية الرياضة في تلك السنوات.",
+      "question": "كيف كان شعورك وأنت تتابع المباراة مع الأصدقاء أو العائلة؟",
+      "source": "Al Ahly SC"
+     },
+     {
+      "kind": "food",
+      "title": "نكهة الكشرية القاهرة",
+      "activity": "حضرا طبق الكشرية معاً أو تناولا وجبة بسيطة منها، وشاركا الحديث عن أطعمة الشوارع القديمة.",
+      "question": "ما الذي يميز رائحة أو طعم هذا الطبق بالنسبة لك مقارنة بالأطباق الأخرى؟",
+      "source": "Koshari"
+     },
+     {
+      "kind": "place",
+      "title": "شوارع القاهرة القديمة",
+      "activity": "انظرا إلى صور لأحياء قديمة في القاهرة أو تحدثا عن مشاهد الحياة اليومية في الشوارع.",
+      "question": "كيف كان يختلف حيكم عن الأماكن الأخرى التي كنت تزورها في تلك الأيام؟",
+      "source": "Cairo"
+     },
+     {
+      "kind": "memory",
+      "title": "وصفة عائلية",
+      "activity": "اذهبا إلى المطبخ لتحضير {{familyDish}} معاً.",
+      "question": "أخبرني عن طهي {{familyDish}} مع {{relative}}.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "أوقات العائلة",
+      "activity": "انظرا إلى صور عائلية قديمة.",
+      "question": "أخبرني عن قضاء الوقت مع {{relative}}.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "ركز على المشاعر والذكريات الحسية بدلاً من التفاصيل الزمنية الدقيقة.",
+     "استخدم الأسئلة المفتوحة مثل «أخبرني عن...» أو «كيف شعرت حين...» لتحفيز الحكي دون إثارة حرج النسيان.",
+     "إذا لم يستحضر اسمه، انتقل بلطف إلى نشاط آخر أو غيّر الطابع إلى حديث عام عن القاهرة.",
+     "تذكر أن هذه الاقتراحات تستند إلى اهتمامات ثقافية مشتركة في المنطقة، وقد لا تناسب كل فرد بنفس القدر."
+    ],
+    "limitations": [
+     "تستند هذه البطاقة إلى بيانات ذوق جماعي عبر Qloo، وليس على سجلات هذا الشخص الشخصية.",
+     "لا يمكن للبطاقة تأكيد ما إذا كان هذا الشخص قد قرأ أعمال نجيب محفوظ تحديداً، أو شاهد مباريات الأهلي، أو تناول الكشرية في أماكن معينة.",
+     "تم استبعاد بعض البيانات التفصيلية بسبب قيود في واجهة البرمجيات.",
+     "لا ينبغي استخدام هذه البطاقة كبديل عن المشورة الطبية أو المهنية."
+    ]
+   }
+  }
+ },
+ {
+  "id": "istanbul",
+  "label": {
+   "en": "Istanbul, 1950s",
+   "ar": "إسطنبول، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Istanbul, Turkey",
+   "loves": [
+    {
+     "kind": "author",
+     "text": "Yaşar Kemal"
+    },
+    {
+     "kind": "team",
+     "text": "Galatasaray"
+    },
+    {
+     "kind": "food",
+     "text": "simit"
+    },
+    {
+     "kind": "place",
+     "text": "Bosphorus"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your cousin Ayşe",
+   "familyDish": "Mother's dolma"
+  },
+  "cards": {
+   "en": {
+    "theme": "Stories and Sounds of Old Istanbul",
+    "opener": "This session invites you to share the world you knew in Istanbul between the 1950s and 1980s. These prompts are designed to be gentle and open, focusing on sensory details and shared feelings rather than testing your memory. There are no right or wrong answers, only the stories that feel important to you.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "Voices of the Land",
+      "activity": "Read aloud a short passage or description of rural life.",
+      "question": "Tell me about the feeling of reading stories by Yaşar Kemal, and what images came to mind when you thought about the lives of people in the Anatolian villages.",
+      "source": "Yaşar Kemal"
+     },
+     {
+      "kind": "sport",
+      "title": "The Weekend Ritual",
+      "activity": "Look at photos of old Istanbul neighborhoods or matchday crowds.",
+      "question": "Tell me about the atmosphere in the streets when the big matches were on, and what it felt like to be in Istanbul during those Galatasaray SK days.",
+      "source": "Galatasaray SK"
+     },
+     {
+      "kind": "food",
+      "title": "The Corner Vendor",
+      "activity": "Cook together a simple breakfast with menemen or look at a photo of a simit cart.",
+      "question": "Tell me about the experience of buying a simit from a vendor on a Bosphorus ferry, and how the smell of the bread mixed with the sea air.",
+      "source": "Turkish Cuisine"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Traditions",
+      "activity": "Look at a photo of a family gathering.",
+      "question": "Tell me about cooking with {{relative}} and what stories or laughter filled the kitchen during those years.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "A Taste of Home",
+      "activity": "Share a story over a cup of tea.",
+      "question": "Tell me about {{familyDish}} and who first taught you the way it was made.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "Keep the pace slow. If a prompt feels too heavy or confusing, simply say, 'That’s okay, we can think about something else,' and move to the next card.",
+     "For the book prompt, you do not need the actual text. You can read a simple description of Yaşar Kemal’s focus on rural struggles, or just ask, 'What was your favorite kind of story to read back then?'",
+     "For the sport prompt, focus on the community feeling. Did they watch with friends? Was it a noisy household? The specific score matters less than the shared excitement.",
+     "For the food prompt, engage the senses. Mention the crunch of the simit or the steam of the tea. If {{familyDish}} is blank, ask a general question like, 'What was your favorite breakfast when you were young?'",
+     "Be patient with the memory book placeholders. If {{relative}} or {{familyDish}} is empty, you can gently ask about siblings or favorite childhood meals without pointing out the missing data."
+    ],
+    "limitations": [
+     "This card uses Qloo data to identify cultural preferences, but it does not establish that this specific person read Yaşar Kemal or loved Galatasaray SK; it identifies these as high-affinity clusters for their demographic.",
+     "The 'Bosphorus' connection is inferred from Galatasaray SK location data (Sarıyer, Beyoğlu) because direct geographical resolution failed; this card does not confirm personal visits to specific landmarks.",
+     "Food prompts rely on broad tags like 'Turkish Cuisine' because 'simit' did not resolve as a distinct entity; this assumes a preference for traditional street food rather than confirming a specific dietary habit.",
+     "Qloo describes group tastes, not this individual’s verified biography. No facts about this person’s life are confirmed by this data.",
+     "Memory prompts are based only on what the caregiver has filled in. No names or facts are invented for {{relative}} or {{familyDish}}."
+    ]
+   },
+   "ar": {
+    "theme": "ذكريات من إستانبول وعصر الشباب (1955-1980)",
+    "opener": "نقدم هذه البطاقة لتكون جسرًا دافئًا للحديث مع قريبك عن أيام الشباب في إسطنبول، وعالمه في الأدب والرياضة والطبيعة. نركز على الفترة التي عاش فيها أحداثًا جساما وشهدت تغيرات كبيرة، مستعينين بتفضيلات ثقافية تعكس ذوقه ورؤيته لتلك الحقبة.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "قراءة معًا: عبقري الأدب التركي",
+      "activity": "اقرأ معه مقطعًا من رواية أو قصة قصيرة للكاتب ياسار كمال، أو ابحث عن صور لمغلفات كتبه القديمة.",
+      "question": "ما الذي يجذبك في أسلوب ياسار كمال ورواياته التي تدور حول الريف والهوية؟",
+      "source": "Yaşar Kemal"
+     },
+     {
+      "kind": "book",
+      "title": "قراءة معًا: قصص الهجرة والهوية",
+      "activity": "تصفحوا معًا نسخة من رواية 'أبناء منتصف الليل' لسلمان رشدي، أو ناقشوا فكرة رواية 'تيسير كمال' حول التداخل الثقافي.",
+      "question": "كيف ترى الروابط بين تجارب الهروب والصراع في هذه الروايات وتاريخ منطقتنا؟",
+      "source": "Midnight’s Children"
+     },
+     {
+      "kind": "sport",
+      "title": "إذكار أيام الغلطة سراي",
+      "activity": "انظروا إلى صور لمباريات كرة القدم القديمة أو قصص عن نجوم النادي مثل متين أوكتاي.",
+      "question": "ما هي الذكريات الأصدق التي تربطك بألوان الغلطة سراي وأجواء الملاعب في تلك السنوات؟",
+      "source": "Galatasaray"
+     },
+     {
+      "kind": "food",
+      "title": "طعم الشارع التقليدي",
+      "activity": "حضروا معًا طبقًا من مأكولات الشارع التركي التقليدية أو تناولوا وجبة بسيطة تشبه تلك التي كانت تؤكل في الأماكن الشعبية القديمة.",
+      "question": "كيف كانت تجربة تذوق تلك الأطباق التقليدية في شوارع إسطنبول وقتذاك؟",
+      "source": "Turkish Street Food"
+     },
+     {
+      "kind": "place",
+      "title": "قهوة بالات القديمة",
+      "activity": "انظروا إلى صور حي بالات التاريخي أو تناقشوا أجواء المقاهي العتيقة.",
+      "question": "ما أجمل الأماكن التي اعتدتم التواجد فيها في حي بالات أو مناطق مماثلة في أيامكم؟",
+      "source": "İncir ağacı kahvesi"
+     },
+     {
+      "kind": "nature",
+      "title": "طبيعة بولونك كوي",
+      "activity": "انظروا إلى صور الغابات والحدائق في منطقة بولونك كوي على الطرف الآسيوي.",
+      "question": "ما الذي يجذبك أكثر في الطبيعة والغابات المحيطة بمدينة إسطنبول؟",
+      "source": "Polonezköy Country Club"
+     },
+     {
+      "kind": "memory",
+      "title": "ذكريات العائلة والطعام",
+      "activity": "تحدثوا عن طبق {{familyDish}} الذي كان يطبخه {{relative}}.",
+      "question": "ما الذي كان يجعل طهي هذا الطبق أو وجوده على المائدة خاصًا ومميزًا في ذكرياتنا؟",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "استخدم الأسئلة المفتوحة التي تشجع على السرد القصصي، مثل 'ما الذي تشعر به الآن عند سماع...' بدلاً من أسئلة الذاكرة المباشرة.",
+     "إذا لم يتذكر التفاصيل الدقيقة، ركز على المشاعر العامة للحنين أو الفخر بالمجتمع الذي نشأ فيه.",
+     "استعن بصور من فترة الخمسينيات إلى الثمانينيات لإثارة النقاش دون الضغط على الذاكرة.",
+     "تأكد من أن الأجواء هادئة ومريحة لضمان تجربة استذكار ممتعة وغير مرهقة."
+    ],
+    "limitations": [
+     "هذا الكرت لا يثبت تحذيرًا شخصيًا دقيقًا عن ذكريات الفرد، بل يعكس تفضيلات مجموعة من المستخدمين في إسطنبول ممن يشاركون اهتمامات أدبية ورياضية مشابهة.",
+     "البيانات المستخرجة من Qloo تصف أذواق الجمهور وليس الشخص المعني تحديدًا، وقد تكون هناك فجوات في البيانات الخاصة بالأدب التركي الكلاسيكي من منتصف القرن العشرين.",
+     "بعض التوصيات الأدبية قد تكون حديثة نسبيًا وتعتمد على themes مشتركة بدلاً من كونها من العصر الذي نشأ فيه الشخص."
+    ]
+   }
+  }
+ },
+ {
+  "id": "kualalumpur",
+  "label": {
+   "en": "Kuala Lumpur, 1950s",
+   "ar": "كوالالمبور، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Kuala Lumpur, Malaysia",
+   "loves": [
+    {
+     "kind": "sport",
+     "text": "badminton"
+    },
+    {
+     "kind": "food",
+     "text": "nasi lemak"
+    },
+    {
+     "kind": "place",
+     "text": "Penang"
+    },
+    {
+     "kind": "hobby",
+     "text": "kite flying"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your brother Ahmad",
+   "familyDish": "Grandmother's rendang"
+  },
+  "cards": {
+   "en": {
+    "theme": "A Day of Warm Memories",
+    "opener": "Let’s share some gentle stories from your earlier years in Malaysia, focusing on the sights, flavors, and games that felt like home.",
+    "prompts": [
+     {
+      "kind": "food",
+      "title": "A Taste of Home",
+      "activity": "Cook together",
+      "question": "Tell me about cooking with {{relative}} to make {{familyDish}}.",
+      "source": "Malaysian cuisine"
+     },
+     {
+      "kind": "sport",
+      "title": "Champions of the Court",
+      "activity": "Look at photos",
+      "question": "Tell me about watching badminton matches and the local heroes who inspired the community.",
+      "source": "badminton player"
+     },
+     {
+      "kind": "place",
+      "title": "Views from the Hills",
+      "activity": "Look at photos",
+      "question": "Tell me about riding the funicular up Penang Hill and what the view felt like on a quiet afternoon.",
+      "source": "Penang Hill"
+     },
+     {
+      "kind": "nature",
+      "title": "Gardens of Peace",
+      "activity": "Read aloud",
+      "question": "Tell me about walking through the Penang Botanic Gardens and which plants or paths stood out to you.",
+      "source": "Penang Botanic Gardens"
+     },
+     {
+      "kind": "interest",
+      "title": "Kites in the Sky",
+      "activity": "Read aloud",
+      "question": "Tell me about flying traditional handmade kites and the feeling of watching them catch the wind.",
+      "source": "kite flying"
+     }
+    ],
+    "caregiverTips": [
+     "Use the memory placeholders exactly as written to invite stories without testing recall.",
+     "Keep the tone warm and curious; let silence be comfortable if they pause to think.",
+     "Focus on sensory details—the smell of the food, the sound of the racket, the feel of the wind."
+    ],
+    "limitations": [
+     "This card relies on Qloo entity data which describes broad cultural interests and group tastes, not the specific personal preferences of this individual.",
+     "Qloo lacks detailed demographic data for Malaysian residents born in the 1950s, so prompts are grounded in general cultural signals rather than verified personal history.",
+     "No specific names of badminton legends, authors, or specific dishes are guaranteed to be personally known by the individual."
+    ]
+   },
+   "ar": {
+    "theme": "ذكريات من ماليزيا في خمسينيات وستينيات القرن الماضي",
+    "opener": "هذه البطاقة صُممت لمساعدتك في بدء محادثات دافئة ومريحة مع أحد أفراد أسرتك، مستندة إلى اهتماماته في تلك الفترة. هدفنا هو الاستمتاع بالذكريات، وليس اختبار الذاكرة. اقرئي الأسئلة ببطء ودعيه يشارك بحرية، دون محاولة تصحيح أي تفاصيل.",
+    "prompts": [
+     {
+      "kind": "food",
+      "title": "طعم nasi lemak التقليدي",
+      "activity": "اقرأ aloud له وصفة nasi lemak التقليدية، مع ذكر المكونات مثل sambal (معجون الفلفل) وikan bilis (الرنجة المقلية).",
+      "question": "ما هي الذكريات التي تثيرها رائحة nasi lemak في طفولتك؟ هل كان هناك مكان معين أو شخص تتذكره عند تناول هذا الطبق؟",
+      "source": "nasi lemak"
+     },
+     {
+      "kind": "food",
+      "title": "مشاركة طبق عائلي",
+      "activity": "انظر إلى صورة أو وصف لطبق {{familyDish}} الذي كان يقوم عليه أحد أفراد العائلة.",
+      "question": "كيف كانت تجربة الطهي مع {{familyDish}} في منزلكم؟ هل هناك نكهة أو خطوة في التحضير تفضلها أكثر من غيرها؟",
+      "source": "memory book"
+     },
+     {
+      "kind": "sport",
+      "title": "حبي لكرة الريشة",
+      "activity": "اقرأ aloud نبذة مختصرة عن شهرة كرة الريشة (badminton) في ماليزيا خلال فترة شبابه.",
+      "question": "كيف كانت تلعب أو تشاهد مباريات كرة الريشة مع العائلة أو الأصدقاء في ذلك الوقت؟ ما الذي وجدته ممتعاً في هذه اللعبة؟",
+      "source": "badminton"
+     },
+     {
+      "kind": "interest",
+      "title": "سفر الطائرات الورقية",
+      "activity": "اقرأ aloud عن تقليد رفع الطائرات الورقية (kite_flying) في المتنزهات أو الشواطئ في كلا Lumpur وبيناو.",
+      "question": "هل تتذكر رحلات رفع الطائرات الورقية؟ ما الذي جعل هذه التجربة خاصة أو ممتعة لك في تلك الأيام؟",
+      "source": "kite flying"
+     },
+     {
+      "kind": "place",
+      "title": "رحلة إلى قمة بيناڠ",
+      "activity": "اقرأ aloud وصفاً لرحلة القطار الحديدي (funicular railway) إلى قمة بيناڠ هيل.",
+      "question": "ما هو أكثر مشهد أو إحساس من رحلة التسلق إلى قمة بيناڠ هيل تعلق في ذاكرتك؟ كيف كان الهواء والمناظر؟",
+      "source": "Penang Hill"
+     },
+     {
+      "kind": "nature",
+      "title": "هدوء حديقة بيناڠ النباتية",
+      "activity": "اقرأ aloud وصفاً لطبيعة حديقة بيناڠ النباتية (Penang Botanic Gardens)، مع التركيز على الزهور والبرك.",
+      "question": "هل كنت تزور الحدائق النباتية كطفل؟ ما هو النبات أو الزهرة التي تركت أثراً في ذهنك؟",
+      "source": "Penang Botanic Gardens"
+     },
+     {
+      "kind": "memory",
+      "title": "ذكريات مع قريب",
+      "activity": "اقرأ aloud جملة بسيطة عن مشاركة وقت ممتع مع {{relative}}.",
+      "question": "تحدث لي عن الأنشطة التي كنت تقضيها مع {{relative}} في أيامك تلك. ما الذي كان يجمعكما؟",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "الحديث عن الطعام، مثل nasi lemak، يمكن أن يثير حواس الذكريات بقوة. ركز على النكهات والتفاصيل البصرية مثل لون الأرز الأبيض وزخرفة sambal.",
+     "فيما يتعلق بكرة الريشة، تجنب ذكر أسماء لاعبين محددين لأن البيانات غير متوفرة لذلك العصر. بدلاً من ذلك، ركز على أجواء الرياضة الجماعية والمتعة.",
+     "عند التحدث عن بيناڠ هيل، استخدم وصف الرحلة بالقطار الحديدي كنافذة للذكرى، حيث كان وسيلة نقل مميزة وجميلة في تلك الحقبة.",
+     "استخدم العبارات المفتوحة مثل \"أخبرني عن...\" أو \"كيف كان شعورك...\" لتشجيع السرد بدلاً من الأسئلة التي تتطلب إجابات صحيحة أو خاطئة.",
+     "إذا بدى غير مهتم بمرحلة معينة، انتقل بلطف إلى موضوع آخر، مثل الطبخ العائلي أو الطبيعة."
+    ],
+    "limitations": [
+     "هذه البطاقة تستند إلى نتائج Qloo التي تصف التفضيلات العامة والفئات الثقافية، وليس تفاصيل شخصية دقيقة عن هذا الفرد.",
+     "لا تحتوي قاعدة بيانات Qloo على معلومات محددة عن مؤلفين ماليزيين معينين من خمسينيات وستينيات القرن الماضي، لذا تم التركيز على فئة الأدب الكلاسيكي العام.",
+     "بالنسبة لرياضة كرة الريشة، لم يتم التعرف على لاعبين محددون من تلك الحقبة في البيانات المتاحة، لذا تركزت المناقشة على النشاط نفسه.",
+     "أسماء الأشخاص المذكورة في قسم الذاكرة هي مجرد نماذج عامة ({{relative}}، {{familyDish}}) ولا تعكس بالضرورة هويات حقيقية محددة من قبل Qloo."
+    ]
+   }
+  }
+ },
+ {
+  "id": "brunei",
+  "label": {
+   "en": "Bandar Seri Begawan, 1960s",
+   "ar": "بندر سري بكاوان، الستينيات"
+  },
+  "profile": {
+   "birthDecade": 1960,
+   "grewUpIn": "Bandar Seri Begawan, Brunei",
+   "loves": [
+    {
+     "kind": "food",
+     "text": "ambuyat"
+    },
+    {
+     "kind": "place",
+     "text": "Kampong Ayer"
+    },
+    {
+     "kind": "sport",
+     "text": "football"
+    },
+    {
+     "kind": "nature",
+     "text": "rainforest"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your sister Siti",
+   "familyDish": "Mother's ambuyat"
+  },
+  "cards": {
+   "en": {
+    "theme": "Echoes of the Water Village",
+    "opener": "This card draws on the sights, tastes, and sounds of Bandar Seri Begawan during your youth, from the 1960s to the 1990s. It invites you to share stories about the places you walked, the food you shared, and the games you watched as a young person in Brunei.",
+    "prompts": [
+     {
+      "kind": "food",
+      "title": "A Taste of Home",
+      "activity": "Read aloud or cook together",
+      "question": "Tell me about preparing {{familyDish}} with {{relative}} and what made that meal special to your family.",
+      "source": "ambuyat"
+     },
+     {
+      "kind": "place",
+      "title": "Life on the Water",
+      "activity": "Look at photos",
+      "question": "Tell me about walking through Kampong Ayer and what the daily rhythm of life was like on the stilt houses.",
+      "source": "Kampong Ayer"
+     },
+     {
+      "kind": "nature",
+      "title": "The Jungle Edge",
+      "activity": "Look at photos",
+      "question": "Tell me about exploring Tasek Lama Recreational Park and what you saw on the jungle trails near the waterfalls.",
+      "source": "Tasek Lama Recreational Park"
+     },
+     {
+      "kind": "sport",
+      "title": "Match Day at the Stadium",
+      "activity": "Read aloud",
+      "question": "Tell me about visiting the Hassanal Bolkiah National Stadium and how the community gathered to watch football matches.",
+      "source": "Hassanal Bolkiah National Stadium"
+     }
+    ],
+    "caregiverTips": [
+     "Use the photos of Kampong Ayer or Tasek Lama Park as gentle anchors if conversation starts to wander.",
+     "If discussing the food dish, focus on the sensory details—the smell, the texture, and the people involved—rather than the exact recipe.",
+     "When talking about the stadium, encourage stories about the atmosphere and the sound of the crowd, which can trigger positive memories of community and shared excitement."
+    ],
+    "limitations": [
+     "This card does not establish specific personal memories, preferences, or brand associations for this individual.",
+     "The Qloo data describes general group tastes, cultural trends, and geographic landmarks popular in Brunei during the 1960s–1990s, not this person’s unique life story.",
+     "The sources (such as 'ambuyat', 'Kampong Ayer', 'Tasek Lama Recreational Park', and 'Hassanal Bolkiah National Stadium') reflect widely recognized cultural and local entities, not personalized recommendations.",
+     "No specific personal anecdotes, names, or historical events are confirmed by the data; the memory book placeholders are used solely to frame open-ended questions based on details provided by the caregiver."
+    ]
+   },
+   "ar": {
+    "theme": "ذكريات من كيبونغ أوير والعبور عبر الزمن",
+    "opener": "هذه البطاقة صُممت لمساعدتك على التحدث مع عزيزتك عن حياتها في بروناي خلال ستينيات وسبعينيات وثمانينيات القرن الماضي. الهدف ليس اختبار ذاكرتها، بل استحضار أجواء تلك الحقبة بلطف ودفء. استخدمي الأسئلة التالية كمدخلات للحديث، واتركيها تروي ما تشعرين أنه مناسب.",
+    "prompts": [
+     {
+      "kind": "place",
+      "title": "حي كيبونغ أوير العائم",
+      "activity": "انظرا معاً إلى صور أو رسومات للبيوت الخشبية المبنية فوق الماء.",
+      "question": "أخبريني عن رائحة الهواء وأصوات الحياة في {{relative}} عندما كنتما تعيشان في كيبونغ أوير.",
+      "source": "Kampong Ayer"
+     },
+     {
+      "kind": "sport",
+      "title": "أجواء الملاعب الوطنية",
+      "activity": "شاهدا مقطعاً فيديو هادئاً أو صورا قديمة لاستاد حسن البلقية الوطني.",
+      "question": "أخبريني عن شعورك أنت و{{relative}} وأنتما تشاهدان المباريات أو الطقوس الوطنية في ذلك الملعب الكبير.",
+      "source": "Hassanal Bolkiah National Stadium"
+     },
+     {
+      "kind": "nature",
+      "title": "حدائق جيرادونغ بارك",
+      "activity": "تصفحا صوراً للحدائق الاستوائية والمساحات الخضراء في المنتزهات.",
+      "question": "أخبريني عن نزهات عائلتك في المساحات الخضراء وحدائق جيرادونغ بارك، وماذا كان يعجبك أكثر هناك.",
+      "source": "Jerudong Park Playground"
+     },
+     {
+      "kind": "place",
+      "title": "رحلة نهر بروناي",
+      "activity": "انظرا إلى صور قوارب التنقل على النهر أو خرائط قديمة للمدينة.",
+      "question": "أخبريني عن ذكرياتك في رحلات النهر مع {{relative}}، وكيف كان منظر {{familyDish}} من القارب يبدو لك.",
+      "source": "Brunei River Cruise"
+     },
+     {
+      "kind": "memory",
+      "title": "طهي ووجبات عائلية",
+      "activity": "انظرا إلى صورة قديمة للطعام أو للطبخ في المنزل.",
+      "question": "أخبريني عن لحظات الطبخ في المنزل، وكيف كان شعور{{relative}} بينما كان{{relative}} يحضر{{familyDish}}.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "ذكريات مع الأخ أو الأخت",
+      "activity": "تذكري معاً لحظة بسيطة كانت تمضيانها معاً في طفولتكما.",
+      "question": "أخبريني عن يوم عادي من أيام شبابك مع {{relative}}، وما هي الشيء البسيط الذي تضحكين عليه حتى الآن.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "لا تقلقي إذا توقفت في منتصف القصة؛ شجعيها على الاستمرار بالسرعة التي تناسبها، وامنحيها الوقت الكافي للتفكير.",
+     "ركزي على المشاعر والروائح والأصوات أكثر من التواريخ الدقيقة أو الأحداث التاريخية الكبرى.",
+     "إذا شعرتِ بالإرباك، قولي لها ببساطة: 'أحب أن أسمع قصتك عن هذا الموضوع'.",
+     "استخدمي الصور أو الأشياء الملموسة (مثل فنجان شاي أو ورقة شجر) كحافز بصري ولحسي، فهذا يساعد على إحياء الذكريات دون ضغط.",
+     "الهدف هو الترابط والدفء، وليس استرجاع كل التفاصيل بدقة تامة."
+    ],
+    "limitations": [
+     "تستند هذه البطاقة إلى تحليل البيانات العامة (Qloo) للأذواق في منطقة بروناي وفترة منتصف القرن العشرين، ولا تعكس بالضرورة التجربة الشخصية الدقيقة لعزيزتك.",
+     "لا تؤكد البيانات وجود أطباق محددة مثل 'أمبويات' كنقاط بيانات فردية، بل تشير إلى ثقافات الطعام المحلية بشكل عام.",
+     "في قطاع الرياضة، تفتقر البيانات إلى تفاصيل دقيقة عن فرق أو لاعبي كرة القدم المحليين في ستينيات وثمانينيات القرن الماضي، لذا تم الاعتماد على المعالم المكانية كمرجع.",
+     "في قطاع الطبيعة، لم تحدد البيانات المنتزهات الوطنية الغابوية النقية بشكل دقيق، واعتمدت بدلاً من ذلك على الحدائق العامة والمساحات الخضراء الحضرية كتمثيل بديل.",
+     "يصف هذا التحليل أذواق المجموعات السكانية في المنطقة، ولا يغطي كل الفروق الفردية في ذكريات فرد واحد."
+    ]
+   }
+  }
+ },
+ {
+  "id": "chicago",
+  "label": {
+   "en": "Chicago, 1950s",
+   "ar": "شيكاغو، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Chicago, USA",
+   "loves": [
+    {
+     "kind": "book",
+     "text": "To Kill a Mockingbird"
+    },
+    {
+     "kind": "team",
+     "text": "Chicago Cubs"
+    },
+    {
+     "kind": "food",
+     "text": "apple pie"
+    },
+    {
+     "kind": "nature",
+     "text": "Lake Michigan"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "Aunt Ruth",
+   "familyDish": "Grandma's pot roast"
+  },
+  "cards": {
+   "en": {
+    "theme": "Chicago Memories and Classic Favorites",
+    "opener": "Let’s spend a quiet moment looking back at your early years in Chicago. I’ve put together a few gentle prompts based on things that often mattered to people from that time and place. There’s no need to recall every detail perfectly; I just love hearing your stories.",
+    "prompts": [
+     {
+      "kind": "food",
+      "title": "Baking Comfort",
+      "activity": "Cook together by baking or discussing apple pie.",
+      "question": "Tell me about the classic foods and simple comforts that were part of your family table when you were young.",
+      "source": "Apple Pie"
+     },
+     {
+      "kind": "sport",
+      "title": "Chicago Baseball Rivalries",
+      "activity": "Look at old photos of baseball stadiums or talk about the local teams.",
+      "question": "Tell me about your feelings and memories regarding the Chicago White Sox and the Chicago Cubs during your youth.",
+      "source": "Chicago White Sox"
+     },
+     {
+      "kind": "sport",
+      "title": "Friday Night Football",
+      "activity": "Look at photos of historic Chicago Bears games or uniforms.",
+      "question": "Tell me about the excitement of local football and the Chicago Bears teams you watched growing up.",
+      "source": "Chicago Bears"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Connections",
+      "activity": "Look at photos of family gatherings involving {{relative}}.",
+      "question": "Tell me about the role {{relative}} played in your daily life and memories.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Recipes",
+      "activity": "Cook together using the recipe for {{familyDish}}.",
+      "question": "Tell me about the traditions and tastes surrounding {{familyDish}} in your family.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "Keep the atmosphere relaxed. If a topic brings up strong emotions, gently shift to a simpler activity like making apple pie or looking at sports photos.",
+     "Use the book titles and sports team names as gentle anchors, not tests. Focus on the feelings and stories associated with them.",
+     "When using memory placeholders, rely only on the details filled in by the family. Do not invent names or facts.",
+     "If silence occurs, it is okay. You can simply say, 'We don't have to talk if you don't want to. Let's just enjoy the smell of the pie.'"
+    ],
+    "limitations": [
+     "This card is based on Qloo taste data which describes group affinities, not the specific personal history of this individual.",
+     "The book recommendations were derived thematically from signals associated with Harper Lee and Chicago culture, rather than direct evidence that this specific person read them.",
+     "Qloo did not return a direct geographic entity with taste data for Lake Michigan; recommendations are inferred from Chicago-centric sports and media brands.",
+     "Sports recommendations are grounded in Chicago city-wide brands and rivalries common to the era, not specific attendance records for this person.",
+     "Memory prompts rely solely on the provided placeholders and do not include invented biographical details."
+    ]
+   },
+   "ar": {
+    "theme": "رحلة الذكريات عبر شيكاغو وأحبته",
+    "opener": "هذه البطاقة مخصصة لك ولقريبك المستمتع بالتذكر. نأمل أن تساعدك الأسئلة والمواد الموضحة أدناه في بدء محادثات دافئة وتذكر اللحظات الجميلة معًا. ركزنا على السنوات من 1955 إلى 1980 في شيكاغو، بناءً على اهتمامات قديمة ومعروفة.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "رواية لتقتل العصفور",
+      "activity": "اقرأ aloud فقرة قصيرة من رواية \"لتقتل العصفور\" (To Kill a Mockingbird) لهاربر لي، أو ابحث عن صورة لغلاف الكتاب القديم.",
+      "question": "ما الذي شعرت به عندما قرأت أو سمعت عن هذا العمل الأدبي الأمريكي الكلاسيكي في شبائك؟",
+      "source": "To Kill a Mockingbird"
+     },
+     {
+      "kind": "sport",
+      "title": "نادي شيكاغو كابس",
+      "activity": "انظر إلى صور قديمة لملعب ريجلي فيلد أو للاعب إرني بانكس خلال ستينيات وسبعينيات القرن الماضي.",
+      "question": "ما هي اللحظات أو اللاعبين الذين ارتبطوا في ذهنك بفرقك الرياضية المفضلة في تلك الحقبة؟",
+      "source": "Chicago Cubs"
+     },
+     {
+      "kind": "food",
+      "title": "فطيرة التفاح الكلاسيكية",
+      "activity": "تذوق معًا قطعة من فطيرة التفاح التقليدية، أو شاهد فيديو قصير لطبخ هذه الحلوى.",
+      "question": "كيف كانت رائحة وشكل فطيرة التفاح ترتبط بذكرياتك المنزلية أو المناسبات الخاصة؟",
+      "source": "Apple Pie"
+     },
+     {
+      "kind": "place",
+      "title": "بحيرة ميشيغان وشواطئها",
+      "activity": "استعرض صورًا لشواطئ مثل نورث أفينيو بيتش أو مسار الشاطئ في شيكاغو من تلك السنوات.",
+      "question": "ما الذي استمتع به أكثر عند قضاء الوقت على ضفاف بحيرة ميشيغان مع الأصدقاء أو العائلة؟",
+      "source": "Chicago"
+     },
+     {
+      "kind": "memory",
+      "title": "ذكريات مع قريب",
+      "activity": "انظر إلى الصور العائلية مع {{relative}}.",
+      "question": "Tell me about spending time with {{relative}} during those years.",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "وصفة عائلية مميزة",
+      "activity": "تحدث عن {{familyDish}} الذي تم طبخه في الماضي.",
+      "question": "Tell me about the moments around {{familyDish}}.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "تحدث بلغة بسيطة وهادئة. اسمح بالصمت إذا توقفوا عن الحديث، فقد يكونون في حالة استحضار ذكرى.",
+     "إذا نسوا التفاصيل، لا تصححهم. ركز على الشعور الإيجابي للحظة بدلاً من الحقائق الدقيقة.",
+     "استخدم الصور أو الروائح (مثل رائحة التفاح) لتحفيز الذكريات، فهي غالبًا ما تكون أقوى من الأسئلة المباشرة.",
+     "إذا شعروا بالإرهاق، انتقل إلى موضوع آخر مألوف ومريح."
+    ],
+    "limitations": [
+     "هذا البطاقة تعتمد على بيانات تفضيلات عامة ومحددة من منصة Qloo، ولا تعكس بالضرورة ذكريات الشخص الفردية بدقة تامة.",
+     "البيانات تُظهر اهتمامات جماعية لمنطقة وشريحة زمنية، وقد لا تتطابق تمامًا مع التجربة الشخصية الفريدة للشخص.",
+     "لا يتم ذكر أسماء محددة لملعب أو أماكن أخرى غير المذكورة صراحة في الملاحظات البحثية."
+    ]
+   }
+  }
+ },
+ {
+  "id": "manchester",
+  "label": {
+   "en": "Manchester, 1950s",
+   "ar": "مانشستر، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Manchester, United Kingdom",
+   "loves": [
+    {
+     "kind": "author",
+     "text": "Enid Blyton"
+    },
+    {
+     "kind": "team",
+     "text": "Manchester United"
+    },
+    {
+     "kind": "food",
+     "text": "fish and chips"
+    },
+    {
+     "kind": "nature",
+     "text": "Lake District"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your brother Tom",
+   "familyDish": "Mum's Lancashire hotpot"
+  },
+  "cards": {
+   "ar": {
+    "theme": "ذكريات من أيام مانشستر: كتب، كرة قدم، وطبيعة",
+    "opener": "هذه البطاقة مصممة لمساعدتك على بدء محادثات دافئة وممتعة مع قريبك. تستند الأسئلة إلى اهتماماتهم المعروفة من فترة شبابهم في مانشستر بين عامي 1955 و1980. الهدف هو الاستمتاع بالحكايات، وليس اختبار الذاكرة.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "عالم إينيد بليتون ومغامرات الطفولة",
+      "activity": "اقرأ مقطعاً من كتاب لمغامرات الطفولة، أو انظر إلى صور لأغلفة كتب قديمة.",
+      "question": "ما هي القصص التي كانت تقرأها أو تسمع عنها كثيراً في تلك السنوات، وما الذي أعجبك في عالمها الخيالي؟",
+      "source": "Enid Blyton"
+     },
+     {
+      "kind": "sport",
+      "title": "فخر مانشستر يونايتد وأعوام الذهبي",
+      "activity": "انظر إلى صور لملعب أولد ترافورد أو لفريق مانشستر يونايتد في السبعينيات.",
+      "question": "ما هي اللحظات أو الذكريات التي تثير فيك عاطفة أكبر عندما تفكر في فخر فريق مانشستر يونايتد في تلك الحقبة؟",
+      "source": "Manchester United F.C."
+     },
+     {
+      "kind": "food",
+      "title": "نكهة السمك والبطاطس المقلية التقليدية",
+      "activity": "تحدث عن وجبة سمك وبطاطس مقلية دافئة، أو انظر إلى صور لأطباق تقليدية.",
+      "question": "ما الذي يجعل طعم السمك والبطاطس المقلية من هاري رامسدن أو المحلات المحلية مميزاً وذكريات سعيدة بالنسبة لك؟",
+      "source": "Harry Ramsden's"
+     },
+     {
+      "kind": "nature",
+      "title": "سحر بحيرات ليك ديستركت وبكستر بوتر",
+      "activity": "انظر إلى صور طبيعية لبحيرات ليك ديستركت أو أغلفة كتب بكستر بوتر.",
+      "question": "كيف كانت الطبيعة في منطقة بحيرات ليك ديستركت تؤثر عليك، وما الذي تحبه أكثر في جماله؟",
+      "source": "Beatrix Potter"
+     },
+     {
+      "kind": "memory",
+      "title": "لحظات مع العائلة",
+      "activity": "انظر إلى صورة عائلية أو انطلق في حديث عائلي دافئ.",
+      "question": "Tell me about cooking with {{familyDish}}",
+      "source": "memory book"
+     },
+     {
+      "kind": "memory",
+      "title": "أحاديث مع الأخ أو الأخت",
+      "activity": "استرجع قصصاً مشتركة مع الأخ أو الأخت.",
+      "question": "Tell me about cooking with {{relative}}",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "حافظ على إيقاع هادئ ودع القريب يروي القصة بوتيرته، دون مقاطعة أو تسرع.",
+     "إذا نسي التفاصيل الدقيقة، ركز على المشاعر والألوان والأصوات المرتبطة بالذكريات.",
+     "استخدم الصور أو الأصوات البيئية (مثل صوت الأمواج أو حشد المباراة) لتعزيز التجربة بدلاً من الأسئلة المباشرة.",
+     "تذكر أن هذه الذكريات تنتمي إلى شخصيته الفريدة، واحترم كل رواية تقدمها كما هي."
+    ],
+    "limitations": [
+     "هذا الدليل يستند إلى بيانات مجموعة (Qloo) تعكس الأذواق الشائعة لمثل هذه الخلفيات الثقافية والجغرافية في فترة زمنية محددة، وليس تحليلاً نفسياً أو سيرة ذاتية دقيقة للشخص.",
+     "لا يثبت هذا الدليل اهتمامات فردية مؤكدة لكل شخص، بل يقدم مدخلات محتملة بناءً على أنماط البيانات الجماعية.",
+     "قد تختلف ذكريات الفرد تماماً عن التوقعات القائمة على البيانات، ويجب التعامل مع أي اقتراح كفتح باب للمحادثة لا كحقيقة مثبتة.",
+     "لا يشمل هذا الدليل تغطية كاملة لجميع التفاصيل الشخصية أو السيرة الذاتية للفرد."
+    ]
+   },
+   "en": {
+    "theme": "Whimsical Adventures and Green Hills",
+    "opener": "This card invites you to share gentle memories of the stories that captivated you as a child in Manchester and the outdoors you loved exploring. These prompts are designed to spark warm conversation, not to test your memory. Take your time, and let your mind wander back to those simpler days.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "Reading Together",
+      "activity": "Read aloud a short passage from one of Enid Blyton’s adventure stories, or look at photos of old book covers.",
+      "question": "Tell me about the feeling of getting lost in a Blyton story when you were young.",
+      "source": "Enid Blyton"
+     },
+     {
+      "kind": "sport",
+      "title": "Weekend Matches",
+      "activity": "Look at old photos of football crowds or discuss the atmosphere of a Saturday match.",
+      "question": "Tell me about what it was like to support Manchester United or Derby County during your youth.",
+      "source": "Manchester United"
+     },
+     {
+      "kind": "food",
+      "title": "Traditional Tastes",
+      "activity": "Cook together or look at photos of a classic British meal like fish and chips.",
+      "question": "Tell me about how your family enjoyed simple, heritage foods like Clarence Court eggs or fish and chips.",
+      "source": "Fish And Chips"
+     },
+     {
+      "kind": "place",
+      "title": "Exploring the Countryside",
+      "activity": "Look at photos of the Lake District or talk about hiking gear from the 1970s.",
+      "question": "Tell me about your experiences walking in the Lake District or using Cotswold Outdoor gear.",
+      "source": "Lake District, United Kingdom"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Kitchen",
+      "activity": "Look at photos of meals or cook together.",
+      "question": "Tell me about cooking with {{relative}} or enjoying {{familyDish}}.",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "If they hesitate, simply name the topic gently, such as 'Enid Blyton' or 'Manchester United,' to help guide the conversation without pressure.",
+     "Focus on the emotions and sensory details of the past—the smell of old books, the sound of a crowd, the taste of a simple meal—rather than specific dates or facts.",
+     "If a memory prompt seems unclear because the placeholders are unknown, skip it and move to the other prompts. The goal is connection, not completeness."
+    ],
+    "limitations": [
+     "This card is based on Qloo research that identifies group taste patterns for seniors in the UK, including interest in specific authors, sports teams, foods, and places. These are general cultural signals, not confirmed personal facts about this individual.",
+     "The research covers broad categories such as Enid Blyton, Manchester United, and the Lake District, but does not verify that this specific person engaged with every single entity listed.",
+     "Memory prompts rely entirely on details the caregiver has already filled in via placeholders; no external assumptions are made about specific family members or dishes.",
+     "Qloo data reflects aggregate preferences and may not account for personal variations, such as a lack of interest in a specific team or author, or changes in taste over the long period of 1955 to 1980."
+    ]
+   }
+  }
+ },
+ {
+  "id": "toronto",
+  "label": {
+   "en": "Toronto, 1950s",
+   "ar": "تورونتو، الخمسينيات"
+  },
+  "profile": {
+   "birthDecade": 1950,
+   "grewUpIn": "Toronto, Canada",
+   "loves": [
+    {
+     "kind": "book",
+     "text": "Anne of Green Gables"
+    },
+    {
+     "kind": "team",
+     "text": "Toronto Maple Leafs"
+    },
+    {
+     "kind": "food",
+     "text": "butter tarts"
+    },
+    {
+     "kind": "nature",
+     "text": "Muskoka lakes"
+    }
+   ]
+  },
+  "memory": {
+   "relative": "your sister Margaret",
+   "familyDish": "Mom's tourtière"
+  },
+  "cards": {
+   "en": {
+    "theme": "Sharing Stories of Home and Heart",
+    "opener": "Here are a few gentle questions to help you talk with your loved one about the places, people, and things that mattered most during their younger years in Toronto and across Canada.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "Anne of Green Gables",
+      "activity": "Read aloud",
+      "question": "Tell me about reading 'Anne of Green Gables' by Lucy Maud Montgomery. Did it feel like a friend to you when you were younger?",
+      "source": "Lucy Maud Montgomery"
+     },
+     {
+      "kind": "food",
+      "title": "Butter Tarts",
+      "activity": "Cook together",
+      "question": "Tell me about making butter tarts. Do they remind you of community fairs or family bake sales?",
+      "source": "butter tarts"
+     },
+     {
+      "kind": "place",
+      "title": "Muskoka Steamships",
+      "activity": "Look at photos",
+      "question": "Tell me about riding the Muskoka Steamships on the lakes. Was it a special trip for your family?",
+      "source": "Muskoka Steamships"
+     },
+     {
+      "kind": "sport",
+      "title": "Toronto Maple Leafs",
+      "activity": "Look at photos",
+      "question": "Tell me about cheering for the Toronto Maple Leafs. Do you have a favorite memory of a game from your youth?",
+      "source": "Toronto Maple Leafs"
+     },
+     {
+      "kind": "sport",
+      "title": "Edmonton Oilers",
+      "activity": "Look at photos",
+      "question": "Tell me about the Edmonton Oilers. Did their exciting style of play catch your attention as the 70s turned into the 80s?",
+      "source": "Edmonton Oilers"
+     },
+     {
+      "kind": "memory",
+      "title": "Family Memories",
+      "activity": "Share a story",
+      "question": "Tell me about cooking with {{relative}} or making {{familyDish}}. What was that time like for you?",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "Start with the books or sports teams that feel most familiar. If she enjoys hockey, looking at photos of the Montreal Canadiens or the Toronto Maple Leafs can open up many stories.",
+     "For the food prompt, you might bake a small batch of butter tarts together. The smell of cinnamon and brown sugar can often trigger warm memories of Canadian comfort food.",
+     "When discussing nature, showing pictures of the Muskoka Steamships can help her visualize those classic lake trips. Listen for details about the weather or who she was with.",
+     "Use the memory book prompts gently. Focus on the act of sharing rather than testing her memory. Let her lead the conversation about {{relative}} and {{familyDish}}.",
+     "Keep the tone light and curious. These questions are meant to spark connection, not to quiz her on dates or specific game scores."
+    ],
+    "limitations": [
+     "This card uses Qloo data to suggest themes based on general cultural tastes for people from Toronto, Canada, born in the 1950s.",
+     "Qloo describes group preferences and historical cultural anchors, not the specific life story of this individual.",
+     "The prompts are based on popular entities and do not guarantee these were this person's personal favorites."
+    ]
+   },
+   "ar": {
+    "theme": "ذكريات الطفولة والشغف الكندي",
+    "opener": "هذه البطاقة مصممة لمساعدتك في بدء محادثة دافئة ومريحة مع قريبك. تعتمد الأسئلة على تقديرات مشتركة للموسيقى والأدب والطعام والأماكن التي كانت شائعة في كندا خلال فترة شبابه (١٩٥٥-١٩٨٠). الغرض منها إضفاء الطابع الشخصي على التجربة، وليس اختبار ذاكرته. تفضل بطء الإيقاع، واسمح بالصمت إذا احتاج إلى وقت للتفكير.",
+    "prompts": [
+     {
+      "kind": "book",
+      "title": "قراءة قصة عن الشجاعة",
+      "activity": "اقرأ aloudً فقرة من رواية \"آن من الجرين جابلز\" أو شاهد صورة لصفحاتها القديمة.",
+      "question": "ما الذي يجذبك في قصة آن؟ هل تتذكر شعوراً معيناً ارتبطت بهذا الكتاب خلال فترة شبابتك؟",
+      "source": "Anne of Green Gables"
+     },
+     {
+      "kind": "food",
+      "title": "طهي الحلوى الكلاسيكية",
+      "activity": "شارك في تحضير أو تزيين تارتات الزبدة (Butter Tarts)، أو شاهد فيديو قصير لطريقة صنعها التقليدية.",
+      "question": "كيف كانت رائحة المخبوزات في المنزل؟ هل لديك ذكرى خاصة مرتبطة بتناول هذه الحلوى مع العائلة؟",
+      "source": "Butter Tarts"
+     },
+     {
+      "kind": "place",
+      "title": "استكشاف طبيعة الضواحي",
+      "activity": "انظر إلى صور للمنازل الريفية (كوتاجات) حول بحيرات Muskoka أو المناطق الريفية الكندية.",
+      "question": "ما هي أكثر سمة تميزت بها إجازتك في الريف؟ هل كانت طبيعة البحيرة، الهدوء، أم الأنشطة التي تقوم بها هناك؟",
+      "source": "Cottage Country"
+     },
+     {
+      "kind": "sport",
+      "title": "الحماس للعبة الوطنية",
+      "activity": "شاهد صورة لأزياء فريق تورونتو مابل ليفز القديمة أو أيقونة الفريق.",
+      "question": "ما الذي شعرت به عندما كانت فرق هوكي تورونتو تلعب؟ هل كان هناك لاعب أو لحظة معينة تثير مشاعر قوية عند ذكرها؟",
+      "source": "Toronto Maple Leafs"
+     },
+     {
+      "kind": "memory",
+      "title": "طعام العائلة المشترك",
+      "activity": "تحدث أثناء إعداد طبق {{familyDish}} أو النظر إلى صورة له.",
+      "question": "كيف كان الشعور عندما كان {{relative}} يطبخ هذا الطبق؟ ما هي الذكريات التي تخطر على بالك عند التفكير في هذه اللحظات معاً؟",
+      "source": "memory book"
+     }
+    ],
+    "caregiverTips": [
+     "استخدم نبرة صوت هادئة ودافئة. الهدف هو الاستماع والمشاركة، وليس الحصول على إجابات \"صحيحة\".",
+     "إذا بدا قريبك متوتراً أو غامضاً، عد إلى prompts الأكثر تحديداً مثل الطعام أو الأماكن الطبيعية، فهي غالباً ما تستحضر ذكريات حسية أعمق.",
+     "لا تقلق إذا لم يستطع تذكر التفاصيل الدقيقة للتاريخ أو الأسماء. ركز على المشاعر والروابط الإنسانية المذكورة في الأسئلة المفتوحة.",
+     "استعد لقصص إضافية: عندما يبدأ حديثاً، استمر في الاستماع بلطف دون مقاطعته، واسمح له بالتشعب في ذكرياته."
+    ],
+    "limitations": [
+     "تم إنشاء هذه البطاقة بناءً على تحليل البيانات الجماعية (Qloo) التي توضح اهتمامات الفئة الديموغرافية العامة والثقافة الكندية خلال تلك الحقبة، ولا تعكس بالضرورة تفضيلات هذا الفرد بدقة متناهية.",
+     "لم يتمكن النظام من الوصول إلى كائنات محددة مثل 'Maple Leaf Gardens' التاريخية أو لاعبي الفريق من الستينيات، حيث كانت النتائج مرتبطة بالعلامة التجارية الحديثة للفريق.",
+     "النتائج المتعلقة بالأدب والطعام وال Places كانت عامة وقد تشمل عناصر عصرية لا تنطبق على فترة ١٩٥٥-١٩٨٠، لذا تم اعتماد الأسماء والأماكن الأكثر رصانة ثقافياً."
+    ]
+   }
+  }
+ }
+]

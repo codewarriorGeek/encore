@@ -1,4 +1,5 @@
 import type { Language, MemoryBook, PublicProfile, SessionCard } from "@/lib/profile";
+import data from "./examples.json";
 
 // Pre-generated cards so visitors and judges can see a result instantly.
 // Generated with scripts/make-examples.mjs from live runs (Qwen + Qloo);
@@ -11,4 +12,5 @@ export type Example = {
   cards: Partial<Record<Language, SessionCard>>;
 };
 
-export const EXAMPLES: Example[] = [];
+
+export const EXAMPLES = data as Example[];

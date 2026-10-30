@@ -86,10 +86,12 @@ export default function EncoreApp() {
   }, []);
 
   const validLoves = loves.filter((l) => l.text.trim());
+  // Only examples that have a card in the current language.
+  const examples = EXAMPLES.filter((ex) => ex.cards[lang]);
   const canBuild = grewUpIn.trim().length >= 2 && validLoves.length > 0;
 
   function showExample(ex: Example) {
-    const exCard = ex.cards[lang] ?? ex.cards.en;
+    const exCard = ex.cards[lang];
     if (!exCard) return;
     setExample(ex);
     setCard(fillMemory(exCard, ex.memory));
@@ -183,12 +185,12 @@ export default function EncoreApp() {
           {step === "about" && (
             <section className="mb-8">
               <p className="text-lg leading-relaxed">{t.intro}</p>
-              {EXAMPLES.length > 0 && (
+              {examples.length > 0 && (
                 <div className="mt-6">
                   <h2 className="font-display text-lg font-semibold">{t.examplesTitle}</h2>
                   <p className="text-sm text-muted">{t.examplesHint}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {EXAMPLES.map((ex) => (
+                    {examples.map((ex) => (
                       <button key={ex.id} onClick={() => showExample(ex)} className={`${secondary} py-2 text-sm`}>
                         {ex.label[lang]}
                       </button>

@@ -4,13 +4,62 @@ import { MEMORY_SLOTS, type Language, type MemorySlot, type PublicProfile } from
 // providers), and the raw Qloo results (to check the card is really grounded).
 export type Research = { notes: string; trace: string[]; evidence: string[] };
 
-// Hard limits on the research loop: below MIN the model is nudged to use Qloo
-// (and fails if it still will not); at MAX tools are switched off and it must
-// write its notes.
+// Limits on the research loop, shared by both providers. Lookups (describe,
+// find_tags) only resolve names; taste-graph calls are what make the card
+// Qloo-powered, so the model is pushed to make some before it may finish.
 export const MIN_QLOO_CALLS = 3;
-export const MAX_QLOO_CALLS = 12;
+export const MAX_QLOO_CALLS = 14;
+const MIN_TASTE_CALLS = 2;
+const LOOKUPS_BEFORE_TASTE_NUDGE = 6;
+const TASTE_TOOLS = new Set(["qloo_recommend", "qloo_rank", "qloo_where_popular", "qloo_compare_audiences"]);
+
 export const NUDGE_USE_QLOO = `You have not used the Qloo tools enough. Call them now: every finding must come from an actual Qloo result, never from your own knowledge.`;
+const NUDGE_TASTE = `You have looked things up but not asked Qloo's taste graph enough. Now call qloo_recommend (and qloo_where_popular or qloo_rank where useful) with the entities and tags you resolved, an older demographic, and filter_location for places. Do not look up anything else first.`;
+export const REPEATED_CALL = JSON.stringify({
+  status: "error",
+  summary: "You already made this exact call; its result is above. Use it, try a different call, or write your notes.",
+});
 export const WRAP_UP = `That is enough Qloo calls. Do not call any more tools. Write your research notes now, using only what the Qloo results above returned.`;
+
+export class ResearchBudget {
+  calls = 0;
+  taste = 0;
+  private qlooNudged = false;
+  private tasteNudged = false;
+
+  record(tool: string) {
+    this.calls++;
+    if (TASTE_TOOLS.has(tool)) this.taste++;
+  }
+
+  get exhausted() {
+    return this.calls >= MAX_QLOO_CALLS;
+  }
+
+  // After a round of tool results: tell the model to stop looking things up.
+  afterRound(): string | null {
+    if (!this.tasteNudged && this.taste === 0 && this.calls >= LOOKUPS_BEFORE_TASTE_NUDGE) {
+      this.tasteNudged = true;
+      return NUDGE_TASTE;
+    }
+    return null;
+  }
+
+  // The model wants to finish: null accepts its notes, a string pushes it to
+  // continue, and too few Qloo calls after one push fails the request.
+  beforeFinish(): string | null {
+    if (this.calls < MIN_QLOO_CALLS) {
+      if (this.qlooNudged) throw new Error(`research made only ${this.calls} Qloo calls`);
+      this.qlooNudged = true;
+      return NUDGE_USE_QLOO;
+    }
+    if (this.taste < MIN_TASTE_CALLS && !this.tasteNudged && !this.exhausted) {
+      this.tasteNudged = true;
+      return NUDGE_TASTE;
+    }
+    return null;
+  }
+}
 
 // No music, songs, TV or film anywhere in Encore (product decision).
 const NO_MEDIA = `Never use music, songs, singers, bands, TV, radio, film or cinema.`;
@@ -24,7 +73,8 @@ How to work with Qloo:
 - Older and non-Western entities are often in search but have no taste data. If an entity returns empty or invalid, fall back to the closest tag (a genre, cuisine, region or occupation tag) and recommend from that.
 - City names can resolve to the wrong place. Check the country of returned places and drop mismatches.
 - If a match is ambiguous, pick the candidate that fits the birth decade and region, and record it as an assumption.
-- Cover every loved thing, including each sport. Make independent calls together in one turn, and aim for about 8 Qloo calls in total.
+- Cover every loved thing, including each sport. Make independent calls together in one turn.
+- Budget: at most about 5 lookups (qloo_describe, qloo_find_tags), then at least 3 taste-graph calls (qloo_recommend, qloo_where_popular, qloo_rank). The taste graph is what makes Encore useful; lookups alone are not enough.
 
 Aim for their youth (roughly ages 5 to 25), not today:
 - Prefer classic, long-lived entities: classic books and authors, legendary athletes and historic clubs of that era (clubs are often brands), and long-established places, landmarks, markets and natural sites where they grew up.
@@ -43,7 +93,7 @@ Use the research notes (grounded in Qloo) for the book, food, place, nature, spo
 
 Memory prompts: you do NOT see the family's memory book. You are only told which details the caregiver has filled in. Write up to 2 prompts of kind "memory" with source "memory book" that refer to those details ONLY through the exact placeholders listed, for example "Tell me about cooking with {{relative}}". Never invent names or facts, and never use a placeholder that is not listed. If none are listed, write no memory prompts.
 
-Cover each domain that has grounded findings, including every sport they loved. Write the theme, opener, prompts and caregiver tips in warm, plain language for a family member: do not mention Qloo, data, databases or coverage gaps there. Put those only in limitations, where you say plainly what the card does not establish, including that Qloo describes group tastes, not this person.
+Cover each domain that has grounded findings, including every sport they loved. Give each prompt its most specific kind (book for books and authors, food, place, nature, sport for sports, athletes and teams); use interest only when nothing else fits. Write the theme, opener, prompts and caregiver tips in warm, plain language for a family member: do not mention Qloo, data, databases or coverage gaps there. Put those only in limitations, where you say plainly what the card does not establish, including that Qloo describes group tastes, not this person.
 
 Never mention politics. ${NO_MEDIA}
 
