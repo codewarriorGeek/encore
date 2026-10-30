@@ -1,15 +1,20 @@
+import type { NextRequest } from "next/server";
 import { agentFor, fallbackProvider, provider, type Provider } from "@/lib/agent";
 import { groundCard, nameArgs } from "@/lib/grounding";
-import { PlanRequest } from "@/lib/profile";
+import { createJob, emit, finish, getJob, streamJob, type Job } from "@/lib/jobs";
+import { PlanRequest, type Language, type MemorySlot, type PublicProfile } from "@/lib/profile";
 import { allow } from "@/lib/rate-limit";
 
-// Streams newline-delimited JSON events so the caregiver sees the real Qloo
-// calls as they happen:
+// POST starts a card build and streams it as newline-delimited JSON:
+//   {"type":"job","id":"..."}               (first line; use it to reconnect)
 //   {"type":"call","tool":"qloo_describe","args":{...}}
-//   {"type":"retry","provider":"qwen"}   (primary model failed; fallback takes over)
+//   {"type":"retry","provider":"qwen"}       (primary model failed; fallback takes over)
 //   {"type":"writing"}
-//   {"type":"done","card":{...},"trace":[...],"dropped":[...],"provider":"qwen","timings":{...}}
+//   {"type":"done","card":{...},"trace":[...],"dropped":[...],"provider":"...","timings":{...}}
 //   {"type":"error","error":"..."}
+//   {"type":"ping"}                          (keep-alive, not counted)
+// GET /api/plan?id=...&from=N reconnects: it replays events from index N
+// (counting everything except job and ping lines) and continues live.
 export async function POST(request: Request) {
   // Apache appends the real client address last; earlier entries can be forged.
   const ip = request.headers.get("x-forwarded-for")?.split(",").pop()?.trim() || "local";
@@ -23,68 +28,59 @@ export async function POST(request: Request) {
     limit.release();
     return Response.json({ error: "invalid request", issues: parsed.error.issues }, { status: 400 });
   }
-  const { profile, memorySlots, language } = parsed.data;
 
-  // If the visitor leaves, stop the research and cancel the in-flight model call.
-  const signal = request.signal;
-  const encoder = new TextEncoder();
-  const stream = new ReadableStream({
-    async start(controller) {
-      let open = true;
-      const send = (event: object) => {
-        if (!open) return;
-        try {
-          controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
-        } catch {
-          open = false;
-        }
-      };
-      const started = Date.now();
-      const run = async (p: Provider) => {
-        const agent = agentFor(p);
-        const { notes, trace, evidence } = await agent.research(
-          profile,
-          (tool, args, evidence) => send({ type: "call", tool, args: nameArgs(args, evidence) }),
-          signal,
-        );
-        const researched = Date.now();
-        send({ type: "writing" });
-        const raw = await agent.composeCard(profile, notes, memorySlots, language, signal);
-        const { card, dropped } = groundCard(raw, evidence);
-        const timings = { researchMs: researched - started, cardMs: Date.now() - researched };
-        console.log(
-          JSON.stringify({ plan: "done", provider: p, language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
-        );
-        send({ type: "done", card, notes, trace, dropped, provider: p, timings });
-      };
-      try {
-        try {
-          await run(provider());
-        } catch (err) {
-          const fallback = fallbackProvider();
-          if (signal.aborted || !fallback) throw err;
-          console.error(`plan failed on ${provider()}, retrying on ${fallback}`, err);
-          send({ type: "retry", provider: fallback });
-          await run(fallback);
-        }
-      } catch (err) {
-        if (signal.aborted) {
-          console.log(JSON.stringify({ plan: "cancelled", afterMs: Date.now() - started }));
-        } else {
-          console.error("plan failed", err);
-          send({ type: "error", error: "could not build a session card, please try again" });
-        }
-      } finally {
-        limit.release();
-        if (open) {
-          open = false;
-          controller.close();
-        }
-      }
-    },
-  });
+  const job = createJob();
+  // The build is not tied to this connection; it ends on its own or when abandoned.
+  void build(job, parsed.data.profile, parsed.data.memorySlots, parsed.data.language).finally(limit.release);
+  return streamJob(job, 0);
+}
 
-  return new Response(stream, {
-    headers: { "content-type": "application/x-ndjson; charset=utf-8", "cache-control": "no-store" },
-  });
+export async function GET(request: NextRequest) {
+  const id = request.nextUrl.searchParams.get("id") ?? "";
+  const from = Number(request.nextUrl.searchParams.get("from") ?? 0);
+  const job = getJob(id);
+  if (!job) return Response.json({ error: "This session card is no longer available." }, { status: 404 });
+  return streamJob(job, Number.isFinite(from) ? from : 0);
+}
+
+async function build(job: Job, profile: PublicProfile, memorySlots: MemorySlot[], language: Language) {
+  const signal = job.abort.signal;
+  const started = Date.now();
+  const run = async (p: Provider) => {
+    const agent = agentFor(p);
+    const { notes, trace, evidence } = await agent.research(
+      profile,
+      (tool, args, evidence) => emit(job, { type: "call", tool, args: nameArgs(args, evidence) }),
+      signal,
+    );
+    const researched = Date.now();
+    emit(job, { type: "writing" });
+    const raw = await agent.composeCard(profile, notes, memorySlots, language, signal);
+    const { card, dropped } = groundCard(raw, evidence);
+    const timings = { researchMs: researched - started, cardMs: Date.now() - researched };
+    console.log(
+      JSON.stringify({ plan: "done", provider: p, language, calls: trace.length, prompts: card.prompts.length, dropped: dropped.length, ...timings }),
+    );
+    emit(job, { type: "done", card, notes, trace, dropped, provider: p, timings });
+  };
+  try {
+    try {
+      await run(provider());
+    } catch (err) {
+      const fallback = fallbackProvider();
+      if (signal.aborted || !fallback) throw err;
+      console.error(`plan failed on ${provider()}, retrying on ${fallback}`, err);
+      emit(job, { type: "retry", provider: fallback });
+      await run(fallback);
+    }
+  } catch (err) {
+    if (signal.aborted) {
+      console.log(JSON.stringify({ plan: "abandoned", afterMs: Date.now() - started }));
+    } else {
+      console.error("plan failed", err);
+      emit(job, { type: "error", error: "could not build a session card, please try again" });
+    }
+  } finally {
+    finish(job);
+  }
 }

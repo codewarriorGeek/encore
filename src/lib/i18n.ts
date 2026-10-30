@@ -48,6 +48,8 @@ type Strings = {
   editDetails: string;
   example: string;
   errorGeneric: string;
+  reconnecting: string;
+  connectionLost: string;
   privacyNote: string;
   footer: string;
   call: (tool: string, subject: string) => string;
@@ -125,6 +127,8 @@ const en: Strings = {
   editDetails: "Edit details",
   example: "Example",
   errorGeneric: "Something went wrong. Please try again.",
+  reconnecting: "Reconnecting… your card is still being built.",
+  connectionLost: "The connection was lost before the card was ready. Please check your internet connection and try again.",
   privacyNote: "No names are collected. Family memories stay in your browser.",
   footer: "Encore is a conversation aid, not a medical tool. Built for the Qloo Agentic Hackathon.",
   call: (tool, subject) => {
@@ -233,6 +237,8 @@ const ar: Strings = {
   editDetails: "تعديل البيانات",
   example: "مثال",
   errorGeneric: "حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
+  reconnecting: "نعيد الاتصال… ما زلنا نُعدّ بطاقتك.",
+  connectionLost: "انقطع الاتصال قبل أن تجهز البطاقة. يُرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
   privacyNote: "لا نجمع أي أسماء. تبقى ذكريات العائلة في متصفحك.",
   footer: "Encore أداة مساعدة على الحديث، وليس أداة طبية. صُمّم لهاكاثون \u2068Qloo Agentic\u2069",
   call: (tool, subject) => {

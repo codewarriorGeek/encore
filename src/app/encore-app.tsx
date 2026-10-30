@@ -57,6 +57,7 @@ export default function EncoreApp() {
   const [example, setExample] = useState<Example | null>(null);
   const [calls, setCalls] = useState<LiveCall[]>([]);
   const [writing, setWriting] = useState(false);
+  const [reconnecting, setReconnecting] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -64,7 +65,6 @@ export default function EncoreApp() {
 
   // Restore saved state after mount (never during render, so SSR matches).
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time restore from browser storage
     setLang(load<Language>("encore.lang", "en"));
     setTheme(load<Theme>("encore.theme", "modern"));
     setMemory(load<MemoryBook>("encore.memory", {}));
@@ -119,19 +119,15 @@ export default function EncoreApp() {
 
     // Only the NAMES of filled memory slots leave the browser, never their values.
     const memorySlots = (Object.keys(memory) as MemorySlot[]).filter((k) => memory[k]?.trim());
-    try {
-      const res = await fetch("/api/plan", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          profile: { birthDecade, grewUpIn: grewUpIn.trim(), loves: validLoves.slice(0, 12) },
-          memorySlots,
-          language: lang,
-        }),
-      });
+    let jobId = "";
+    let seen = 0; // events received, excluding job and ping lines
+    let finished = false;
+
+    // Reads one NDJSON response; returns when the stream ends (or throws if it breaks).
+    const read = async (res: Response) => {
       if (!res.ok || !res.body) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? t.errorGeneric);
+        throw Object.assign(new Error(data.error ?? t.errorGeneric), { fatal: true });
       }
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -145,6 +141,13 @@ export default function EncoreApp() {
         for (const line of lines) {
           if (!line.trim()) continue;
           const event = JSON.parse(line);
+          if (event.type === "job") {
+            jobId = event.id;
+            continue;
+          }
+          if (event.type === "ping") continue;
+          seen++;
+          setReconnecting(false);
           if (event.type === "call") {
             setCalls((c) => [...c, { tool: event.tool, subject: callSubject(event.args) }]);
           } else if (event.type === "retry") {
@@ -154,19 +157,64 @@ export default function EncoreApp() {
           } else if (event.type === "writing") {
             setWriting(true);
           } else if (event.type === "done") {
-            const filled = fillMemory(event.card, memory);
-            setCard(filled);
+            finished = true;
+            setCard(fillMemory(event.card, memory));
             save("encore.lastCard", event.card);
             setStep("card");
           } else if (event.type === "error") {
-            throw new Error(event.error);
+            throw Object.assign(new Error(event.error), { fatal: true });
           }
         }
       }
+    };
+
+    // A phone that locks or switches apps drops the connection; the card keeps
+    // building on the server, so wait until the page is visible and reconnect.
+    const visible = () =>
+      document.hidden
+        ? new Promise<void>((resolve) =>
+            document.addEventListener("visibilitychange", function onShow() {
+              if (!document.hidden) {
+                document.removeEventListener("visibilitychange", onShow);
+                resolve();
+              }
+            }),
+          )
+        : Promise.resolve();
+
+    try {
+      try {
+        await read(
+          await fetch("/api/plan", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              profile: { birthDecade, grewUpIn: grewUpIn.trim(), loves: validLoves.slice(0, 12) },
+              memorySlots,
+              language: lang,
+            }),
+          }),
+        );
+      } catch (err) {
+        if ((err as { fatal?: boolean }).fatal || !jobId) throw err;
+      }
+      for (let attempt = 0; !finished && jobId && attempt < 8; attempt++) {
+        setReconnecting(true);
+        await visible();
+        await new Promise((r) => setTimeout(r, 1500 + attempt * 1000));
+        try {
+          await read(await fetch(`/api/plan?id=${encodeURIComponent(jobId)}&from=${seen}`));
+        } catch (err) {
+          if ((err as { fatal?: boolean }).fatal) throw err;
+        }
+      }
+      if (!finished) throw new Error(t.connectionLost);
     } catch (err) {
-      setError(err instanceof Error && err.message ? err.message : t.errorGeneric);
+      const message = err instanceof Error && err.message && !(err instanceof TypeError) ? err.message : t.connectionLost;
+      setError(message);
       setStep("memory");
     } finally {
+      setReconnecting(false);
       if (timer.current) clearInterval(timer.current);
     }
   }
@@ -358,6 +406,7 @@ export default function EncoreApp() {
             <span className="tabular-nums text-muted">{t.seconds(elapsed)}</span>
           </div>
           <p className="mt-2 text-muted">{t.workingHelp}</p>
+          {reconnecting && <p className="mt-3 rounded-xl bg-accent-soft px-4 py-2 text-sm text-accent">{t.reconnecting}</p>}
           <ul className="mt-6 flex flex-col gap-2">
             {calls.map((c, i) => (
               <li key={i} className="tile flex items-center gap-3 px-4 py-2 text-sm">
