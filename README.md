@@ -2,7 +2,7 @@
 
 Reminiscence sessions for people living with dementia, grounded in what their generation and hometown actually loved. In English and Arabic.
 
-**Live demo:** https://encore.fawzai.com · Built for the [Qloo Agentic Hackathon](https://qloo.devpost.com/).
+**Live demo:** https://encore.fawzai.com · **Video (1:53):** https://youtu.be/4UrlN7PDCKg · Built for the [Qloo Agentic Hackathon](https://qloo.devpost.com/).
 
 ## The problem
 
@@ -86,6 +86,7 @@ npm install --global @qloo/qloo-harness
 npm install
 cp .env.example .env.local   # fill in QLOO_API_KEY and the LLM keys
 npm run dev
+npm test        # 14 unit tests: grounding, privacy, Arabic/English text, rate limits
 ```
 
 Open http://localhost:3000. `GET /api/health` reports whether Qloo and the LLM provider are configured. `node scripts/make-examples.mjs http://localhost:3000` regenerates the instant example cards in `src/data/examples.json`.
